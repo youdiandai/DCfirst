@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="width:300px">
+<form method="post">
+    {{form.hidden_tag()}}
+    <p>{{form.username.label}}{{form.username(class="form-control")}}</p>
+    <p>{{form.name.label}}{{form.name(class="form-control")}}</p>
+    <p>{{form.password.label}}{{form.password(class="form-control")}}</p>
+    <p>{{form.repassword.label}}{{form.repassword(class="form-control")}}</p>
+    <p>{{form.collage.label}}{{form.collage(class="form-control")}}</p>
+    <p>{{form.tel.label}}{{form.tel(class="form-control")}}</p>
+    <p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
+</form>
+</div>
+{% endblock content %}
