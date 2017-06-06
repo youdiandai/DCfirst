@@ -77,9 +77,9 @@ def login():
     if form.validate_on_submit():
         username = User.query.filter_by(username=form.username.data).first()
         if username.password==form.password.data:
-            return '<h1>登陆成功</h1>'
+            return '<h1>登陆成功</h1><a href="/">返回</a>'
         else:
-            return '<h1>账号或密码错误</h1>'
+            return '<h1>账号或密码错误</h1><a href="/">返回</a>'
         return redirect(url_for('login'))
     return render_template('login.html',form=form)
 
@@ -97,7 +97,7 @@ def register():
             user.tel = register.tel.data
             db.session.add(user)
             db.session.commit()
-            return  '<h1>注册成功</h1>'
+            return  '<h1>注册成功</h1><a href="/">返回</a>'
     return render_template('register.html',form=register)
 
 if __name__ == '__main__':
