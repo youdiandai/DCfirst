@@ -19,7 +19,7 @@ class User(db.Model):
     name = db.Column(db.String(64),nullable=False)
     password = db.Column(db.String(64),nullable=False)
     collage = db.Column(db.String(64), nullable=False)
-    tel = db.Column(db.Integer,nullable=False)
+    tel = db.Column(db.String(64),nullable=False)
     usermode = db.Column(db.Integer,db.ForeignKey('user_mode.mid'))
     linkp = db.relationship('User_Project',backref='user')
     def __repr__(self):
@@ -75,9 +75,11 @@ def index():
 def login():
     form = Login()
     if form.validate_on_submit():
-        session['password'] = form.password.data
-        session['username'] = form.username.data
-        session['mode'] = form.mode.data
+        username = User.query.filter_by(username=form.username.data).first()
+        if username.password==form.password.data:
+            return '<h1>登陆成功</h1>'
+        else:
+            return '<h1>账号或密码错误</h1>'
         return redirect(url_for('login'))
     return render_template('login.html',form=form)
 
@@ -87,11 +89,15 @@ def register():
     if register.validate_on_submit():
         username =User.query.filter_by(username=register.username.data).first()
         if username is None:
-            session['password']=register.password.data
-            session['repassword']=register.repassword.data
-            session['collage']=register.collage.data
-            session['tel']=register.tel.data
-            return  redirect(url_for('register'))
+            user=User()
+            user.username=register.username.data
+            user.name=register.name.data
+            user.password=register.password.data
+            user.collage=register.collage.data
+            user.tel = register.tel.data
+            db.session.add(user)
+            db.session.commit()
+            return  '<h1>注册成功</h1>'
     return render_template('register.html',form=register)
 
 if __name__ == '__main__':
