@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html{% block html_attribs %}{% endblock html_attribs %}>
+{% block html %}
+  <head>
+    {% block head %}
+    <title>{% block title %}{{title|default}}{% endblock %}</title>
+    {% block metas %}
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% endblock %}
+    {% block styles %}
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- <link rel="shortcut icon" href="images/ico.png"> -->
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    {% endblock %}
+    {% block scripts %}
+	<script src="/static/js/jquery-2.1.1.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+    {% endblock %}
+    {% endblock %}
+  </head>
+  <body{% block body_attribs %}{% endblock body_attribs %}>
+    {% block body %}
+    {% block navbar %}
+    <header data-spy="scroll" data-target="#top-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">                    
+                <div class="navbar navbar-default navbar-fixed-top default-menu menu-4" role="navigation">
+                    <div class="container">
+                        <div class="row">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-4" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <div class="default-logo scroll">
+                                <img src="/static/images/logo_school.png" alt="logo"/>
+                                <!-- <span class="logo-sty">创业中心</span> -->
+                                </div>
+                            </div>
+
+                            <div class="collapse navbar-collapse top-nav" id="menu-4">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="#"><button type="button" class="btn btn-default navbar-btn">
+                                    首&nbsp&nbsp页</button></a></li>
+                                </ul>                              
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>      
+    </header>
+    <div class="banner">
+        <div class="banner-cover">
+            <div class="container">
+                <div class="banner-inner">
+                    <h1 class="p1">沈阳师范大学</h1>
+                    <p class="p1">大学生创新创业中心</p>
+                    <button type="button" class="btn enter-sty">登录</button>
+                    <form class="bs-example bs-example-form" role="form">
+                        <div class="row">
+                            <div class="col-sm-offset-3 col-sm-6">
+                                <div class="input-group search-sty">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-btn">
+			                        <button class="btn btn-default s-btn-sty" type="button">Search</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block content %}
+    
+    {% endblock %}
+
+
+    {% endblock %}
+    <footer>
+        <div class="copyright">沈阳师范大学&nbsp&nbsp&nbsp&nbsp大学生创新创业中心</div>
+    </footer>
+  </body>
+{% endblock %}
+</html>
