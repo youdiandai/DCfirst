@@ -1,7 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>你好，{{name}}</h1>
-<p><a href="/myproject">查看我的项目</a></p>
-<p><a href="/myproject">加入项目</a></p>
-<p><a href="/create_project">创建项目</a></p>
+	<div class="loginsucc-main"  style="margin-top:100px;">
+		<div class="container">
+			<div class="row personInformation">
+				<div class="col-sm-4 pI-left">
+					<h1>你好，{{name}}</h1>
+					<div class="form-group">
+					    <a>
+                            <a href="/myproject"><button type="submit" class="btn btn-primary col-sm-3 myProject">我的项目</button></a>
+                            <button type="submit" class="btn btn-primary col-sm-offset-1 col-sm-3 joinProject">加入项目</button>
+                            <a href="/createproject"> <button type="submit" class="btn btn-primary col-sm-offset-1 col-sm-3 createProject">创建项目</button></a>
+					    </div>
+	  				</div>
+				</div>
+				<div class="col-sm-8">
+
+				</div>
+			</div>
+
+		</div>
+    </div>
 {% endblock content %}

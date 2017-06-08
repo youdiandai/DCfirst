@@ -36,11 +36,11 @@ class User_mode(db.Model):
 class Project(db.Model):
     __tablename__ = 'project'
     pid = db.Column(db.Integer,primary_key=True)
-    pname = db.Column(db.Text,nullable=False)
-    plevel = db.Column(db.String(64),unique=True)
+    pname = db.Column(db.String(64),nullable=False)
+    plevel = db.Column(db.String(64))
     collage = db.Column(db.String(64), unique=True)
     Person_in_charge = db.Column(db.Integer)
-    describe = db.Column(db.Text)
+    describe = db.Column(db.String(64))
     linku = db.relationship('User_Project',backref='project')
     def __repr__(self):
         return  '<Project %r>'%self.pid
@@ -70,11 +70,11 @@ class Register(Form):
     submit = SubmitField('注册')
 
 class Create_project(Form):
-    projectname = StringField("项目名", validators=[Required()])
-    projectlevel= mode = RadioField('项目分级', choices=[('省级', '省级'), ('校级', '校级'),('院级', '院级')])
-    collage = StringField("学院", validators=[Required()])
-    describe = TextAreaField("项目简介", validators=[Required()])
-    submit = SubmitField('提交')
+    projectname = StringField("项目名")
+    projectlevel= RadioField('项目分级', choices=[('省级', '省级'), ('校级', '校级'),('院级', '院级')])
+    collage = StringField("学院")
+    describe = TextAreaField("项目简介")
+    submit = SubmitField('创建')
 
 @app.route('/')
 def index():
@@ -90,7 +90,6 @@ def login():
             return render_template("loginsucc.html",name=username.name)
         else:
             return render_template('loginfail.html')
-        return redirect(url_for('login'))
     return render_template('login.html',form=form)
 
 @app.route('/register',methods=['GET','POST'])
@@ -112,7 +111,7 @@ def register():
             return render_template('registerfail.html')
     return render_template('register.html',form=register)
 
-@app.route('/create_project',methods=['GET','POST'])
+@app.route('/createproject',methods=['GET','POST'])
 def create_project():
     form=Create_project()
     if form.validate_on_submit():
@@ -122,13 +121,14 @@ def create_project():
             pro.pname = form.projectname.data
             pro.plevel = form.projectlevel.data
             pro.describe = form.describe.data
+            pro.Person_in_charge=session["username"]
             pro.collage = form.collage.data
             db.session.add(pro)
             db.session.commit()
             return render_template("registersucc.html")
         else:
             return render_template('registerfail.html')
-    return render_template('create_project.html', form=form)
+    return render_template('createproject.html', form=form)
 
 
 
