@@ -1,7 +1,7 @@
 from flask import Flask,render_template,session,redirect,url_for
 from flask.ext.script import Manager
 from flask.ext.wtf import Form
-from wtforms import StringField,SubmitField,PasswordField,RadioField
+from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaField
 from wtforms.validators import Required,NumberRange
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -37,8 +37,10 @@ class Project(db.Model):
     __tablename__ = 'project'
     pid = db.Column(db.Integer,primary_key=True)
     pname = db.Column(db.Text,nullable=False)
-    Person_in_charge = db.Column(db.Integer,nullable=False)
-    docurl = db.Column(db.Text)
+    plevel = db.Column(db.String(64),unique=True)
+    collage = db.Column(db.String(64), unique=True)
+    Person_in_charge = db.Column(db.Integer)
+    describe = db.Column(db.Text)
     linku = db.relationship('User_Project',backref='project')
     def __repr__(self):
         return  '<Project %r>'%self.pid
@@ -67,6 +69,13 @@ class Register(Form):
     tel = StringField("电话号码")
     submit = SubmitField('注册')
 
+class Create_project(Form):
+    projectname = StringField("项目名", validators=[Required()])
+    projectlevel= mode = RadioField('项目分级', choices=[('省级', '省级'), ('校级', '校级'),('院级', '院级')])
+    collage = StringField("学院", validators=[Required()])
+    describe = TextAreaField("项目简介", validators=[Required()])
+    submit = SubmitField('提交')
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -77,9 +86,10 @@ def login():
     if form.validate_on_submit():
         username = User.query.filter_by(username=form.username.data).first()
         if username.password==form.password.data:
-            return '<h1>登陆成功</h1><a href="/">返回</a>'
+            session["username"]=username.username
+            return render_template("loginsucc.html",name=username.name)
         else:
-            return '<h1>账号或密码错误</h1><a href="/">返回</a>'
+            return render_template('loginfail.html')
         return redirect(url_for('login'))
     return render_template('login.html',form=form)
 
@@ -97,8 +107,30 @@ def register():
             user.tel = register.tel.data
             db.session.add(user)
             db.session.commit()
-            return  '<h1>注册成功</h1><a href="/">返回</a>'
+            return render_template("registersucc.html")
+        else:
+            return render_template('registerfail.html')
     return render_template('register.html',form=register)
+
+@app.route('/create_project',methods=['GET','POST'])
+def create_project():
+    form=Create_project()
+    if form.validate_on_submit():
+        pname = Project.query.filter_by(pname=form.projectname.data).first()
+        if pname is None:
+            pro = Project()
+            pro.pname = form.projectname.data
+            pro.plevel = form.projectlevel.data
+            pro.describe = form.describe.data
+            pro.collage = form.collage.data
+            db.session.add(pro)
+            db.session.commit()
+            return render_template("registersucc.html")
+        else:
+            return render_template('registerfail.html')
+    return render_template('create_project.html', form=form)
+
+
 
 if __name__ == '__main__':
     manager.run()
