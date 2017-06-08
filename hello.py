@@ -38,7 +38,7 @@ class Project(db.Model):
     pid = db.Column(db.Integer,primary_key=True)
     pname = db.Column(db.String(64),nullable=False)
     plevel = db.Column(db.String(64))
-    collage = db.Column(db.String(64), unique=True)
+    collage = db.Column(db.String(64))
     Person_in_charge = db.Column(db.Integer)
     describe = db.Column(db.String(64))
     linku = db.relationship('User_Project',backref='project')
