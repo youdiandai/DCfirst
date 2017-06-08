@@ -76,6 +76,10 @@ class Create_project(Form):
     describe = TextAreaField("项目简介")
     submit = SubmitField('创建')
 
+class Join_project(Form):
+    projectname = StringField("项目名")
+    submit = SubmitField('加入')
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -118,6 +122,7 @@ def create_project():
         pname = Project.query.filter_by(pname=form.projectname.data).first()
         if pname is None:
             pro = Project()
+            pu=User_Project()
             pro.pname = form.projectname.data
             pro.plevel = form.projectlevel.data
             pro.describe = form.describe.data
@@ -125,12 +130,31 @@ def create_project():
             pro.collage = form.collage.data
             db.session.add(pro)
             db.session.commit()
-            return render_template("registersucc.html")
+            pu.pid=Project.query.filter_by(pname=form.projectname.data).first().pid
+            pu.userid=User.query.filter_by(username=Project.query.filter_by(pname=form.projectname.data).first().Person_in_charge).first().userid
+            db.session.add(pu)
+            db.session.commit()
+            return '创建成功'
         else:
-            return render_template('registerfail.html')
+            return '创建失败'
     return render_template('createproject.html', form=form)
 
 
+@app.route('/join_project',methods=['GET','POST'])
+def join_project():
+    form = Join_project()
+    if form.validate_on_submit():
+        pud = User_Project.query.filter_by(pid=Project.query.filter_by(pname=form.projectname.data).first().pid,userid=User.query.filter_by(username=session["username"]).first().userid).first()
+        if pud is None:
+            pu=User_Project()
+            pu.userid=User.query.filter_by(username=session["username"]).first().userid
+            pu.pid=Project.query.filter_by(pname=form.projectname.data).first().pid
+            db.session.add(pu)
+            db.session.commit()
+            return '加入成功'
+        else:
+            return '加入失败'
+    return render_template('join_project.html',form=form)
 
 if __name__ == '__main__':
     manager.run()
