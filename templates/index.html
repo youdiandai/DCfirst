@@ -4,13 +4,13 @@
 	<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>multibuilder</title>
+		<title>大创中心</title>
         
-        <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- <link rel="shortcut icon" href="images/ico.png"> -->
-        <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-		<script src="/static/js/jquery-2.1.1.js"></script>
-		<script src="/static/js/bootstrap.min.js"></script>
+        <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
+		<script src="../static/js/jquery-2.1.1.js"></script>
+		<script src="../static/js/bootstrap.min.js"></script>
 </head>
 <body>
 <header data-spy="scroll" data-target="#top-nav">
@@ -28,18 +28,18 @@
                                     <span class="icon-bar"></span>
                                 </button>
                                 <div class="default-logo scroll">
-                                <img src="/static/images/logo_school.png" alt="logo"/>
+                                <img src="../static/images/logo_school.png" alt="logo"/>
                                 <!-- <span class="logo-sty">创业中心</span> -->
                                 </div>
                             </div>
 
                             <div class="collapse navbar-collapse top-nav" id="menu-4">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="/"><button type="button" class="btn btn-default navbar-btn">
+                                    <li><a href="index.html"><button type="button" class="btn btn-default navbar-btn">
                                     首&nbsp&nbsp页</button></a></li>
-                                    <li><a href="/login"><button type="button" class="btn btn-default navbar-btn">
+                                    <li><a href="login.html"><button type="button" class="btn btn-default navbar-btn">
                                     登&nbsp&nbsp录</button></a></li>
-                                    <li><a href="/register"><button type="button" class="btn btn-default navbar-btn">
+                                    <li><a href="register.html"><button type="button" class="btn btn-default navbar-btn">
                                     注&nbsp&nbsp册</button></a></li>
                                 </ul>                              
                             </div>
@@ -57,6 +57,7 @@
 			<div class="banner-inner">
 				<h1 class="p1">沈阳师范大学</h1>
 				<p class="p1">大学生创新创业中心</p>
+				<a href="login.html"><button type="button" class="btn enter-sty">登录</button></a>
 				<form class="bs-example bs-example-form" role="form">
 	        		<div class="row">
 			            <div class="col-sm-offset-3 col-sm-6">
@@ -72,13 +73,17 @@
 			</div>
 		</div>
 	</div>
-</div>
 
+</div>
 
 <footer>
 	<div class="copyright">沈阳师范大学&nbsp&nbsp&nbsp&nbsp大学生创新创业中心</div>
 </footer>
 
+<script type="text/javascript">
+        $("body").height($(window).height());
+        $(".banner").height($("body").height()-70+"px");
+        $(".banner-cover").height($("body").height()-140+"px");
 </script>
 </body>
 </html>

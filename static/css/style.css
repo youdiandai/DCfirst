@@ -7,6 +7,9 @@
     margin-bottom: 0; 
     background-color: transparent;
 }
+.ls-header{
+	background-color: rgba(0,0,0,0.6) !important;
+}
 
 /*.navbar-header{
     height: 70px;
@@ -29,11 +32,13 @@
 .default-menu.navbar-default .navbar-nav > li > a{
     font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0;
     color: #fff;
     line-height: 40px !important;
     letter-spacing: 2px;
     text-transform: uppercase;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
 }
 
 .default-menu.navbar-default .navbar-nav > li:last-child > a{
@@ -60,31 +65,27 @@
 }
 
 .btn.btn-default.navbar-btn {
-    background-color: #fff;
-    color: #EE87B4;
+    background-color: transparent;
+    color: #fff;
     font-weight: 600;
-    padding: 8px 15px;
-    border: 0;
-    border-radius: 1;
+    padding: 5px 15px;
+	border-radius: 5em;
+    border: 1px solid #fff;
+    
 }
 
 .btn.btn-default.navbar-btn:hover{
-    color: #fff;
-    background-color: #fff;
-    border-color: transparent;
-    font-weight: bold;
+    background-color: rgba(255,255,255,0.3);
 }
 
 .banner{
 	background: url(../images/bg5.jpg) no-repeat center/cover;
-	height: 770px;
 }
-.banner .banner-cover{
+.banner-cover{
 	padding-top: 70px;
 	width: 100%;
 	float: right;
-	height: 770px;
-	background-color: rgba(0,0,0,0.5);
+	background-color: rgba(0,0,0,0.4);
 }
 .logo-sty{
 	display: inline-block;
@@ -94,7 +95,7 @@
 	line-height: 70px;
 	letter-spacing: 5px;
 }
-.banner .banner-cover .banner-inner{
+.banner-inner{
 	padding: 200px 0 50px;
 	text-align: center;
 	font-family: "微软雅黑";
@@ -111,6 +112,10 @@
 	background-color: #ED4C4C;
 	margin-top: 15px;
 }
+.enter-sty:hover{
+	color: #fff;
+	background-color: #A22424;
+}
 /*search 框*/
 .search-sty{
 	margin-top: 80px;
@@ -125,8 +130,7 @@
 	border-bottom: 1px solid #DDDDDD;
 }
 .introduce {
-	font-family: "微软雅黑";
-	padding-top: 55px;
+	padding-top: 30px;
 	background-color: #EBEBEB;
 }
 .introduce .message-left1{
@@ -164,7 +168,44 @@
 	padding: 35px;
 	background-color: #fff;
 }
+/*loginsucc 开始*/
+.wrapper{
+	font-family: "微软雅黑";
+	background-color: #EBEBEB;
+}
+.personInformation{
+	height: 250px;
+	background-color: #fff;
 
+}
+.pI-left{
+	border-right: 10px solid #eee;
+	height: 250px;
+}
+.pI-left h1{
+	height: 150px;
+	font-size: 18px;
+}
+.pI-left .myProject{
+	margin-left: 15px;
+}
+.projectManage{
+	margin-top: 35px;
+	/*background-color: #fff;*/
+}
+/*登陆页 开始*/
+.login-main{
+	background-color: #EBEBEB;
+}
+.login-main form{
+	margin-top: 140px;
+}
+.register-main{
+	background-color: #EBEBEB;
+}
+.register-main form{
+	margin-top: 100px;
+}
 
 
 
@@ -173,15 +214,14 @@
 
 footer{
 	font-family: "微软雅黑";
-	background-color: #111111;
 }
 footer .copyright {
+	height: 70px;
     background: #111;
     font-size: 13px;
     text-align: center;
     color: #555555;
-    padding-top: 28px;
-    padding-bottom: 28px;
+    line-height: 70px;
     border-top: 1px solid #303030;
 }
 /*弹出层登录 开始*/
