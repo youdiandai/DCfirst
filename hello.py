@@ -75,8 +75,8 @@ class Register(Form):
     name = StringField("姓名" ,validators=[DataRequired()])
     password = PasswordField("密码" ,validators=[DataRequired()])
     repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
-    collage = SelectField("学院" ,validators=[DataRequired()])
-    major = SelectField("专业", validators=[DataRequired()])
+    collage = SelectField("学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
+    major = SelectField("专业", validators=[DataRequired()],choices=[(x.mname,x.mname) for x in Major.query.all()])
     tel = StringField("电话号码")
     submit = SubmitField('注册')
 
@@ -125,7 +125,7 @@ def register():
             return render_template("registersucc.html")
         else:
             return render_template('registerfail.html')
-    return render_template('register.html',form=register,collage=Collage.query.all(),major=Major.query.all())
+    return render_template('register.html',form=register)
 
 @app.route('/createproject',methods=['GET','POST'])
 def create_project():
