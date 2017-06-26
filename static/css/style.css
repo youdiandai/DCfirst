@@ -60,8 +60,8 @@
 .default-menu.navbar-default .navbar-nav > .active > a, 
 .default-menu.navbar-default .navbar-nav > .active > a:focus, 
 .default-menu.navbar-default .navbar-nav > .active > a:hover{
-    background-color: transparent;
-    color: #CEC4C4;
+    background-color: transparent !important;
+    color: #CEC4C4 !important;
 }
 
 .btn.btn-default.navbar-btn {

@@ -1,8 +1,8 @@
-from flask import Flask,render_template,session,redirect,url_for,request
+from flask import Flask,render_template,session,redirect,url_for
 from flask.ext.script import Manager
 from flask.ext.wtf import Form
-from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaField
-from wtforms.validators import Required,NumberRange
+from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaField,SelectField
+from wtforms.validators import DataRequired,equal_to
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -19,11 +19,22 @@ class User(db.Model):
     name = db.Column(db.String(64),nullable=False)
     password = db.Column(db.String(64),nullable=False)
     collage = db.Column(db.String(64), nullable=False)
+    major = db.Column(db.String(64), nullable=False)
     tel = db.Column(db.String(64),nullable=False)
     usermode = db.Column(db.Integer,db.ForeignKey('user_mode.mid'))
     linkp = db.relationship('User_Project',backref='user')
     def __repr__(self):
         return '<User %r>' % self.username
+
+class Collage(db.Model):
+    __tablename__ = 'collage'
+    cid = db.Column(db.Integer,primary_key=True)
+    cname = db.Column(db.String(64),unique=True,nullable=False)
+
+class Major(db.Model):
+    __tablename__='major'
+    mid=db.Column(db.Integer,primary_key=True)
+    mname = db.Column(db.String(64),unique=True)
 
 class User_mode(db.Model):
     __tablename__ = 'user_mode'
@@ -55,17 +66,17 @@ class User_Project(db.Model):
 
 
 class Login(Form):
-    username = StringField("用户名" ,validators=[Required()])
-    password = PasswordField("密码" ,validators=[Required()])
-    mode = RadioField('用户类型', choices=[('admin', '管理员'), ('user', '用户')])
+    username = StringField("用户名" ,validators=[DataRequired()])
+    password = PasswordField("密码" ,validators=[DataRequired()])
     submit = SubmitField('登录')
 
 class Register(Form):
-    username = StringField("学号" ,validators=[Required()])
-    name = StringField("姓名" ,validators=[Required()])
-    password = PasswordField("密码" ,validators=[Required()])
-    repassword = PasswordField("再次输入密码",validators=[Required()])
-    collage = StringField("学院" ,validators=[Required()])
+    username = StringField("学号" ,validators=[DataRequired()])
+    name = StringField("姓名" ,validators=[DataRequired()])
+    password = PasswordField("密码" ,validators=[DataRequired()])
+    repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
+    collage = SelectField("学院" ,validators=[DataRequired()])
+    major = SelectField("专业", validators=[DataRequired()])
     tel = StringField("电话号码")
     submit = SubmitField('注册')
 
@@ -91,7 +102,7 @@ def login():
         username = User.query.filter_by(username=form.username.data).first()
         if username.password==form.password.data:
             session["username"]=username.username
-            return render_template("loginsucc.html",name=username.name)
+            return render_template("loginsucc-student.html",name=username.name)
         else:
             return render_template('loginfail.html')
     return render_template('login.html',form=form)
@@ -107,13 +118,14 @@ def register():
             user.name=register.name.data
             user.password=register.password.data
             user.collage=register.collage.data
+            user.major=register.major.data
             user.tel = register.tel.data
             db.session.add(user)
             db.session.commit()
             return render_template("registersucc.html")
         else:
             return render_template('registerfail.html')
-    return render_template('register.html',form=register)
+    return render_template('register.html',form=register,collage=Collage.query.all(),major=Major.query.all())
 
 @app.route('/createproject',methods=['GET','POST'])
 def create_project():
