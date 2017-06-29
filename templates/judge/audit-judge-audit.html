@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>评委--立项审核--审核</title>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Bootstrap Styles-->
+    <link href="../../static/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- FontAwesome Styles-->
+    <link href="../../static/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="../../static/css/custom-styles.css" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../../static/css/style-s.css">
+</head>
+
+<body>
+<div class="aja-main">
+    
+    <form name="form" class="form-horizontal aja-form">
+        <h3>一、项目概况</h3>
+        <hr>
+        <table class="table text-center table-bordered">
+            <tr>
+                <th>项目名称</th>
+                <td colspan="3">{{项目名称}}</td>
+                <th>项目编号</th>
+                <td colspan="2">{{项目编号}}</td>
+            </tr>
+            <tr>
+                <th>项目类别</th>
+                <td colspan="6">{{项目类别}}</td>
+            </tr>
+            <tr>
+                <th>项目级别</th>
+                <td colspan="6">{{项目级别}}</td>
+            </tr>
+            <tr>
+                <th>项目负责人</th>
+                <td colspan="1">{{项目负责人}}</td>
+                <th>学院专业</th>
+                <td colspan="2">{{项目负责人学院专业}}</td>
+                <th>学号</th>
+                <td colspan="2">{{项目负责人学号}}</td>
+            </tr>
+            <tr>
+                <th>联系电话</th>
+                <td colspan="3">{{项目负责人联系电话}}</td>
+                <th>E-mail</th>
+                <td colspan="3">{{项目负责人邮箱}}</td>
+            </tr>
+            <tr>
+                <th rowspan="6">团队成员信息</th>
+                <th>姓名</th>
+                <th>学号</th>
+                <th>学院</th>
+                <th>专业</th>
+                <th>联系电话</th>
+                <th>E-mail</th>
+            </tr>
+            <tr>
+                <td>{{成员姓名}}</td>
+                <td>{{成员学号}}</td>
+                <td>{{成员学院}}</td>
+                <td>{{成员专业}}</td>
+                <td>{{成员联系方式}}</td>
+                <td>{{成员邮箱}}</td>
+            </tr>
+            <tr>
+                <td>{{成员姓名}}</td>
+                <td>{{成员学号}}</td>
+                <td>{{成员学院}}</td>
+                <td>{{成员专业}}</td>
+                <td>{{成员联系方式}}</td>
+                <td>{{成员邮箱}}</td>
+
+            </tr>
+            <tr>
+                <td>{{成员姓名}}</td>
+                <td>{{成员学号}}</td>
+                <td>{{成员学院}}</td>
+                <td>{{成员专业}}</td>
+                <td>{{成员联系方式}}</td>
+                <td>{{成员邮箱}}</td>
+
+            </tr>
+            <tr>
+                <td>{{成员姓名}}</td>
+                <td>{{成员学号}}</td>
+                <td>{{成员学院}}</td>
+                <td>{{成员专业}}</td>
+                <td>{{成员联系方式}}</td>
+                <td>{{成员邮箱}}</td>
+
+            </tr>
+            <tr>
+                <td>{{成员姓名}}</td>
+                <td>{{成员学号}}</td>
+                <td>{{成员学院}}</td>
+                <td>{{成员专业}}</td>
+                <td>{{成员联系方式}}</td>
+                <td>{{成员邮箱}}</td>
+
+            </tr>
+            <tr>
+                <th rowspan="3">指导教师信息</th>
+                <th>姓名</th>
+                <th colspan="2">单位</th>
+                <th>职务</th>
+                <th>联系电话</th>
+                <th>E-mail</th>
+            </tr>
+            <tr>
+                <td>{{指导教师姓名}}</td>
+                <td colspan="2">{{指导教师学院}}</td>
+                <td>{{指导教师职务}}</td>
+                <td>{{指导教师联系电话}}</td>
+                <td>{{指导教师邮箱}}</td>
+            </tr>
+            <tr>
+                <td>{{指导教师姓名}}</td>
+                <td colspan="2">{{指导教师学院}}</td>
+                <td>{{指导教师职务}}</td>
+                <td>{{指导教师联系电话}}</td>
+                <td>{{指导教师邮箱}}</td>
+            </tr>
+        </table>
+        <h3>二、项目简介</h3>
+        <hr>
+        <div class="form-group">
+            <label>项目简介</label>
+            <textarea class="form-control" rows="5"></textarea>
+        </div>
+        <h3>三、下载附件</h3>
+        <hr>
+    </form>
+    
+</div>
+
+
+    <!-- jQuery Js -->
+    <script src="../../static/js/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $("#wrapper").height($(window).height()-59+"px");
+        $(".iFrame").height($("#wrapper").height());
+    </script>
+
+    <!-- Bootstrap Js -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+    
+    <script src="../../static/js/materialize.min.js"></script>
+    
+    <!-- Metis Menu Js -->
+    <script src="../../static/js/jquery.metisMenu.js"></script>
+    
+    <!-- Custom Js -->
+    <script src="../../static/js/custom-scripts.js"></script>
+
+</body>
+
+</html>

@@ -103,12 +103,16 @@ def login():
         if username.password==form.password.data:
             session["username"]=username.username
             if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
-                return render_template('/student/loginsucc-student.html',name=username.name)
+                return render_template('loginsucc-student.html',name=username.name)
             elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
-                return render_template('/manager/Manager.html', name=username.name)
+                return render_template('Manager.html', name=username.name)
         else:
             return render_template('loginfail.html')
     return render_template('login.html',form=form)
+
+@app.route('/home-manager')
+def home_manager():
+    return  render_template('home-manager.html')
 
 @app.route('/myproject')
 def myproject():

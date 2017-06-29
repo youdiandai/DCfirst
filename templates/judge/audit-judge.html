@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>评委--立项审核</title>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Bootstrap Styles-->
+    <link href="../../static/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- FontAwesome Styles-->
+    <link href="../../static/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="../../static/css/custom-styles.css" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../../static/css/style-s.css">
+</head>
+
+<body>
+<div class="aj-main">
+    
+    <form name="form" class="form-horizontal aj-form">
+        <h3>立项审核</h3>
+        <hr>
+        <div class="form-group">
+            <label class="col-sm-1 control-label">项目类型</label>
+            <div class="col-sm-2">
+                <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>       
+            </div>
+            <label class="col-sm-1 control-label">项目级别</label>
+            <div class="col-sm-2">
+                <select class="form-control">
+                    <option>校级</option>
+                    <option>省级</option>
+                    <option>国家级</option>
+                </select>       
+            </div>
+          <!--   <label class="col-sm-1 control-label">项目状态</label>
+            <div class="col-sm-2">
+                <select class="form-control">
+                    <option>未审核</option>
+                    <option>已审核</option>
+                </select>       
+            </div>   -->   
+        </div>
+        <table class="table table-hover text-center table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        <label>
+                            <input type="checkbox">全选
+                        </label>
+                    </th>
+                    <th class="text-center">项目编号</th>
+                    <th class="text-center">项目名称</th>
+                    <th class="text-center">负责人</th>
+                    <th class="text-center">项目成员</th>
+                    <th class="text-center">指导老师</th>
+                    <th class="text-center">项目级别</th>
+                    <th class="text-center">项目状态</th>
+                    <th class="text-center">操作</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </td>
+                    <td>{{项目编号}}</td>
+                    <td>{{学院}}</td>
+                    <td>{{专业}}</td>
+                    <td>{{年级}}</td>
+                    <td>{{指导教师}}</td>
+                    <td>{{项目级别}}</td>
+                    <td>{{项目状态}}</td>
+                    <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div style="text-align:center">
+        <ul class="pagination">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+</div>
+
+
+    <!-- jQuery Js -->
+    <script src="../../static/js/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $("#wrapper").height($(window).height()-59+"px");
+        $(".iFrame").height($("#wrapper").height());
+    </script>
+
+    <!-- Bootstrap Js -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+    
+    <script src="../../static/js/materialize.min.js"></script>
+    
+    <!-- Metis Menu Js -->
+    <script src="../../static/js/jquery.metisMenu.js"></script>
+    
+    <!-- Custom Js -->
+    <script src="../../static/js/custom-scripts.js"></script>
+
+</body>
+
+</html>
