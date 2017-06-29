@@ -19,7 +19,6 @@
     width: 170px;
     padding-top: 5px;
     padding-left: 10px;
-
 }
 
 .default-menu.navbar-default .navbar-toggle {
@@ -60,8 +59,8 @@
 .default-menu.navbar-default .navbar-nav > .active > a, 
 .default-menu.navbar-default .navbar-nav > .active > a:focus, 
 .default-menu.navbar-default .navbar-nav > .active > a:hover{
-    background-color: transparent !important;
-    color: #CEC4C4 !important;
+    background-color: transparent;
+    color: #CEC4C4;
 }
 
 .btn.btn-default.navbar-btn {
@@ -71,7 +70,6 @@
     padding: 5px 15px;
 	border-radius: 5em;
     border: 1px solid #fff;
-    
 }
 
 .btn.btn-default.navbar-btn:hover{
@@ -206,9 +204,6 @@
 .register-main form{
 	margin-top: 100px;
 }
-
-
-
 
 
 

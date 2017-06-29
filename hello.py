@@ -102,10 +102,17 @@ def login():
         username = User.query.filter_by(username=form.username.data).first()
         if username.password==form.password.data:
             session["username"]=username.username
-            return render_template("loginsucc-student.html",name=username.name)
+            if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
+                return render_template('/student/loginsucc-student.html',name=username.name)
+            elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
+                return render_template('/manager/Manager.html', name=username.name)
         else:
             return render_template('loginfail.html')
     return render_template('login.html',form=form)
+
+@app.route('/myproject')
+def myproject():
+    return render_template('myproject.html')
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -120,6 +127,8 @@ def register():
             user.collage=register.collage.data
             user.major=register.major.data
             user.tel = register.tel.data
+            user.usermode = User_mode.query.filter_by(name='学生').first().mid
+
             db.session.add(user)
             db.session.commit()
             return render_template("registersucc.html")
