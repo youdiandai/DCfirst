@@ -95,6 +95,10 @@ class Join_project(Form):
 def index():
     return render_template('index.html')
 
+@app.route('/projectManage-manager.html')
+def projectManage():
+    return render_template('/manager/projectManage-manager.html')
+
 @app.route('/login',methods=['GET','POST'])
 def login():
     form = Login()
@@ -110,7 +114,7 @@ def login():
             return render_template('loginfail.html')
     return render_template('login.html',form=form)
 
-@app.route('/home-manager')
+@app.route('/home-manager.html')
 def home_manager():
     return  render_template('home-manager.html')
 
