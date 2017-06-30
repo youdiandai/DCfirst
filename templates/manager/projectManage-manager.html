@@ -78,63 +78,18 @@
                 </tr>
             </thead>
             <tbody>
+            {%for pro in pros%}
                 <tr>
-                  <td>{{项目编号}}</td>
-                  <td>{{项目名称}}</td>
-                  <td>{{当前状态}}</td>
-                  <td>{{项目负责人}}</td>
-                  <td>{{指导教师}}</td>
-                  <td>{{提交时间}}</td>
+                  <td>{{pro.pid}}</td>
+                  <td>{{pro.pname}}</td>
+                  <td>{{pro.status}}</td>
+                  <td>{{pro.Person_in_charge}}</td>
+                  <td>{{pro.teacher}}</td>
+                  <td>{{123}}</td>
                 </tr>
-                <tr>
-                  <td>{{项目编号}}</td>
-                  <td>{{项目名称}}</td>
-                  <td>{{当前状态}}</td>
-                  <td>{{项目负责人}}</td>
-                  <td>{{指导教师}}</td>
-                  <td>{{提交时间}}</td>
-                </tr>
-                <tr>
-                  <td>{{项目编号}}</td>
-                  <td>{{项目名称}}</td>
-                  <td>{{当前状态}}</td>
-                  <td>{{项目负责人}}</td>
-                  <td>{{指导教师}}</td>
-                  <td>{{提交时间}}</td>
-                </tr>
-                <tr>
-                  <td>{{项目编号}}</td>
-                  <td>{{项目名称}}</td>
-                  <td>{{当前状态}}</td>
-                  <td>{{项目负责人}}</td>
-                  <td>{{指导教师}}</td>
-                  <td>{{提交时间}}</td>
-                </tr>
-                <tr>
-                  <td>{{项目编号}}</td>
-                  <td>{{项目名称}}</td>
-                  <td>{{当前状态}}</td>
-                  <td>{{项目负责人}}</td>
-                  <td>{{指导教师}}</td>
-                  <td>{{提交时间}}</td>
-                </tr>
-                <tr>
-                  <td>{{项目编号}}</td>
-                  <td>{{项目名称}}</td>
-                  <td>{{当前状态}}</td>
-                  <td>{{项目负责人}}</td>
-                  <td>{{指导教师}}</td>
-                  <td>{{提交时间}}</td>
-                </tr>
-                <tr>
-                  <td>{{项目编号}}</td>
-                  <td>{{项目名称}}</td>
-                  <td>{{当前状态}}</td>
-                  <td>{{项目负责人}}</td>
-                  <td>{{指导教师}}</td>
-                  <td>{{提交时间}}</td>
-                </tr>
+            {%endfor%}
             </tbody>
+
         </table>
         <div style="text-align:center">
             <ul class="pagination">

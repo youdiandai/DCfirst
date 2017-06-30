@@ -1,13 +1,36 @@
-{% extends "base.html" %}
-{% block content %}
-<div style="width:300px">
-<form method="post">
-    {{form.hidden_tag()}}
-    <p>{{form.projectname.label}}{{form.projectname(class="form-control")}}</p>
-    <p>{{form.collage.label}}{{form.collage(class="form-control")}}</p>
-    <p>{{form.projectlevel.label}}{{form.projectlevel()}}</p>
-    <p>{{form.describe.label}}{{form.describe()}}</p>
-    <p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>登陆成功</title>
+        
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- <link rel="shortcut icon" href="images/ico.png"> -->
+        <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
+		<script src="../static/js/jquery-2.1.1.js"></script>
+		<script src="../static/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div style="width:300px">
+        <form method="post">
+            {{form.hidden_tag()}}
+            <p>{{form.projectname.label}}{{form.projectname(class="form-control")}}</p>
+            <p>{{form.collage.label}}{{form.collage(class="form-control")}}</p>
+			<p>{{form.teacher.label}}{{form.teacher(class="form-control")}}</p>
+            <p>{{form.projectlevel.label}}{{form.projectlevel()}}</p>
+            <p>{{form.describe.label}}{{form.describe()}}</p>
+            <p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
+        </form>
+    </div>
+	
+	<footer>
+		<div class="copyright">沈阳师范大学&nbsp&nbsp&nbsp&nbsp大学生创新创业中心</div>
+	</footer>
 </div>
-{% endblock content %}
+
+</body>
+<script src="../static/layer/layer.js"></script>
+</html>

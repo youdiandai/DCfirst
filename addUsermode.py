@@ -1,8 +1,8 @@
 from hello import User_mode,db
-judge = User_mode(name='ÆÀÎ¯ÀÏÊ¦')
-manager = User_mode(name='¹ÜÀíÔ±')
-student = User_mode(name='Ñ§Éú')
-proleader = User_mode(name='ÏîÄ¿¸ºÔğÈË')
+judge = User_mode(name='è¯„å§”è€å¸ˆ')
+manager = User_mode(name='ç®¡ç†å‘˜')
+student = User_mode(name='å­¦ç”Ÿ')
+proleader = User_mode(name='é¡¹ç›®è´Ÿè´£äºº')
 db.session.add(judge)
 db.session.add(manager)
 db.session.add(student)

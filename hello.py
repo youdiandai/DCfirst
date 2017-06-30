@@ -5,6 +5,7 @@ from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaFie
 from wtforms.validators import DataRequired,equal_to
 from flask.ext.sqlalchemy import SQLAlchemy
 
+#初始化
 app = Flask(__name__)
 manager = Manager(app)
 app.config['SECRET_KEY'] ='synudc'
@@ -12,6 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:aizai2017@localhos
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
 db = SQLAlchemy(app,use_native_unicode="utf8")
 
+#数据库对象
 class User(db.Model):
     __tablename__ = 'user'
     userid = db.Column(db.Integer,primary_key=True)
@@ -51,10 +53,18 @@ class Project(db.Model):
     plevel = db.Column(db.String(64))
     collage = db.Column(db.String(64))
     Person_in_charge = db.Column(db.Integer)
-    describe = db.Column(db.String(64))
+    teacher = db.Column(db.String(64))
+    describe = db.Column(db.Text)
+    status = db.Column(db.Integer)
     linku = db.relationship('User_Project',backref='project')
     def __repr__(self):
         return  '<Project %r>'%self.pid
+
+class Project_mode(db.Model):
+    __tablename__ = 'Project_mode'
+    sid = db.Column(db.Integer,primary_key=True)
+    status = db.Column(db.String(64),unique=True)
+
 
 class User_Project(db.Model):
     __tablename__ = 'User_Project'
@@ -65,6 +75,7 @@ class User_Project(db.Model):
         return '<User_Project %r %r>'%self.userid,self.pid
 
 
+#表单
 class Login(Form):
     username = StringField("用户名" ,validators=[DataRequired()])
     password = PasswordField("密码" ,validators=[DataRequired()])
@@ -84,6 +95,7 @@ class Create_project(Form):
     projectname = StringField("项目名")
     projectlevel= RadioField('项目分级', choices=[('省级', '省级'), ('校级', '校级'),('院级', '院级')])
     collage = StringField("学院")
+    teacher = StringField("指导教师")
     describe = TextAreaField("项目简介")
     submit = SubmitField('创建')
 
@@ -91,13 +103,26 @@ class Join_project(Form):
     projectname = StringField("项目名")
     submit = SubmitField('加入')
 
+#小工具
+def findMyproject(username):
+    Userid = User.query.filter_by(username = username).first().userid
+    Pid = User_Project.query.filter_by(userid = Userid).all()
+    pidlist = [x.pid for x in Pid]
+    Prolist = [Project.query.filter_by(pid=x).first() for x in pidlist]
+    return Prolist
+
+def createStatuslist():
+    a = [(x.sid, x.status) for x in Project_mode.query.all()]
+    return a
+
+#路由
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/projectManage-manager.html')
 def projectManage():
-    return render_template('/manager/projectManage-manager.html')
+    return render_template('/manager/projectManage-manager.html',pros=Project.query.all())
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -120,7 +145,7 @@ def home_manager():
 
 @app.route('/myproject')
 def myproject():
-    return render_template('myproject.html')
+    return render_template('myproject.html',pros=findMyproject(username=session['username']),stalist=createStatuslist())
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -157,6 +182,8 @@ def create_project():
             pro.describe = form.describe.data
             pro.Person_in_charge=session["username"]
             pro.collage = form.collage.data
+            pro.teacher = form.teacher.data
+            pro.status = Project_mode.query.filter_by(status='未审核').first().sid
             db.session.add(pro)
             db.session.commit()
             pu.pid=Project.query.filter_by(pname=form.projectname.data).first().pid
@@ -167,7 +194,6 @@ def create_project():
         else:
             return '创建失败'
     return render_template('createproject.html', form=form)
-
 
 @app.route('/join_project',methods=['GET','POST'])
 def join_project():

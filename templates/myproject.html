@@ -1,5 +1,3 @@
-{% extends "base.html" %}
-{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,41 +6,50 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>大创中心</title>
         
-        <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- <link rel="shortcut icon" href="images/ico.png"> -->
-        <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
-		<script src="../static/js/jquery-2.1.1.js"></script>
-		<script src="../static/js/bootstrap.min.js"></script>
+        <link href="../../static/css/style.css" rel="stylesheet" type="text/css" />
+		<script src="../../static/js/jquery-2.1.1.js"></script>
+		<script src="../../static/js/bootstrap.min.js"></script>
+    	<link rel="stylesheet" href="../../static/css/style-s.css">
+	<!--判断状态宏-->
+	{%macro decideStastu(status)%}
+	    {%for x in stalist%}
+	        {%if status==x[0]%}
+	        {{x[1]}}
+	        {%endif%}
+	    {%endfor%}
+	{%endmacro%}
+
 </head>
 <body>
 	<div class="container" style="margin-top:25px;">
-		<form class="form-horizontal" role="form">
-	  	<div class="form-group">
-		    <label for="firstname" class="col-sm-4 control-label">项目名称</label>
-		    <div class="col-sm-5">
-		      <input type="text" class="form-control">
-		    </div>
-	  	</div><br>
-	  	<div class="form-group">
-		    <label for="" class="col-sm-4 control-label">项目成员</label>
-		    <div class="col-sm-5">
-		      <input type="text" class="form-control">
-		    </div>
-	  	</div><br>
-	  	<div class="form-group">
-		    <label for="" class="col-sm-4  control-label">项目负责人</label>
-		    <div class="col-sm-5">
-		      <input type="text" class="form-control">
-		    </div>
-	  	</div><br>
-	  	<div class="form-group">
-		    <label for="notice" class="col-sm-4 control-label">注意事项</label>
-		    <div class="col-sm-5">
-		    	<textarea class="form-control" rows="4"></textarea>
-		    </div>
-	  	</div><br>
-	</form>
+		<div class="pM-m-main">
+	        <table class="table table-hover table-bordered">
+	            <thead>
+	                <tr>
+	                    <th>项目编号</th>
+	                    <th>项目名称</th>
+	                    <th>当前状态</th>
+	                    <th>项目负责人</th>
+	                    <th>指导教师</th>
+	                    <th>操作</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+				{%for pro in pros%}
+	                <tr>
+	                  <td>{{pro.pid}}</td>
+	                  <td>{{pro.pname}}</td>
+	                  <td>{{decideStastu(pro.status)}}</td>
+	                  <td>{{pro. Person_in_charge}}</td>
+	                  <td>{{pro.teacher}}</td>
+	                  <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">进入</button></a></td>
+	                </tr>
+				{%endfor%}
+				</tbody>
+	        </table>
+		</div>
 	</div>
 </body>
 </html>
-{% endblock content %}
