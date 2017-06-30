@@ -15,6 +15,13 @@
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
     <link rel="stylesheet" href="../../static/css/style-s.css">
+    	{%macro decideStastu(status)%}
+	    {%for x in stalist%}
+	        {%if status==x[0]%}
+	        {{x[1]}}
+	        {%endif%}
+	    {%endfor%}
+	{%endmacro%}
 </head>
 
 <body>
@@ -74,7 +81,7 @@
                     <th>当前状态</th>
                     <th>项目负责人</th>
                     <th>指导教师</th>
-                    <th>初次提交时间</th>
+                    <th>管理</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,10 +89,10 @@
                 <tr>
                   <td>{{pro.pid}}</td>
                   <td>{{pro.pname}}</td>
-                  <td>{{pro.status}}</td>
+                  <td>{{decideStastu(pro.status)}}</td>
                   <td>{{pro.Person_in_charge}}</td>
                   <td>{{pro.teacher}}</td>
-                  <td>{{123}}</td>
+                  <td><a href="audit-judge-audit.html" target="iFrame"><button type="button" class="btn btn-warning">管理</button></a></td>
                 </tr>
             {%endfor%}
             </tbody>

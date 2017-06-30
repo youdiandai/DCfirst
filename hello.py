@@ -71,8 +71,6 @@ class User_Project(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     userid = db.Column(db.Integer,db.ForeignKey('user.userid'))
     pid = db.Column(db.Integer,db.ForeignKey('project.pid'))
-    def __repr__(self):
-        return '<User_Project %r %r>'%self.userid,self.pid
 
 
 #表单
@@ -122,7 +120,7 @@ def index():
 
 @app.route('/projectManage-manager.html')
 def projectManage():
-    return render_template('/manager/projectManage-manager.html',pros=Project.query.all())
+    return render_template('/manager/projectManage-manager.html',pros=Project.query.all(),stalist=createStatuslist())
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -210,6 +208,13 @@ def join_project():
         else:
             return '加入失败'
     return render_template('join_project.html',form=form)
+
+@app.route('/project/<pid>')
+def project(pid):
+    pro = Project.query.filter_by(pid=pid).first()
+    pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
+    pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
+    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers)
 
 if __name__ == '__main__':
     manager.run()
