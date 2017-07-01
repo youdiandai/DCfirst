@@ -1,3 +1,4 @@
+#-*- encoding:utf-8 -*-
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop

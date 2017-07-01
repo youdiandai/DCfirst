@@ -1,6 +1,7 @@
+#-*- encoding:utf-8 -*-
 from hello import db,Project_mode
-db.session.add(Project_mode(status='Î´ÉóºË'))
-db.session.add(Project_mode(status='Î´Íê³É'))
-db.session.add(Project_mode(status='Íê³É'))
-db.session.add(Project_mode(status='ÉóºËÎ´Í¨¹ý'))
+db.session.add(Project_mode(status='Î´ï¿½ï¿½ï¿½'))
+db.session.add(Project_mode(status='Î´ï¿½ï¿½ï¿½'))
+db.session.add(Project_mode(status='ï¿½ï¿½ï¿½'))
+db.session.add(Project_mode(status='ï¿½ï¿½ï¿½Î´Í¨ï¿½ï¿½'))
 db.session.commit()

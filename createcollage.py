@@ -1,3 +1,4 @@
+#-*- encoding:utf-8 -*-
 from hello import Collage,db
 f= open('collage.txt')
 for x in f:

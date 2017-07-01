@@ -1,3 +1,4 @@
+#-*- encoding:utf-8 -*-
 from hello import Major,db
 f= open('major.txt')
 for x in f:

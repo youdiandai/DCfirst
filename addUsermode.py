@@ -1,3 +1,4 @@
+#-*- encoding:utf-8 -*-
 from hello import User_mode,db
 judge = User_mode(name='评委老师')
 manager = User_mode(name='管理员')

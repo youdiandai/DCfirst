@@ -1,3 +1,4 @@
+#-*- encoding:utf-8 -*-
 from flask import Flask,render_template,session,redirect,url_for
 from flask.ext.script import Manager
 from flask.ext.wtf import Form
