@@ -102,6 +102,11 @@
             <textarea class="form-control" rows="5">{{pro.describe}}</textarea>
         </div>
         <h3>三、下载附件</h3>
+        <div>
+        {%if auth%}
+               <a href="#" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a>
+        {%endif%}
+        </div>
         <hr>
     </form>
 

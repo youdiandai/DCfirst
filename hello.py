@@ -113,6 +113,9 @@ def createStatuslist():
     a = [(x.sid, x.status) for x in Project_mode.query.all()]
     return a
 
+def getUserauth(user):
+   return User.query.filter_by(username=user).first().usermode
+
 #路由
 @app.route('/')
 def index():
@@ -214,7 +217,15 @@ def project(pid):
     pro = Project.query.filter_by(pid=pid).first()
     pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
     pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
-    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers)
+    if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员':
+        auth=True
+    else:
+        auth=False
+    for x in createStatuslist():
+        if pro.status == x[0]:
+            pstatus = (x[0],x[1])
+    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=pstatus)
+
 
 if __name__ == '__main__':
     manager.run()
