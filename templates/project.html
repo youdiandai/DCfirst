@@ -104,7 +104,12 @@
         <h3>三、下载附件</h3>
         <div>
         {%if auth%}
-               <a href="#" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a>
+            {%if pstatus[1]=='未审核'%}
+                <a href="/auth/{{pstatus[0]}}" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a>
+            {%endif%}
+            {%if pstatus[1]=='未完成'%}
+                <a href="/auth/{{pstatus[0]}}" target="iFrame"><button type="button" class="btn btn-warning">完成</button></a>
+            {%endif%}
         {%endif%}
         </div>
         <hr>

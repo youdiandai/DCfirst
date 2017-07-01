@@ -102,18 +102,18 @@ class Join_project(Form):
     submit = SubmitField('加入')
 
 #小工具
-def findMyproject(username):
+def findMyproject(username):#根据用户名生成一个由项目构成的列表（项目是数据库一行记录的映射）
     Userid = User.query.filter_by(username = username).first().userid
     Pid = User_Project.query.filter_by(userid = Userid).all()
     pidlist = [x.pid for x in Pid]
     Prolist = [Project.query.filter_by(pid=x).first() for x in pidlist]
     return Prolist
 
-def createStatuslist():
+def createStatuslist():#生成一个由状态号和状态名组成的元组构成的列表
     a = [(x.sid, x.status) for x in Project_mode.query.all()]
     return a
 
-def getUserauth(user):
+def getUserauth(user):#根据提供的用户名获取用户现在的权限
    return User.query.filter_by(username=user).first().usermode
 
 #路由
@@ -215,17 +215,32 @@ def join_project():
 @app.route('/project/<pid>')
 def project(pid):
     pro = Project.query.filter_by(pid=pid).first()
+    session['project']=pid
     pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
     pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
-    if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员':
+    if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员': #生成用来判断是否显示按钮的变量
         auth=True
     else:
         auth=False
-    for x in createStatuslist():
+    psta = None
+    for x in createStatuslist():#生成用来判断显示什么按钮的变量
         if pro.status == x[0]:
-            pstatus = (x[0],x[1])
-    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=pstatus)
+            psta = (x[0],x[1]) #x[0]为状态号，x[1]为状态名
+    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=psta)
 
+@app.route('/auth/<num>')
+def auth(num):
+    info=None
+    pro=Project.query.filter_by(pid=session['project']).first()
+    if Project_mode.query.filter_by(sid=num).first().status == '未审核':
+        pro.status=Project_mode.query.filter_by(status='未完成').first().sid
+        info='审核成功'
+    elif Project_mode.query.filter_by(sid=num).first().status == '未完成':
+        pro.status=Project_mode.query.filter_by(status='完成').first().sid
+        info='项目完成'
+    db.session.add(pro)
+    db.session.commit()
+    return render_template('authsucc.html',info=info)
 
 if __name__ == '__main__':
     manager.run()
