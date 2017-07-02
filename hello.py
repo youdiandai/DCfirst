@@ -25,6 +25,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 #数据库对象
+#用户
 class User(db.Model):
     __tablename__ = 'user'
     userid = db.Column(db.Integer,primary_key=True)
@@ -39,16 +40,19 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+#学院
 class Collage(db.Model):
     __tablename__ = 'collage'
     cid = db.Column(db.Integer,primary_key=True)
     cname = db.Column(db.String(64),unique=True,nullable=False)
 
+#专业
 class Major(db.Model):
     __tablename__='major'
     mid=db.Column(db.Integer,primary_key=True)
     mname = db.Column(db.String(64),unique=True)
 
+#用户类型
 class User_mode(db.Model):
     __tablename__ = 'user_mode'
     mid = db.Column(db.Integer,primary_key=True)
@@ -57,6 +61,7 @@ class User_mode(db.Model):
     def __repr__(self):
         return '<User_name %r>' % self.name
 
+#项目
 class Project(db.Model):
     __tablename__ = 'project'
     pid = db.Column(db.Integer,primary_key=True)
@@ -72,12 +77,13 @@ class Project(db.Model):
     def __repr__(self):
         return  '<Project %r>'%self.pid
 
+#项目状态
 class Project_mode(db.Model):
     __tablename__ = 'Project_mode'
     sid = db.Column(db.Integer,primary_key=True)
     status = db.Column(db.String(64),unique=True)
 
-
+#用户和项目的映射关系
 class User_Project(db.Model):
     __tablename__ = 'User_Project'
     id = db.Column(db.Integer,primary_key=True)
@@ -86,21 +92,25 @@ class User_Project(db.Model):
 
 
 #表单
+#登录页显示的表单
 class Login(Form):
     username = StringField("用户名" ,validators=[DataRequired()])
     password = PasswordField("密码" ,validators=[DataRequired()])
     submit = SubmitField('登录')
 
+#注册页显示的表单
 class Register(Form):
     username = StringField("学号" ,validators=[DataRequired()])
     name = StringField("姓名" ,validators=[DataRequired()])
     password = PasswordField("密码" ,validators=[DataRequired()])
     repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
+    #根据数据库里的内容，自动生成学院和专业的下拉表单
     collage = SelectField("学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
     major = SelectField("专业", validators=[DataRequired()],choices=[(x.mname,x.mname) for x in Major.query.all()])
     tel = StringField("电话号码")
     submit = SubmitField('注册')
 
+#创建项目页面的表单
 class Create_project(Form):
     projectname = StringField("项目名")
     projectlevel= RadioField('项目分级', choices=[('省级', '省级'), ('校级', '校级'),('院级', '院级')])
@@ -110,27 +120,30 @@ class Create_project(Form):
     file = FileField("文档")
     submit = SubmitField('创建')
 
+#加入项目页面的表单
 class Join_project(Form):
     projectname = StringField("项目名")
     submit = SubmitField('加入')
 
 #小工具
-def findMyproject(username):#根据用户名生成一个由项目构成的列表（项目是数据库一行记录的映射）
+#根据用户名生成一个由项目构成的列表（项目是数据库一行记录的映射）
+def findMyproject(username):
     Userid = User.query.filter_by(username = username).first().userid
     Pid = User_Project.query.filter_by(userid = Userid).all()
     pidlist = [x.pid for x in Pid]
     Prolist = [Project.query.filter_by(pid=x).first() for x in pidlist]
     return Prolist
 
-def createStatuslist():#生成一个由状态号和状态名组成的元组构成的列表
+#生成一个由状态号和状态名组成的元组构成的列表
+def createStatuslist():
     a = [(x.sid, x.status) for x in Project_mode.query.all()]
     return a
 
-def getUserauth(user):#根据提供的用户名获取用户现在的权限
+#根据提供的用户名获取用户现在的权限
+def getUserauth(user):
    return User.query.filter_by(username=user).first().usermode
 
 #路由
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -139,6 +152,7 @@ def index():
 def projectManage():
     return render_template('/manager/projectManage-manager.html',pros=Project.query.all(),stalist=createStatuslist())
 
+#完成登录功能
 @app.route('/login',methods=['GET','POST'])
 def login():
     form = Login()
@@ -146,6 +160,7 @@ def login():
         username = User.query.filter_by(username=form.username.data).first()
         if username.password==form.password.data:
             session["username"]=username.username
+            #判断用户类型
             if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
                 return render_template('loginsucc-student.html',name=username.name)
             elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
@@ -154,14 +169,17 @@ def login():
             return render_template('loginfail.html')
     return render_template('login.html',form=form)
 
+
 @app.route('/home-manager.html')
 def home_manager():
     return  render_template('home-manager.html')
 
+#我的项目
 @app.route('/myproject')
 def myproject():
     return render_template('myproject.html',pros=findMyproject(username=session['username']),stalist=createStatuslist())
 
+#完成注册功能
 @app.route('/register',methods=['GET','POST'])
 def register():
     register = Register()
@@ -184,12 +202,14 @@ def register():
             return render_template('registerfail.html')
     return render_template('register.html',form=register)
 
+#完成创建项目功能
 @app.route('/createproject.html',methods=['GET','POST'])
 def create_project():
     form=Create_project()
     if form.validate_on_submit():
         pname = Project.query.filter_by(pname=form.projectname.data).first()
         if pname is None:
+            #增加各种数据项到数据库
             pro = Project()
             pu=User_Project()
             pro.pname = form.projectname.data
@@ -199,18 +219,17 @@ def create_project():
             pro.collage = form.collage.data
             pro.teacher = form.teacher.data
             pro.status = Project_mode.query.filter_by(status='未审核').first().sid
-            db.session.add(pro)
-            db.session.commit()
             pu.pid=Project.query.filter_by(pname=form.projectname.data).first().pid
             pu.userid=User.query.filter_by(username=Project.query.filter_by(pname=form.projectname.data).first().Person_in_charge).first().userid
-            db.session.add(pu)
-            db.session.commit()
+            #完成文件上传功能
             file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])+'/start'
             if not os.path.exists(file_dir):
                 os.makedirs(file_dir)
+            #重命名文件
             fname = secure_filename(form.file.data.filename).split('.',1)[-1]
             unix_time = int(time.time())
-            new_filename = str(unix_time) + '.' + fname  # 修改了上传的文件名
+            new_filename = str(unix_time) + '.' + fname
+
             form.file.data.save('upload/start/' + new_filename)
             pro.doc = new_filename
             db.session.add(pu)
@@ -220,6 +239,7 @@ def create_project():
             return '创建失败'
     return render_template('createproject.html', form=form)
 
+#完成用户加入项目功能
 @app.route('/join_project',methods=['GET','POST'])
 def join_project():
     form = Join_project()
