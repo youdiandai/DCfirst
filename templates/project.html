@@ -101,7 +101,7 @@
             <label>项目简介</label>
             <textarea class="form-control" rows="5">{{pro.describe}}</textarea>
         </div>
-        <h3>三、下载附件</h3>
+        <h3><a href="/start/{{pro.doc}}">三、下载附件</a></h3>
         <div>
         {%if auth%}
             {%if pstatus[1]=='未审核'%}

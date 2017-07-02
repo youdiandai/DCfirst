@@ -15,13 +15,14 @@
 <body>
 <div class="wrapper">
     <div style="width:300px">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {{form.hidden_tag()}}
             <p>{{form.projectname.label}}{{form.projectname(class="form-control")}}</p>
             <p>{{form.collage.label}}{{form.collage(class="form-control")}}</p>
 			<p>{{form.teacher.label}}{{form.teacher(class="form-control")}}</p>
             <p>{{form.projectlevel.label}}{{form.projectlevel()}}</p>
             <p>{{form.describe.label}}{{form.describe()}}</p>
+            <p>{{form.file.label}}{{form.file()}}</p>
             <p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
         </form>
     </div>

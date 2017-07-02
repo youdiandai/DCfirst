@@ -1,10 +1,15 @@
 #-*- encoding:utf-8 -*-
-from flask import Flask,render_template,session,redirect,url_for
+from flask import Flask,render_template,session,make_response,send_file,request
 from flask.ext.script import Manager
 from flask.ext.wtf import Form
-from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaField,SelectField
+from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaField,SelectField,FileField
 from wtforms.validators import DataRequired,equal_to
 from flask.ext.sqlalchemy import SQLAlchemy
+from werkzeug.utils import secure_filename
+import time
+import os
+import base64
+
 
 #初始化
 app = Flask(__name__)
@@ -13,17 +18,22 @@ app.config['SECRET_KEY'] ='synudc'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:aizai2017@localhost:3306/dc?charset=utf8mb4'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
 db = SQLAlchemy(app,use_native_unicode="utf8")
+#上传功能相关配置
+UPLOAD_FOLDER='upload'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 #数据库对象
 class User(db.Model):
     __tablename__ = 'user'
     userid = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(64),unique=True,nullable=False)
-    name = db.Column(db.String(64),nullable=False)
+    name = db.Column(db.String(64),nullable=True)
     password = db.Column(db.String(64),nullable=False)
-    collage = db.Column(db.String(64), nullable=False)
-    major = db.Column(db.String(64), nullable=False)
-    tel = db.Column(db.String(64),nullable=False)
+    collage = db.Column(db.String(64), nullable=True)
+    major = db.Column(db.String(64), nullable=True)
+    tel = db.Column(db.String(64),nullable=True)
     usermode = db.Column(db.Integer,db.ForeignKey('user_mode.mid'))
     linkp = db.relationship('User_Project',backref='user')
     def __repr__(self):
@@ -57,6 +67,7 @@ class Project(db.Model):
     teacher = db.Column(db.String(64))
     describe = db.Column(db.Text)
     status = db.Column(db.Integer)
+    doc = db.Column(db.String(64))
     linku = db.relationship('User_Project',backref='project')
     def __repr__(self):
         return  '<Project %r>'%self.pid
@@ -96,6 +107,7 @@ class Create_project(Form):
     collage = StringField("学院")
     teacher = StringField("指导教师")
     describe = TextAreaField("项目简介")
+    file = FileField("文档")
     submit = SubmitField('创建')
 
 class Join_project(Form):
@@ -118,6 +130,7 @@ def getUserauth(user):#根据提供的用户名获取用户现在的权限
    return User.query.filter_by(username=user).first().usermode
 
 #路由
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -171,7 +184,7 @@ def register():
             return render_template('registerfail.html')
     return render_template('register.html',form=register)
 
-@app.route('/createproject',methods=['GET','POST'])
+@app.route('/createproject.html',methods=['GET','POST'])
 def create_project():
     form=Create_project()
     if form.validate_on_submit():
@@ -190,6 +203,16 @@ def create_project():
             db.session.commit()
             pu.pid=Project.query.filter_by(pname=form.projectname.data).first().pid
             pu.userid=User.query.filter_by(username=Project.query.filter_by(pname=form.projectname.data).first().Person_in_charge).first().userid
+            db.session.add(pu)
+            db.session.commit()
+            file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])+'/start'
+            if not os.path.exists(file_dir):
+                os.makedirs(file_dir)
+            fname = secure_filename(form.file.data.filename).split('.',1)[-1]
+            unix_time = int(time.time())
+            new_filename = str(unix_time) + '.' + fname  # 修改了上传的文件名
+            form.file.data.save('upload/start/' + new_filename)
+            pro.doc = new_filename
             db.session.add(pu)
             db.session.commit()
             return '创建成功'
@@ -219,7 +242,8 @@ def project(pid):
     session['project']=pid
     pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
     pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
-    if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员': #生成用来判断是否显示按钮的变量
+    # 生成用来判断是否显示按钮的变量
+    if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员':
         auth=True
     else:
         auth=False
@@ -229,6 +253,7 @@ def project(pid):
             psta = (x[0],x[1]) #x[0]为状态号，x[1]为状态名
     return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=psta)
 
+#完成项目审核和项目完成路由
 @app.route('/auth/<num>')
 def auth(num):
     info=None
@@ -242,6 +267,13 @@ def auth(num):
     db.session.add(pro)
     db.session.commit()
     return render_template('authsucc.html',info=info)
+
+#下载初始文件路由
+@app.route('/start/<filename>', methods=['GET'])
+def startdownload(filename):
+    response = make_response(send_file(basedir+"/upload/"+'start'+'/'+filename))
+    response.headers["Content-Disposition"] = "attachment; filename="+filename+";"
+    return response
 
 if __name__ == '__main__':
     manager.run()

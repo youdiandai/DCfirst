@@ -100,11 +100,10 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div style="margin-left:100px;">
-					{{form.submit(class="btn btn-danger col-sm-1 col-xs-4 col-sm-offset-4 col-xs-offset-1")}}
-				</div>
-				<div class="">
-					<button type="reset" class="btn btn-default col-sm-1 col-xs-4 col-sm-offset-1 col-xs-offset-2">重置</button>
+				<div>
+					{{form.submit(class="btn btn-danger col-sm-4 col-xs-4 col-xs-offset-1")}}
+					
+					<button type="reset" class="btn btn-default col-sm-4 col-xs-4 col-sm-offset-1 col-xs-offset-2">重置</button>
 				</div>
 			</div>
 
@@ -118,5 +117,12 @@
 
 </body>
 <script type="text/javascript">
+    $(document).ready(function() {
+		var ww = $(window).width();
+		if (ww > 760){
+			$("body").height($(window).height());
+    		$(".register-main").height($("body").height()-70+"px");
+		}
+	});
 </script>
 </html>
