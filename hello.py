@@ -158,8 +158,8 @@ def login():
     form = Login()
     if form.validate_on_submit():
         username = User.query.filter_by(username=form.username.data).first()
-        if username.password==form.password.data:
-            session["username"]=username.username
+        if username.password == form.password.data:
+            session["username"] = username.username
             #判断用户类型
             if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
                 return render_template('loginsucc-student.html',name=username.name)
