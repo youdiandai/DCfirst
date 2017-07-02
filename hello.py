@@ -219,6 +219,8 @@ def create_project():
             pro.collage = form.collage.data
             pro.teacher = form.teacher.data
             pro.status = Project_mode.query.filter_by(status='未审核').first().sid
+            db.session.add(pro)
+            db.session.commit()
             pu.pid=Project.query.filter_by(pname=form.projectname.data).first().pid
             pu.userid=User.query.filter_by(username=Project.query.filter_by(pname=form.projectname.data).first().Person_in_charge).first().userid
             #完成文件上传功能
@@ -233,6 +235,7 @@ def create_project():
             form.file.data.save('upload/start/' + new_filename)
             pro.doc = new_filename
             db.session.add(pu)
+            db.session.add(pro)
             db.session.commit()
             return '创建成功'
         else:
