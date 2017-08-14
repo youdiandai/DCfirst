@@ -199,6 +199,25 @@ class Register(Form):
     email = StringField("E-mail",validators=[Email()])
     submit = SubmitField('注册')
 
+#教师和学院管理员注册页显示的表单
+class teacherRegister(Form):
+    username = StringField("用户名" ,validators=[DataRequired()])
+    name = StringField("姓名" ,validators=[DataRequired()])
+    password = PasswordField("密码" ,validators=[DataRequired()])
+    repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
+    tel = StringField("电话号码")
+    email = StringField("E-mail",validators=[Email()])
+    submit = SubmitField('注册')
+class adminRegister(Form):
+    username = StringField("用户名" ,validators=[DataRequired()])
+    name = StringField("姓名" ,validators=[DataRequired()])
+    password = PasswordField("密码" ,validators=[DataRequired()])
+    repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
+    collage = SelectField("学院", validators=[DataRequired()], choices=[(x.cname, x.cname) for x in Collage.query.all()])
+    tel = StringField("电话号码")
+    email = StringField("E-mail",validators=[Email()])
+    submit = SubmitField('注册')
+
 #创建项目页面的表单
 class Create_project(Form):
     projectname = StringField("项目名")
@@ -275,8 +294,13 @@ def index():
 
 @app.route('/projectManage-manager.html')
 def projectManage():
-    return render_template('/manager/projectManage-manager.html',pros=Project.query.all(),stalist=createStatuslist())
-
+    username=session["username"]
+    if User_mode.query.filter_by(mid=getUserauth(username)).first().name == '管理员':
+        return render_template('/manager/projectManage-manager.html',pros=Project.query.all(),stalist=createStatuslist())
+    elif User_mode.query.filter_by(mid=getUserauth(username)).first().name == '学院管理员':
+        return render_template('/manager/projectManage-manager.html', pros=Project.query.filter_by(Collage=User.query.filter_by(username=username).first().collage).all(),stalist=createStatuslist())
+    elif User_mode.query.filter_by(mid=getUserauth(username)).first().name == '教师用户':
+        return render_template('/manager/projectManage-manager.html', pros=Project.query.filter_by(Teacher=User.query.filter_by(username=username).first().name).all(),stalist=createStatuslist())
 #完成登录功能
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -289,7 +313,12 @@ def login():
             if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
                 return render_template('loginsucc-student.html',name=username.name)
             elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
-                return render_template('Manager.html', name=username.name)
+                return render_template('Manager.html', name=username.name,type=1)
+            elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
+                return render_template('Manager.html', name=username.name,type=2)
+            elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
+                return render_template('Manager.html', name=username.name,type=3)
+
         else:
             return render_template('loginfail.html')
     return render_template('login.html',form=form)
@@ -437,6 +466,7 @@ def interim_report_content():
         db.session.commit()
         return '提交成功'
     return render_template('interim_report_content.html',form=form)
+
 #结题报告
 @app.route('/concluding_report.html',methods=['GET'])
 def concluding_report():
@@ -465,6 +495,49 @@ def concluding_report_content():
         return '提交成功'
     return render_template('concluding_report_content.html',form=form)
 
+#创建学院管理员账号
+@app.route('/createCollageAdminUser.html',methods=['GET','POST'])
+def createCollageAdminUser():
+    register = adminRegister()
+    if register.validate_on_submit():
+        username =User.query.filter_by(username=register.username.data).first()
+        if username is None:
+            user=User()
+            user.username=register.username.data
+            user.name=register.name.data
+            user.password=register.password.data
+            user.tel = register.tel.data
+            user.email = register.email.data
+            user.collage = register.collage.data
+            user.usermode = User_mode.query.filter_by(name='学院管理员').first().mid
+            db.session.add(user)
+            db.session.commit()
+            return render_template("registersucc.html")
+        else:
+            return render_template('registerfail.html')
+    return render_template('createCollageAdminUser.html',form=register)
+
+#创建教师用户
+@app.route('/createTeacherUser.html',methods=['GET','POST'])
+def createTeacherUser():
+    register = teacherRegister()
+    if register.validate_on_submit():
+        username =User.query.filter_by(username=register.username.data).first()
+        if username is None:
+            user=User()
+            user.username=register.username.data
+            user.name=register.name.data
+            user.password=register.password.data
+            user.tel = register.tel.data
+            user.email = register.email.data
+            user.usermode = User_mode.query.filter_by(name='教师用户').first().mid
+            db.session.add(user)
+            db.session.commit()
+            return render_template("registersucc.html")
+        else:
+            return render_template('registerfail.html')
+    return render_template('createTeacherUser.html',form=register)
+
 
 
 #完成用户加入项目功能
@@ -486,32 +559,37 @@ def join_project():
 
 @app.route('/project/<pid>')
 def project(pid):
+    auth=None
+    mid = None
+    end = None
     pro = Project.query.filter_by(pid=pid).first()
     session['project']=pid
     pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
     pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
     # 生成用来判断是否显示按钮的变量
-    if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员':
+    if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员' and pro.Status in [3,7,11]:
         auth=True
-    else:
-        auth=False
+    elif User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='学院管理员'and pro.Status in [2,6,10]:
+        auth=True
+    elif User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='教师用户' and pro.Status in [1,5,9]:
+        auth=True
+    if pro.Status==4:
+        mid=True
+    if pro.Status==8:
+        end=True
     psta = None
     for x in createStatuslist():#生成用来判断显示什么按钮的变量
         if pro.Status == x[0]:
             psta = (x[0],x[1]) #x[0]为状态号，x[1]为状态名
-    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=psta)
+    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=psta,mid=mid,end=end)
 
-#完成项目审核和项目完成路由
-@app.route('/auth/<num>')
-def auth(num):
+#完成项目审核和路由
+@app.route('/auth')
+def auth():
     info=None
     pro=Project.query.filter_by(pid=session['project']).first()
-    if Project_mode.query.filter_by(sid=num).first().status == '未审核':
-        pro.Status=Project_mode.query.filter_by(status='未完成').first().sid
-        info='审核成功'
-    elif Project_mode.query.filter_by(sid=num).first().status == '未完成':
-        pro.Status=Project_mode.query.filter_by(status='完成').first().sid
-        info='项目完成'
+    pro.Status = pro.Status+1
+    info='审核成功'
     db.session.add(pro)
     db.session.commit()
     return render_template('authsucc.html',info=info)

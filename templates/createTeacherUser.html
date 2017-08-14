@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教师用户注册</title>
+</head>
+<body>
+<div class="register-main">
+	<div class="container">
+		<form class="form-horizontal" method="POST">
+			{{form.hidden_tag()}}
+			<h1 class="text-center">注册</h1><br>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">{{form.username.label}}</div>
+				<div class="col-sm-5">
+					{{form.username(class="form-control",placeholder="请输入账号")}}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">{{form.name.label}}</div>
+				<div class="col-sm-5">
+					{{form.name(class="form-control",placeholder="请输入姓名")}}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">{{form.password.label}}</div>
+				<div class="col-sm-5">
+					{{form.password( class="form-control",id="lastname",placeholder="请输入密码")}}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">{{form.repassword.label}}</div>
+				<div class="col-sm-5">
+					{{form.repassword(class="form-control",placeholder="再次输入密码",id="repasswd",onblur="checkpasswd()")}}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">{{form.tel.label}}</div>
+				<div class="col-sm-5">
+					{{form.tel(class="form-control",maxlength="11",placeholder="请输入手机号")}}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">{{form.email.label}}</div>
+				<div class="col-sm-5">
+					{{form.email(class="form-control",placeholder="请输入电子邮箱")}}
+				</div>
+			</div>
+			<div class="form-group">
+				<div>
+					{{form.submit(class="btn btn-danger col-sm-4 col-xs-4 col-xs-offset-1")}}
+
+					<button type="reset" class="btn btn-default col-sm-4 col-xs-4 col-sm-offset-1 col-xs-offset-2">重置</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</div>
+</body>
+</html>

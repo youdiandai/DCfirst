@@ -88,10 +88,10 @@
             {%for pro in pros%}
                 <tr>
                   <td>{{pro.pid}}</td>
-                  <td>{{pro.pname}}</td>
-                  <td>{{decideStastu(pro.status)}}</td>
+                  <td>{{pro.Pname}}</td>
+                  <td>{{decideStastu(pro.Status)}}</td>
                   <td>{{pro.Person_in_charge}}</td>
-                  <td>{{pro.teacher}}</td>
+                  <td>{{pro.Teacher}}</td>
                   <td><a href="/project/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-warning">管理</button></a></td>
                 </tr>
             {%endfor%}

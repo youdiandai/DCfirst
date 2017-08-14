@@ -131,15 +131,17 @@
             <textarea class="form-control" rows="5">{{pro.ExpectedResults}}</textarea>
         </div>
          <hr>
+                {%if mid%}
         <p><a href="/interim_report.html" target="iFrame"><button type="button" class="btn btn-warning">提交中期报告</button></a></p>
-
+        {%endif%}
         <div class="form-group">
             <label>项目中期工作进展</label>
             <textarea class="form-control" rows="5">{{pro.MidProgress}}</textarea>
         </div>
          <hr>
+                {%if end%}
           <p><a href="/concluding_report.html" target="iFrame"><button type="button" class="btn btn-warning">提交结题报告</button></a></p>
-
+{%endif%}
 
         <div class="form-group">
             <label>项目成果简介</label>
@@ -156,14 +158,10 @@
 
         <h3><a href="/start/{{pro.doc}}">三、下载附件</a></h3>
 
+        <hr>
         <div>
         {%if auth%}
-            {%if pstatus[1]=='未审核'%}
-                <a href="/auth/{{pstatus[0]}}" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a>
-            {%endif%}
-            {%if pstatus[1]=='未完成'%}
-                <a href="/auth/{{pstatus[0]}}" target="iFrame"><button type="button" class="btn btn-warning">完成</button></a>
-            {%endif%}
+                <a href="/auth" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a>
         {%endif%}
 
         </div>
