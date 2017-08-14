@@ -97,6 +97,18 @@ $(document).ready(function(){
     });
 });
 $(document).ready(function(){
+    $('.joinProject').click(function(){
+        layer.open({
+        type: 2,
+        // skin: 'layui-layer-lan',
+        title: '加入项目',
+        fix: false,
+        area: ['800px', '450px'],
+        content:"join_project",
+        });
+    });
+});
+$(document).ready(function(){
     $('.createProject').click(function(){
         layer.open({
         type: 2,
