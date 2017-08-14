@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>结题报告</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+	<table class="table table-hover table-bordered">	
+			<h1 class="text-center">“大学生创新创业训练计划”<br>
+			项目结题验收报告</h1>
+			<tbody>
+			<form method="post" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+			<p>{{form.ResultsDescribe.label}}</p>
+			<p>{{form.ResultsDescribe(placeholder="重点介绍特色及创新点")}}</p>
+				<p>{{form.ResultsSummary.label}}</p>
+			<p>{{form.ResultsSummary(placeholder="项目实施过程中创新思维和创新实践方面收获")}}</p>
+				<p>{{form.Problems.label}}</p>
+			<p>{{form.Problems()}}</p>
+			<p>{{form.file.label}}{{form.file()}}</p>
+			<p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
+			</form>
+			</tbody>
+		</table>
+
+</div>
+
+</body>
+
+</html>
+

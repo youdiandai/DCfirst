@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{pro.pname}}</title>
+    <title>{{pro.Pname}}</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -27,17 +27,23 @@
         <table class="table text-center table-bordered">
             <tr>
                 <th>项目名称</th>
-                <td colspan="3">{{pro.pname}}</td>
+                <td colspan="3">{{pro.Pname}}</td>
                 <th>项目编号</th>
                 <td colspan="2">{{pro.pid}}</td>
             </tr>
             <tr>
                 <th>项目类别</th>
-                <td colspan="6">{{项目类别}}</td>
+                <td colspan="6">{{pro.Pclass}}</td>
             </tr>
             <tr>
                 <th>项目级别</th>
-                <td colspan="6">{{pro.plevel}}</td>
+                <td colspan="6">
+                    {%if pro.Plevel==None%}
+                    未评级
+                    {%else%}
+                    {{pro.Plevel}}
+                    {%endif%}
+                </td>
             </tr>
             <tr>
                 <th>项目负责人</th>
@@ -51,8 +57,9 @@
                 <th>联系电话</th>
                 <td colspan="3">{{pchar.tel}}</td>
                 <th>E-mail</th>
-                <td colspan="3">{{项目负责人邮箱}}</td>
+                <td colspan="3">{{pchar.email}}</td>
             </tr>
+            <p>
             <tr>
                 <th rowspan="6">团队成员信息</th>
                 <th>姓名</th>
@@ -69,39 +76,86 @@
                 <td>{{member.collage}}</td>
                 <td>{{member.major}}</td>
                 <td>{{member.tel}}</td>
-                <td>{{成员邮箱}}</td>
+                <td>{{member.email}}</td>
             </tr>
             {%endfor%}
+            </p>
+        </table>
+<table class="table text-center table-bordered">
+            <p>
             <tr>
                 <th rowspan="3">指导教师信息</th>
                 <th>姓名</th>
-                <th colspan="2">单位</th>
-                <th>职务</th>
                 <th>联系电话</th>
                 <th>E-mail</th>
             </tr>
             <tr>
-                <td>{{指导教师姓名}}</td>
-                <td colspan="2">{{指导教师学院}}</td>
-                <td>{{指导教师职务}}</td>
+                <td>{{pro.Teacher}}</td>
                 <td>{{指导教师联系电话}}</td>
                 <td>{{指导教师邮箱}}</td>
             </tr>
-            <tr>
-                <td>{{指导教师姓名}}</td>
-                <td colspan="2">{{指导教师学院}}</td>
-                <td>{{指导教师职务}}</td>
-                <td>{{指导教师联系电话}}</td>
-                <td>{{指导教师邮箱}}</td>
-            </tr>
+            </p>
         </table>
         <h3>二、项目简介</h3>
         <hr>
         <div class="form-group">
             <label>项目简介</label>
-            <textarea class="form-control" rows="5">{{pro.describe}}</textarea>
+            <textarea class="form-control" rows="5">{{pro.Describe}}</textarea>
         </div>
+        <div class="form-group">
+            <label>项目申请理由</label>
+            <textarea class="form-control" rows="5">{{pro.ReassonsForApplication}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>项目方案</label>
+            <textarea class="form-control" rows="5">{{pro.ProjectPlan}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>项目特色与创新点</label>
+            <textarea class="form-control" rows="5">{{pro.Innovate}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>项目进度安排</label>
+            <textarea class="form-control" rows="5">{{pro.Schedule}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>项目经费</label>
+            <textarea class="form-control" rows="5">{{pro.Budget}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>项目经费使用计划</label>
+            <textarea class="form-control" rows="5">{{pro.BudgetPlan}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>项目预期成果物</label>
+            <textarea class="form-control" rows="5">{{pro.ExpectedResults}}</textarea>
+        </div>
+         <hr>
+        <p><a href="/interim_report.html" target="iFrame"><button type="button" class="btn btn-warning">提交中期报告</button></a></p>
+
+        <div class="form-group">
+            <label>项目中期工作进展</label>
+            <textarea class="form-control" rows="5">{{pro.MidProgress}}</textarea>
+        </div>
+         <hr>
+          <p><a href="/concluding_report.html" target="iFrame"><button type="button" class="btn btn-warning">提交结题报告</button></a></p>
+
+
+        <div class="form-group">
+            <label>项目成果简介</label>
+            <textarea class="form-control" rows="5">{{pro.ResultsDescribe}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>项目总结报告"</label>
+            <textarea class="form-control" rows="5">{{pro.ResultsSummary}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>项目遇到的问题和建议</label>
+            <textarea class="form-control" rows="5">{{pro. Problems}}</textarea>
+        </div>
+
         <h3><a href="/start/{{pro.doc}}">三、下载附件</a></h3>
+
         <div>
         {%if auth%}
             {%if pstatus[1]=='未审核'%}
@@ -111,6 +165,7 @@
                 <a href="/auth/{{pstatus[0]}}" target="iFrame"><button type="button" class="btn btn-warning">完成</button></a>
             {%endif%}
         {%endif%}
+
         </div>
         <hr>
     </form>

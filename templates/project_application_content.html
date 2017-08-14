@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>立项申请书</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+	<h1 class="text-center">“大学生创新创业训练计划”<br>
+			项目申报书</h1>
+	<div style="width:300px">
+        <form method="post" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+            <p>{{form.projectname.label}}{{form.projectname(class="form-control")}}</p
+			<p>{{form.PlanDate.label}}{{form.PlanDate()}}</p>
+			<p>{{form.collage.label}}{{form.collage()}}</p>
+			<p>{{form.member.label}}{{form.member(placeholder="学号，中间用逗号分隔")}}</p>
+			<p>{{form.Teacher.label}}{{form.Teacher()}}</p>
+			<p>{{form.projectclass.label}}{{form.projectclass()}}</p>
+			<p>{{form.Describe.label}}{{form.Describe()}}</p>
+			<p>{{form.ReassonsForApplication.label}}{{form.ReassonsForApplication()}}</p>
+			<p>{{form.ProjectPlan.label}}{{form.ProjectPlan(placeholder="计划、技术路线、人员分工等")}}</p>
+			<p>{{form.Innovate.label}}{{form.Innovate()}}</p>
+			<p>{{form.Schedule.label}}{{form.Schedule()}}</p>
+			<p>{{form.Budget.label}}{{form.Budget()}}</p>
+			<p>{{form.BudgetPlan.label}}{{form.BudgetPlan()}}</p>
+			<p>{{form.ExpectedResults.label}}{{form.ExpectedResults()}}</p>
+            <p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>
+

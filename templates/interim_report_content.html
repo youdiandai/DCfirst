@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>中期报告</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+	<table class="table table-hover table-bordered">	
+			<h1 class="text-center">“大学生创新创业训练计划”<br>
+			项目中期检查报告书</h1>
+			<tbody>
+			<form method="post" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+			<p>{{form.MidProgress.label}}</p>
+			<p>{{form.MidProgress(placeholder="工作方案实施情况，拟开展工作、存在的问题，能否按时完成研究计划，推迟或终止研究工作的原因等")}}</p>
+			<p>{{form.file.label}}{{form.file()}}</p>
+			<p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
+			</form>
+			</tbody>
+		</table>
+
+</div>
+
+</body>
+
+</html>
+

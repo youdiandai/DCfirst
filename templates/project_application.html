@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>立项申请书</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<style type="text/css">
+	body{
+		font-family: "微软雅黑";
+	}
+	img{
+		display: inline-block;
+		margin: 0 auto;
+	}
+	h1{
+		letter-spacing: 2px;
+	}
+	h3{color: #E80F0F;}
+	.form_warn{
+		margin: 40px 180px 0;
+		padding: 20px 30px;
+		border: 2px solid #fff;
+	    box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
+	    -moz-box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
+	    -webkit-box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
+	}
+	.form_warn p{
+		text-indent: 2em;
+	}
+	.agree_button {
+		display: inline-block;
+		cursor:pointer;
+		outline: none;
+		text-align: center;
+		text-decoration: none;
+		font: 16px/100% 'Microsoft yahei',Arial, Helvetica, sans-serif;
+		padding: .5em 2em .55em;
+		-webkit-border-radius: .5em; 
+		-moz-border-radius: .5em;
+		border-radius: .5em;
+		color: #606060;
+		border: solid 1px #b7b7b7;
+		background: #ededed;
+	}
+	.agree_button:active {
+		position: relative;
+		top: 1px;
+		color: #999;
+	}
+	@media all and (max-width: 1500px) and (min-width: 1024px){
+	
+	}
+
+	@media all and (max-width: 1024px) and (min-width: 800px){
+		
+	}
+	@media all and (max-width: 800px) and (min-width: 640px){
+		.form_warn{
+			padding: 0;
+		}
+		
+	}
+	@media only screen and (max-width: 640px) {
+		.form_warn{
+			margin: 0;
+		}
+	}
+	</style>
+</head>
+
+<body>
+
+<div class="container">
+	<img src="images/p1.png" class="img-responsive" />
+	<div class="form_warn">
+		<h1 class="text-center">沈阳师范大学“大学生创新创业训练计划”<br>
+		项目申报书</h1>
+		<h3 class="text-center">填表须知</h3>
+		<p>一、项目分类说明：
+<p>1.创新训练项目是本科生个人或团队，在校内导师指导下，自主完成创新性实验方法的设计、设备和材料的准备、实验的实施、数据处理与分析、总结报告撰写等工作。</p>
+<p>2.创业训练项目是本科生团队，在校内导师指导下，团队中每个学生在项目实施过程中承担一个或多个具体的角色，通过编制商业计划书、开展可行性研究、模拟企业运行、进行一定程度的验证试验，撰写创业报告等工作。</p>
+<p>3.创业实践项目是学生团队，在学校导师和企业导师共同指导下，采用前期创新训练项目（或创新性实验）的成果，提出一项具有市场前景的创新性产品或者服务，以此为基础开展创业实践活动。申报该类项目需额外提交企业导师合作指导协议书作为附件。</p>
+<p>二、申报书请按顺序逐项填写，填写内容必须实事求是，表达明确严谨。空缺项要填“无”。将项目所属类型前的□变成■进行标注。</p>
+<p>三、申请参加大学生创新创业训练计划项目团队的人数含负责人在内不得超过5人。</p>
+<p>四、填写时可以改变字体大小等，但要确保表格的样式没有被改变；填写完后用A4纸张双面打印，不得随意涂改。</p>
+<p>五、申报过程有不明事宜，请与教务处实践教学管理科联系和咨询。</p>
+
+		<br><br><br>
+		<form name="agree" class="text-center" action="project_application_content.html">
+			<input type="submit" class="agree_button" value="请认真查看<填表须知> (25)" id="agree_btn" name="agreeb">
+		</form>   
+	</div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+
+var secs = 10;
+document.agree.agreeb.disabled=true;
+for(var i=1;i<=secs;i++) {
+	window.setTimeout("update(" + i + ")", i * 1000);
+}
+function update(num) {
+	if(num == secs) {
+		document.agree.agreeb.value =" 我 同 意 ";
+		document.agree.agreeb.disabled=false;
+		// window.location.href="project_application_content.html";
+	}
+	else {
+		var printnr = secs-num;
+		document.agree.agreeb.value = "请认真查看<填表须知> (" + printnr +")";	
+	}
+}
+</script>
+</html>
