@@ -196,8 +196,8 @@ class Register(Form):
     password = PasswordField("密码" ,validators=[DataRequired()])
     repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
     #根据数据库里的内容，自动生成学院和专业的下拉表单
-    collage = SelectField("学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
-    major = SelectField("专业", validators=[DataRequired()],choices=[(x.mname,x.mname) for x in Major.query.all()])
+    #collage = SelectField("学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
+    #major = SelectField("专业", validators=[DataRequired()],choices=[(x.mname,x.mname) for x in Major.query.all()])
     tel = StringField("电话号码")
     email = StringField("E-mail",validators=[Email()])
     submit = SubmitField('注册')
@@ -216,7 +216,7 @@ class adminRegister(Form):
     name = StringField("姓名" ,validators=[DataRequired()])
     password = PasswordField("密码" ,validators=[DataRequired()])
     repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
-    collage = SelectField("学院", validators=[DataRequired()], choices=[(x.cname, x.cname) for x in Collage.query.all()])
+    #collage = SelectField("学院", validators=[DataRequired()], choices=[(x.cname, x.cname) for x in Collage.query.all()])
     tel = StringField("电话号码")
     email = StringField("E-mail",validators=[Email()])
     submit = SubmitField('注册')
@@ -236,7 +236,7 @@ class ProjectApproval(Form):
     PlanDate = StringField("预计结束日期")
     member = StringField("项目成员")#中间用逗号分隔
     Teacher = StringField("指导教师")#指导教师
-    collage = SelectField("项目所属学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
+    #collage = SelectField("项目所属学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
     Describe = TextAreaField("项目简介")
     projectclass = RadioField('项目分类', choices=[('创新训练项目', '创新训练项目'), ('创业训练项目', '创业训练项目'),('创业实践项目', '创业实践项目')])
     ReassonsForApplication = TextAreaField("申请理由")
