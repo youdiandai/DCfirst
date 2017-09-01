@@ -3,12 +3,13 @@ from flask import Flask,render_template,session,make_response,send_file,request
 from flask.ext.script import Manager
 from flask.ext.wtf import Form
 from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaField,SelectField,FileField
+from flask.ext.migrate import Migrate,MigrateCommand
 from wtforms.validators import DataRequired,equal_to,Email
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import time
 import os
-import base64
+
 
 
 #初始化
@@ -18,6 +19,8 @@ app.config['SECRET_KEY'] ='synudc'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:aizai2017@localhost:3306/dc?charset=utf8mb4'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
 db = SQLAlchemy(app,use_native_unicode="utf8")
+migrate = Migrate(app,db)
+manager.add_command('db',MigrateCommand)
 #上传功能相关配置
 UPLOAD_FOLDER='upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
