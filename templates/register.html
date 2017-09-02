@@ -54,62 +54,205 @@
 
 <div class="register-main">
 	<div class="container">
-		<form class="form-horizontal" method="POST">
-			{{form.hidden_tag()}}
+		<form class="form-horizontal" action="/register" method="POST">
 			<h1 class="text-center">注册</h1><br>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">{{form.username.label}}</div>
+				<div class="col-sm-4 control-label">账号</div>
 				<div class="col-sm-5">
-					{{form.username(class="form-control",placeholder="请输入账号")}}
+					<input type="text" class="form-control" placeholder="请输入学号" name="username">
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">{{form.name.label}}</div>
+				<div class="col-sm-4 control-label">姓名</div>
 				<div class="col-sm-5">
-					{{form.name(class="form-control",placeholder="请输入姓名")}}
+					<input type="text" class="form-control" placeholder="请输入姓名" name="name">
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">{{form.collage.label}}</div>
+				<div class="col-sm-4 control-label">学院</div>
 				<div class="col-sm-5">
-					{{form.collage(class="form-control")}}
+					<select class="form-control" name="collage">
+	                    <option></option>
+	                    <option>外国语学院</option>
+						<option>文学院</option>
+						<option>马克思主义学院</option>
+						<option>数学与系统科学学院</option>
+						<option>生命科学学院</option>
+						<option>物理科学与技术学院</option>
+						<option>教育科学学院</option>
+						<option>社会学学院</option>
+						<option>化学化工学院</option>
+						<option>法学院</option>
+						<option>教育技术学院</option>
+						<option>科信软件学院</option>
+						<option>管理学院</option>
+						<option>旅游管理学院</option>
+						<option>美术与设计学院</option>
+						<option>学前与初等教育学院</option>
+						<option>国际商学院</option>
+						<option>体育科学学院</option>
+						<option>戏剧艺术学院</option>
+						<option>粮食学院</option>
+						<option>音乐学院</option>
+						<option>古生物学院</option>
+						<option>组织部</option>
+						<option>党校</option>
+						<option>宣传统战部</option>
+						<option>审计监察处</option>
+						<option>工会</option>
+						<option>团委</option>
+						<option>教务处</option>
+						<option>学生处</option>
+						<option>招生就业指导处</option>
+						<option>研究生处</option>
+						<option>教育硕士研究生院</option>
+						<option>教师教育处</option>
+						<option>教师专业发展学院</option>
+						<option>学科与科研工作处</option>
+						<option>国际教育学院</option>
+						<option>继续教育学院</option>
+						<option>校务办公室</option>
+						<option>合作发展处</option>
+						<option>后勤工作处</option>
+						<option>校园安全与管理处</option>
+						<option>人事处</option>
+						<option>离退休工作处</option>
+						<option>财务与资产管理处</option>
+						<option>人力资源开发与管理研究所</option>
+						<option>书法教育研究所</option>
+						<option>教育经济与管理研究所</option>
+						<option>附属艺术学校</option>
+						<option>延松剧场艺术研</option>究所
+						<option>梅兰芳艺术研究所</option>
+						<option>法律文化研究中心</option>
+						<option>法律与公共政策研究中心</option>
+						<option>中国北方少数民族文化研究中心</option>
+						<option>中国文化与文学研究所</option>
+						<option>两栖爬行动物研究所</option>
+						<option>大学外语教学部</option>
+						<option>计算机与数学基础教学部</option>
+						<option>实验教学中心</option>
+						<option>辽宁省基础教育教研培训中心</option>
+						<option>图书馆</option>
+						<option>学报编辑部</option>
+						<option>后勤集团</option>
+						<option>校医院</option>
+	                </select>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">{{form.major.label}}</div>
+				<div class="col-sm-4 control-label">专业</div>
 				<div class="col-sm-5">
-					{{form.major(class="form-control")}}
+					<select class="form-control" name="major">
+	                    <option></option>
+						<option>俄语</option>
+						<option>汉语言文学</option>
+						<option>思想政治教育</option>
+						<option>英语</option>
+						<option>数学与应用数学</option>
+						<option>生物科学</option>
+						<option>物理学</option>
+						<option>教育学</option>
+						<option>社会学</option>
+						<option>化学</option>
+						<option>法学</option>
+						<option>教育技术学</option>
+						<option>应用化学</option>
+						<option>生物技术</option>
+						<option>电子信息工程</option>
+						<option>计算机科学与技术</option>
+						<option>行政管理</option>
+						<option>旅游管理</option>
+						<option>日语</option>
+						<option>美术学</option>
+						<option>学前教育</option>
+						<option>秘书学</option>
+						<option>音乐学</option>
+						<option>经济学</option>
+						<option>汉语言</option>
+						<option>应用心理学</option>
+						<option>新闻学</option>
+						<option>信息与计算科学</option>
+						<option>环境科学</option>
+						<option>信息管理与信息系统</option>
+						<option>劳动与社会保障</option>
+						<option>小学教育</option>
+						<option>体育教育</option>
+						<option>舞蹈学</option>
+						<option>应用统计学</option>
+						<option>食品科学与工程</option>
+						<option>市场营销</option>
+						<option>音乐表演</option>
+						<option>国际经济与贸易</option>
+						<option>社会体育指导与管理</option>
+						<option>表演</option>
+						<option>人力资源管理</option>
+						<option>会展经济与管理</option>
+						<option>运动训练</option>
+						<option>法语</option>
+						<option>软件工程</option>
+						<option>服装设计与工程</option>
+						<option>播音与主持艺术</option>
+						<option>绘画</option>
+						<option>汉语国际教育</option>
+						<option>应用物理学</option>
+						<option>金融学</option>
+						<option>社会工作</option>
+						<option>物流管理</option>
+						<option>翻译</option>
+						<option>网络工程</option>
+						<option>粮食工程</option>
+						<option>武术与民族传统体育</option>
+						<option>食品质量与安全</option>
+						<option>酒店管理</option>
+						<option>古生物学</option>
+						<option>雕塑</option>
+						<option>舞蹈表演</option>
+						<option>视觉传达设计</option>
+						<option>环境设计</option>
+						<option>产品设计</option>
+						<option>公共艺术</option>
+						<option>数字媒体艺术</option>
+						<option>中国画</option>
+						<option>动画</option>
+						<option>戏剧影视美术设计</option>
+						<option>广播电视编导</option>
+						<option>网络与新媒体</option>
+						<option>工艺美术</option>
+						<option>环境生态工程</option>
+						<option>德语</option>
+	                </select>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">{{form.password.label}}</div>
+				<div class="col-sm-4 control-label">密码</div>
 				<div class="col-sm-5">
-					{{form.password( class="form-control",id="lastname",placeholder="请输入密码")}}
+					<input type="password" class="form-control" id="lastname" placeholder="请输入密码" name="password">
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">{{form.repassword.label}}</div>
+				<div class="col-sm-4 control-label">确认密码</div>
 				<div class="col-sm-5">
-					{{form.repassword(class="form-control",placeholder="再次输入密码",id="repasswd",onblur="checkpasswd()")}}
+					<input type="password" class="form-control" id="lastname" placeholder="再次输入密码" name="repassword">
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">{{form.tel.label}}</div>
+				<div class="col-sm-4 control-label">手机号</div>
 				<div class="col-sm-5">
-					{{form.tel(class="form-control",maxlength="11",placeholder="请输入手机号")}}
+					<input type="tel" class="form-control" maxlength="11" placeholder="请输入手机号" name="tel">
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">{{form.email.label}}</div>
+				<div class="col-sm-4 control-label">E-mail</div>
 				<div class="col-sm-5">
-					{{form.email(class="form-control",placeholder="请输入电子邮箱")}}
+					<input type="text" class="form-control" placeholder="请输入电子邮箱" name="email">
 				</div>
 			</div>
 			<div class="form-group">
 				<div>
-					{{form.submit(class="btn btn-danger col-sm-4 col-xs-4 col-xs-offset-1")}}
-					
-					<button type="reset" class="btn btn-default col-sm-4 col-xs-4 col-sm-offset-1 col-xs-offset-2">重置</button>
+					<button type="submit" class="btn btn-danger col-sm-2 col-xs-4 col-sm-offset-4 col-xs-offset-1">确认</button>
+
+					<button type="reset" class="btn btn-default col-sm-2 col-xs-4 col-sm-offset-1 col-xs-offset-2">重置</button>
 				</div>
 			</div>
 

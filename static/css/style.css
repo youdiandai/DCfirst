@@ -94,7 +94,7 @@
 	letter-spacing: 5px;
 }
 .banner-inner{
-	padding: 200px 0 50px;
+	padding: 120px 0;
 	text-align: center;
 	font-family: "微软雅黑";
 }
@@ -174,9 +174,22 @@
 .personInformation{
 	height: 250px;
 	background-color: #fff;
+	border: 2px solid #fff;
+	box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
+	-moz-box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
+	-webkit-box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
 
 }
-.pI-left{
+.detail-info{
+	margin-top: 15px;
+	margin-bottom: 70px;
+	background-color: #fff;
+	border: 2px solid #fff;
+	box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
+	-moz-box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
+	-webkit-box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
+}
+/*.pI-left{
 	border-right: 10px solid #eee;
 	height: 250px;
 }
@@ -190,7 +203,7 @@
 }
 .pI-left .myProject{
 	margin-left: 15px;
-}
+}*/
 .projectManage{
 	margin-top: 35px;
 	/*background-color: #fff;*/
@@ -202,12 +215,19 @@
 .login-main form{
 	margin-top: 140px;
 }
+/*注册 开始*/
 .register-main{
 	background-color: #EBEBEB;
 }
 .register-main form{
 	margin-top: 100px;
 }
+/*.teacher_register{
+	margin-top: 35px;
+}
+.collageAdmin-register{
+	margin-top: 50px;
+}*/
 
 
 

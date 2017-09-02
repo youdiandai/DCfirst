@@ -339,28 +339,29 @@ def myproject():
     return render_template('myproject.html',pros=findMyproject(username=session['username']),stalist=createStatuslist())
 
 #完成注册功能
-@app.route('/register',methods=['GET','POST'])
-def register():
-    register = Register()
-    if register.validate_on_submit():
-        username =User.query.filter_by(username=register.username.data).first()
-        if username is None:
-            user=User()
-            user.username=register.username.data
-            user.name=register.name.data
-            user.password=register.password.data
-            user.collage=register.collage.data
-            user.major=register.major.data
-            user.tel = register.tel.data
-            user.email = register.email.data
-            user.usermode = User_mode.query.filter_by(name='学生').first().mid
+@app.route('/register',methods=['GET'])
+def register1():
+    return render_template('register.html')
 
-            db.session.add(user)
-            db.session.commit()
-            return render_template("registersucc.html")
-        else:
-            return render_template('registerfail.html')
-    return render_template('register.html',form=register)
+@app.route('/register', methods=['POST'])
+def register2():
+    username = User.query.filter_by(username=request.form.get('username')).first()
+    if username is None:
+        user = User()
+        user.username = request.form.get('username')
+        user.name = request.form.get('name')
+        user.password = request.form.get('password')
+        user.collage = request.form.get('collage')
+        user.major = request.form.get('major')
+        user.tel = request.form.get('tel')
+        user.email = request.form.get('email')
+        user.usermode = User_mode.query.filter_by(name='学生').first().mid
+
+        db.session.add(user)
+        db.session.commit()
+        return render_template("registersucc.html")
+    else:
+        return render_template('registerfail.html')
 
 #完成创建项目功能
 """
@@ -632,7 +633,7 @@ def deleteUser(username):
 
 #修改个人信息
 @app.route('/updateinfo/CollageAdmin')
-def updateInfo():
+def updateInfoCollageAdmin():
     user = User.query.filter_by(username=session['username']).first()
     user.email = request.form.get('email')
     user.tel = request.form.get('tel')
@@ -640,8 +641,8 @@ def updateInfo():
     db.session.commit()
     return render_template('updateSucc.html')
 
-@app.route('updateinfo/Teacher')
-def updateInfo():
+@app.route('/updateinfo/Teacher')
+def updateInfoTeacher():
     user = User.query.filter_by(username=session['username']).first()
     user.email = request.form.get('email')
     user.tel = request.form.get('tel')
@@ -651,8 +652,8 @@ def updateInfo():
     db.session.commit()
     return render_template('updateSucc.html')
 
-@app.route('updateinfo/Student')
-def updateInfo():
+@app.route('/updateinfo/Student')
+def updateInfoSthdent():
     user = User.query.filter_by(username=session['username']).first()
     user.email = request.form.get('email')
     user.tel = request.form.get('tel')
