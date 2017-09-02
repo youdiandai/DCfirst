@@ -33,7 +33,7 @@ class User(db.Model):
     __tablename__ = 'user'
     userid = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(64),unique=True,nullable=False)
-    name = db.Column(db.String(64),nullable=False)
+    name = db.Column(db.String(64),nullable=True)
     password = db.Column(db.String(64),nullable=False)
     collage = db.Column(db.String(64), nullable=True)
     major = db.Column(db.String(64), nullable=True)
@@ -79,7 +79,7 @@ class Project(db.Model):
     Describe = db.Column(db.Text,nullable=True)#项目简介
     Status = db.Column(db.Integer,nullable=True)#项目状态
     StartDate = db.Column(db.String(64),nullable=True)#立项日期
-    PlanDate = db.Column(db.String(64),nullable=True)#预计结束日期
+    PlanDate = db.Column(db.String(64),nullable=True)#项目周期
     MidSubdate = db.Column(db.String(64),nullable=True)#中期报告提交日期
     EndSubdate = db.Column(db.String(64),nullable=True)#结题提交日期
     EndDate = db.Column(db.String(64),nullable=True)#项目结束日期
@@ -189,6 +189,7 @@ class Login(Form):
     password = PasswordField("密码" ,validators=[DataRequired()])
     submit = SubmitField('登录')
 
+"""
 #注册页显示的表单
 class Register(Form):
     username = StringField("学号" ,validators=[DataRequired()])
@@ -196,11 +197,12 @@ class Register(Form):
     password = PasswordField("密码" ,validators=[DataRequired()])
     repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
     #根据数据库里的内容，自动生成学院和专业的下拉表单
-    #collage = SelectField("学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
-    #major = SelectField("专业", validators=[DataRequired()],choices=[(x.mname,x.mname) for x in Major.query.all()])
+    collage = SelectField("学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
+    major = SelectField("专业", validators=[DataRequired()],choices=[(x.mname,x.mname) for x in Major.query.all()])
     tel = StringField("电话号码")
     email = StringField("E-mail",validators=[Email()])
     submit = SubmitField('注册')
+"""
 
 #教师和学院管理员注册页显示的表单
 class teacherRegister(Form):
@@ -216,7 +218,7 @@ class adminRegister(Form):
     name = StringField("姓名" ,validators=[DataRequired()])
     password = PasswordField("密码" ,validators=[DataRequired()])
     repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
-    #collage = SelectField("学院", validators=[DataRequired()], choices=[(x.cname, x.cname) for x in Collage.query.all()])
+    collage = SelectField("学院", validators=[DataRequired()], choices=[(x.cname, x.cname) for x in Collage.query.all()])
     tel = StringField("电话号码")
     email = StringField("E-mail",validators=[Email()])
     submit = SubmitField('注册')
@@ -236,7 +238,7 @@ class ProjectApproval(Form):
     PlanDate = StringField("预计结束日期")
     member = StringField("项目成员")#中间用逗号分隔
     Teacher = StringField("指导教师")#指导教师
-    #collage = SelectField("项目所属学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
+    collage = SelectField("项目所属学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
     Describe = TextAreaField("项目简介")
     projectclass = RadioField('项目分类', choices=[('创新训练项目', '创新训练项目'), ('创业训练项目', '创业训练项目'),('创业实践项目', '创业实践项目')])
     ReassonsForApplication = TextAreaField("申请理由")
@@ -587,8 +589,8 @@ def project(pid):
     return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=psta,mid=mid,end=end)
 
 #完成项目审核和路由
-@app.route('/auth')
-def auth():
+@app.route('/auth/succ')
+def authyes():
     info=None
     pro=Project.query.filter_by(pid=session['project']).first()
     pro.Status = pro.Status+1
@@ -596,6 +598,20 @@ def auth():
     db.session.add(pro)
     db.session.commit()
     return render_template('authsucc.html',info=info)
+@app.route('/auth/fail')
+def authno():
+    info=None
+    pro = Project.query.filter_by(pid=session['project']).first()
+    if pro.Status in [1,2,3]:
+        pro.Status = 13
+    elif pro.Status in [5,6,7]:
+        pro.Status = 14
+    elif pro.Status in [9,10,11]:
+        pro.Status = 15
+    db.session.add(pro)
+    db.session.commit()
+    info = '审核不通过成功'
+    return render_template('authsucc.html', info=info)
 
 #下载文件路由
 @app.route('/download/<filename>', methods=['GET'])
@@ -603,6 +619,75 @@ def startdownload(filename):
     response = make_response(send_file(basedir+"/upload/"+filename))
     response.headers["Content-Disposition"] = "attachment; filename="+filename+";"
     return response
+
+
+#删除用户路由
+@app.route('/delete/user/<username>',methods=['GET'])
+#根据用户名删除数据库中的用户
+def deleteUser(username):
+    user = User.query.filter_by(username=username).first()
+    db.session.delete(user)
+    db.session.commit()
+    return render_template('deleteUserSucc.html')
+
+#修改个人信息
+@app.route('/updateinfo/CollageAdmin')
+def updateInfo():
+    user = User.query.filter_by(username=session['username']).first()
+    user.email = request.form.get('email')
+    user.tel = request.form.get('tel')
+    db.session.add(user)
+    db.session.commit()
+    return render_template('updateSucc.html')
+
+@app.route('updateinfo/Teacher')
+def updateInfo():
+    user = User.query.filter_by(username=session['username']).first()
+    user.email = request.form.get('email')
+    user.tel = request.form.get('tel')
+    user.name = request.form.get('name')
+    user.collage = request.form.get('collage')
+    db.session.add(user)
+    db.session.commit()
+    return render_template('updateSucc.html')
+
+@app.route('updateinfo/Student')
+def updateInfo():
+    user = User.query.filter_by(username=session['username']).first()
+    user.email = request.form.get('email')
+    user.tel = request.form.get('tel')
+    user.name = request.form.get('name')
+    user.collage = request.form.get('collage')
+    user.major = request.form.get('major')
+    db.session.add(user)
+    db.session.commit()
+    return render_template('updateSucc.html')
+
+#删除项目路由
+@app.route('/delete/project/<pid>')
+def deletePro(pid):
+    pro = Project.query.filter_by(pid=pid).first()
+    db.session.delete(pro)
+    db.session.commit()
+    return render_template('deleteProSucc.html')
+
+#修改密码路由
+@app.route('/change/password/<newpassword>')
+def changePassword(newpassword):
+    user = User.query.filter_by(username = session['username']).first()
+    user.password=newpassword
+    db.session.add(user)
+    db.session.commit()
+    return render_template('changePasswordSucc.html')
+
+#重置初始密码
+@app.route('/resetPassword/<username>')
+def resetPassword(username):
+    user = User.query.filter_by(username=username).first()
+    user.username='123456'
+    db.session.add(user)
+    db.session.commit()
+    return render_template('resetPasswordSucc.html')
 
 if __name__ == '__main__':
     manager.run()
