@@ -847,8 +847,11 @@ def updateStudentInfo2():
 def deletePro(pid):
     pro = Project.query.filter_by(pid=pid).first()
     pu = User_Project.query.filter_by(pid=pid).all()
-    db.session.delete(pro,pu)
+    db.session.delete(pro)
     db.session.commit()
+    for x in pu:
+        db.session.delete(x)
+        db.session.commit()
     return render_template('deleteUserSucc.html')
 
 #修改密码路由
