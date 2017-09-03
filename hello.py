@@ -301,6 +301,7 @@ def getProStatusSid(status):
 def index():
     return render_template('index.html')
 
+#管理页面
 @app.route('/projectManage-manager.html')
 def projectManage():
     username=session["username"]
@@ -602,11 +603,10 @@ def concluding_report_content():
         db.session.commit()
         return '提交成功'
     return render_template('concluding_report_content.html',form=form)
-
+"""
 #创建学院管理员账号
-@app.route('/createCollageAdminUser.html',methods=['GET','POST'])
-def createCollageAdminUser():
-    register = adminRegister()
+@app.route('/addCollageAdminUser.html',methods=['GET','POST'])
+def addCollageAdminUser1():
     if register.validate_on_submit():
         username =User.query.filter_by(username=register.username.data).first()
         if username is None:
@@ -624,27 +624,61 @@ def createCollageAdminUser():
         else:
             return render_template('registerfail.html')
     return render_template('createCollageAdminUser.html',form=register)
+"""
+#创建学院管理员账号
+@app.route('/addCollageAdminUser.html',methods=['GET'])
+def addCollageAdminUser1():
+    return render_template('addCollageAdminUser.html')
+@app.route('/addCollageAdminUser.html',methods=['POST'])
+def addCollageAdminUser2():
+    username = User.query.filter_by(username=request.form.get('username')).first()
+    if username is None:
+        user = User()
+        user.username = request.form.get('username')
+        user.name = request.form.get('name')
+        user.password = '123456'
+        user.tel = request.form.get('tel')
+        user.email = request.form.get('email')
+        user.collage = request.form.get('collage')
+        user.usermode = User_mode.query.filter_by(name='学院管理员').first().mid
+        db.session.add(user)
+        db.session.commit()
+        return render_template("registersucc.html")
+    else:
+        return render_template('registerfail.html')
+
+#管理学院管理员页面
+@app.route('/CollageAdminUser.html',methods=['GET'])
+def CollageAdminUser():
+    collageUser = User.query.filter_by(usermode = 4).all()
+    return render_template('CollageAdminUser.html',collageUser = collageUser)
+#管理教师用户页面
+@app.route('/teacherUser.html',methods=['GET'])
+def teacherUser():
+    teacherUser = User.query.filter_by(usermode = 3,collage=User.query.filter_by(username=session['username']).first().collage).all()
+    return render_template('teacherUser.html',teacherUser = teacherUser)
 
 #创建教师用户
-@app.route('/createTeacherUser.html',methods=['GET','POST'])
-def createTeacherUser():
-    register = teacherRegister()
-    if register.validate_on_submit():
-        username =User.query.filter_by(username=register.username.data).first()
-        if username is None:
-            user=User()
-            user.username=register.username.data
-            user.name=register.name.data
-            user.password=register.password.data
-            user.tel = register.tel.data
-            user.email = register.email.data
-            user.usermode = User_mode.query.filter_by(name='教师用户').first().mid
-            db.session.add(user)
-            db.session.commit()
-            return render_template("registersucc.html")
-        else:
-            return render_template('registerfail.html')
-    return render_template('createTeacherUser.html',form=register)
+@app.route('/addTeacherUser.html',methods=['GET'])
+def addTeacherUser1():
+    return render_template('addTeacherUser.html')
+
+@app.route('/addTeacherUser.html',methods=['POST'])
+def addTeacherUser2():
+    username = User.query.filter_by(username=request.form.get('username')).first()
+    if username is None:
+        user = User()
+        user.username = request.form.get('username')
+        user.name = request.form.get('name')
+        user.password = '123456'
+        user.collage = request.form.get('collage')
+        user.usermode = User_mode.query.filter_by(name='教师用户').first().mid
+        db.session.add(user)
+        db.session.commit()
+        return render_template("registersucc.html")
+    else:
+        return render_template('registerfail.html')
+
 
 
 
@@ -734,25 +768,36 @@ def deleteUser(username):
     return render_template('deleteUserSucc.html')
 
 #修改个人信息
-@app.route('/updateinfo/CollageAdmin')
-def updateInfoCollageAdmin():
-    user = User.query.filter_by(username=session['username']).first()
-    user.email = request.form.get('email')
-    user.tel = request.form.get('tel')
-    db.session.add(user)
-    db.session.commit()
-    return render_template('updateSucc.html')
+@app.route('/updatecollageAdminInfo.html',methods=['GET'])
+def updatecollageAdminInfo1():
+    return render_template('updatecollageAdminInfo.html')
 
-@app.route('/updateinfo/Teacher')
-def updateInfoTeacher():
+@app.route('/updatecollageAdminInfo.html', methods=['POST'])
+def updatecollageAdminInfo2():
     user = User.query.filter_by(username=session['username']).first()
-    user.email = request.form.get('email')
-    user.tel = request.form.get('tel')
     user.name = request.form.get('name')
     user.collage = request.form.get('collage')
+    user.email = request.form.get('email')
+    user.tel = request.form.get('tel')
     db.session.add(user)
     db.session.commit()
-    return render_template('updateSucc.html')
+    return render_template('changeUserInfoSucc.html')
+
+#修改教师个人信息
+@app.route('/updatePersonalTeacherInfo.html',methods=['GET'])
+def updatePersonalTeacherInfo1():
+    return render_template('/updatePersonalTeacherInfo.html')
+
+@app.route('/updatePersonalTeacherInfo.html', methods=['POST'])
+def updatePersonalTeacherInfo2():
+    user = User.query.filter_by(username=session['username']).first()
+    user.name = request.form.get('name')
+    user.collage = request.form.get('collage')
+    user.email = request.form.get('email')
+    user.tel = request.form.get('tel')
+    db.session.add(user)
+    db.session.commit()
+    return render_template('changeUserInfoSucc.html')
 
 @app.route('/updateinfo/Student')
 def updateInfoSthdent():
@@ -772,25 +817,33 @@ def deletePro(pid):
     pro = Project.query.filter_by(pid=pid).first()
     db.session.delete(pro)
     db.session.commit()
-    return render_template('deleteProSucc.html')
+    return render_template('deleteUserSucc.html')
 
 #修改密码路由
-@app.route('/change/password/<newpassword>')
-def changePassword(newpassword):
+@app.route('/updatePassword.html',methods=['GET'])
+def updatePassword():
+    return render_template('updatePassword.html')
+@app.route('/change/password',methods=['POST'])
+def changePassword():
     user = User.query.filter_by(username = session['username']).first()
-    user.password=newpassword
+    user.password=request.form.get('password')
     db.session.add(user)
     db.session.commit()
-    return render_template('changePasswordSucc.html')
+    return "密码修改成功"
 
 #重置初始密码
 @app.route('/resetPassword/<username>')
 def resetPassword(username):
     user = User.query.filter_by(username=username).first()
-    user.username='123456'
+    user.password='123456'
     db.session.add(user)
     db.session.commit()
     return render_template('resetPasswordSucc.html')
+
+@app.route('/loginout',methods=['GET'])
+def loginout():
+    session['username']=None
+    return render_template('index.html')
 
 if __name__ == '__main__':
     manager.run()

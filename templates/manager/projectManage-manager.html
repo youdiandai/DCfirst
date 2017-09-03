@@ -27,52 +27,8 @@
 <body>
 <div class="pM-m-main">
     
-        <h2>本年度项目列表</h2><br>
-        <div class="form-group">
-            <div class="col-sm-2">
-                <select class="form-control">
-                    <option>项目类型</option>
-                    <option>计算机设计大赛</option>
-                    <option>大学生创新创业大赛</option>
-                    <option>三创</option>
-                    <option>双创</option>
-                </select>
-            </div>
-            <div class="col-sm-2">
-                <select class="form-control">
-                    <option>评审级别</option>
-                    <option>校级</option>
-                    <option>省级</option>
-                    <option>国家级</option>
-                </select>
-            </div>
-            <div class="col-sm-2">
-                <select class="form-control">
-                    <option>当前状态</option>
-                    <option>未审核</option>
-                    <option>已审核</option>
-                </select>
-            </div>
-            <div class="col-sm-2">
-                <select class="form-control">
-                    <option>年份</option>
-                    <option>2015</option>
-                    <option>2016</option>
-                    <option>2017</option>
-                    <option>2018</option>
-                </select>
-            </div>
-            <div class="col-sm-3">
-                <div class="input-group">
-                   <input type="text" class="form-control" placeholder="输入想要筛选的教师名字">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            Go!
-                        </button>
-                    </span>
-                </div>
-            </div>
-        </div>
+    <h2>本年度项目列表</h2><br>
+
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
@@ -92,23 +48,14 @@
                   <td>{{decideStastu(pro.Status)}}</td>
                   <td>{{pro.Person_in_charge}}</td>
                   <td>{{pro.Teacher}}</td>
-                  <td><a href="/project/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-warning">管理</button></a></td>
+                  <td><a href="/project/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-info">查看</button></a>
+                  <a href="/delete/project/{{pro.pid}}"><button type="button" class="btn btn-danger">删除</button></a></td>
                 </tr>
             {%endfor%}
             </tbody>
 
         </table>
-        <div style="text-align:center">
-            <ul class="pagination">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>
-        </div>
+
 </div>
 
 

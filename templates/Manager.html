@@ -13,16 +13,22 @@
     </title>
 	
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="../../static/css/materialize.min.css" media="screen,projection" />
+	<link rel="stylesheet" href="../static/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
-    <link href="../../static/css/bootstrap.css" rel="stylesheet" />
+    <link href="../static/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
-    <link href="../../static/css/font-awesome.css" rel="stylesheet" />
+    <link href="../static/css/font-awesome.css" rel="stylesheet" />
     <!-- Custom Styles-->
-    <link href="../../static/css/custom-styles.css" rel="stylesheet" />
+    <link href="../static/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
+    <style type="text/css">
+        @media all and (max-width: 450px) and (min-width: 375px){
+            #main-menu{
+                    padding-top: 50px;
+                }
+        }
+    </style>
 </head>
 
 <body>
@@ -36,26 +42,20 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class="navbar-brand waves-effect waves-dark"> <strong>大创中心管理平台</strong></div>
-				
+
 		        <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
             </div>
 
-            <ul class="nav navbar-top-links navbar-right"> 
-				<!-- <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>				
+            <ul class="nav navbar-top-links navbar-right topPadding">
+				<!-- <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li> -->
-				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>        {%if type==1%}
-        管理员
-        {%elif type==2%}
-        学院管理员
-        {%elif type==3%}
-        教师用户
-        {%endif%}</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b></b> <i class="material-icons right">{{name}}</i></a></li>
             </ul>
         </nav>
         <!-- Dropdown Structure -->
         <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            <li><a href="/loginout"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
             </li>
         </ul>
         <ul id="dropdown2" class="dropdown-content w250">
@@ -177,7 +177,7 @@
         	</li>
         	<li class="divider"></li>
         	<li>
-        </ul>   
+        </ul>
         <ul id="dropdown4" class="dropdown-content dropdown-tasks w250">
             <li>
                 <a href="#">
@@ -224,7 +224,7 @@
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
-        </ul>  
+        </ul>
 	    <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
@@ -233,30 +233,41 @@
                         <a href="" class="waves-effect waves-dark"><i class="fa fa-home"></i>首页</a>
                     </li>
                     <li>
-                        <a href="projectManage-manager.html" target="iFrame" class="waves-effect waves-dark"><i class="fa fa-edit menu-font"></i>项目管理</a>
+                        <a href="/projectManage-manager.html" target="iFrame" class="waves-effect waves-dark"><i class="fa fa-edit menu-font"></i>项目管理</a>
                     </li>
-        {%if type==1%}
+                    {%if type==1%}
                     <li>
-                        <a href="createCollageAdminUser.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>创建学院管理员</a>
+                        <a href="/CollageAdminUser.html" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>管理学院管理员</a>
                     </li>
-        {%elif type==2%}
+                    {%elif type==2%}
                     <li>
-                        <a href="createTeacherUser.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>创建教师用户</a>
+                        <a href="/teacherUser.html" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>管理教师用户</a>
                     </li>
-        {%endif%}
-
+                    {%endif%}
+                    {%if type==2%}
+                     <li>
+                    <a href="/updatecollageAdminInfo.html" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-edit"></i>修改个人信息</a>
+                     </li>
+                    {%elif type==3%}
+                    <li>
+                    <a href="/updatePersonalTeacherInfo.html" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-edit"></i>修改个人信息</a>
+                    </li>
+                    {%endif%}
+                    <li>
+                        <a href="/updatePassword.html" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-edit"></i>修改密码</a>
+                    </li>
                 </ul>
             </div>
         </nav>
         <!-- /. NAV SIDE  -->
         <!-- 首页内容 -->
         <div id="page-wrapper">
-	       <iframe name="iFrame" class="iFrame" width=100% src="home-manager.html" scrolling= "auto" frameborder= "0"></iframe>
+	       <iframe name="iFrame" class="iFrame" width=100% src="home-manager.html" scrolling="auto" frameborder="0"></iframe>
         </div>
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="../../static/js/jquery-1.10.2.js"></script>
+    <script src="../static/js/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
         $("#wrapper").height($(window).height()-59+"px");
         $(".iFrame").height($("#wrapper").height());
@@ -264,15 +275,15 @@
 
 
 	<!-- Bootstrap Js -->
-    <script src="../../static/js/bootstrap.min.js"></script>
-	
-	<script src="../../static/js/materialize.min.js"></script>
-	
+    <script src="../static/js/bootstrap.min.js"></script>
+
+	<script src="../static/js/materialize.min.js"></script>
+
     <!-- Metis Menu Js -->
-    <script src="../../static/js/jquery.metisMenu.js"></script>
-	
+    <script src="../static/js/jquery.metisMenu.js"></script>
+
     <!-- Custom Js -->
-     <script src="../../static/js/custom-scripts.js"></script>
+     <script src="../static/js/custom-scripts.js"></script>
 
 </body>
 
