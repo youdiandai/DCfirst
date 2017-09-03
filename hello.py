@@ -683,8 +683,9 @@ def addTeacherUser2():
 
 
 #完成用户加入项目功能
-@app.route('/join_project',methods=['GET','POST'])
-def join_project():
+@app.route('/join_project.html',methods=['GET'])
+def join_project1():
+    """
     form = Join_project()
     if form.validate_on_submit():
         pud = User_Project.query.filter_by(pid=Project.query.filter_by(Pname=form.projectname.data).first().pid,userid=User.query.filter_by(username=session["username"]).first().userid).first()
@@ -697,7 +698,23 @@ def join_project():
             return '加入成功'
         else:
             return '加入失败'
-    return render_template('join_project.html',form=form)
+            """
+    return render_template('join_project.html')
+@app.route('/join_project.html',methods=['POST'])
+def join_project2():
+    pud = User_Project.query.filter_by(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,
+                                       userid=User.query.filter_by(username=session["username"]).first().userid).first()
+    if pud is None:
+        pu = User_Project()
+        pu.userid = User.query.filter_by(username=session["username"]).first().userid
+        pu.pid = Project.query.filter_by(Pname=request.form.get('Pname')).first().pid
+        db.session.add(pu)
+        db.session.commit()
+        return '加入成功'
+    else:
+        return '加入失败'
+
+
 
 @app.route('/project/<pid>')
 def project(pid):
@@ -799,8 +816,11 @@ def updatePersonalTeacherInfo2():
     db.session.commit()
     return render_template('changeUserInfoSucc.html')
 
-@app.route('/updateinfo/Student')
-def updateInfoSthdent():
+@app.route('/updateStudentInfo.html',methods=['GET'])
+def updateStudentInfo1():
+    return render_template('updateStudentInfo.html')
+@app.route('/updateStudentInfo.html',methods=['POST'])
+def updateStudentInfo2():
     user = User.query.filter_by(username=session['username']).first()
     user.email = request.form.get('email')
     user.tel = request.form.get('tel')
@@ -809,13 +829,25 @@ def updateInfoSthdent():
     user.major = request.form.get('major')
     db.session.add(user)
     db.session.commit()
-    return render_template('updateSucc.html')
+    return render_template('changeUserInfoSucc.html')
+
+"""    user = User.query.filter_by(username=session['username']).first()
+    user.email = request.form.get('email')
+    user.tel = request.form.get('tel')
+    user.name = request.form.get('name')
+    user.collage = request.form.get('collage')
+    user.major = request.form.get('major')
+    db.session.add(user)
+    db.session.commit()
+    return render_template('updateSucc.html')"""
+
 
 #删除项目路由
 @app.route('/delete/project/<pid>')
 def deletePro(pid):
     pro = Project.query.filter_by(pid=pid).first()
-    db.session.delete(pro)
+    pu = User_Project.query.filter_by(pid=pid).all()
+    db.session.delete(pro,pu)
     db.session.commit()
     return render_template('deleteUserSucc.html')
 
@@ -840,7 +872,7 @@ def resetPassword(username):
     db.session.commit()
     return render_template('resetPasswordSucc.html')
 
-@app.route('/loginout',methods=['GET'])
+@app.route('/loginout.html',methods=['GET'])
 def loginout():
     session['username']=None
     return render_template('index.html')

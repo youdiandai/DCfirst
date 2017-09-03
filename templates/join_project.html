@@ -1,7 +1,45 @@
-<div style="width:300px">
-<form method="post">
-    {{form.hidden_tag()}}
-    <p>{{form.projectname.label}}{{form.projectname(class="form-control")}}</p>
-    <p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
-</form>
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>加入项目</title>
+
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
+    <link id="bootstrap-style" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link id="base-style" href="../static/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="form-group">
+            <form  action="/join_project.html" method="POST" action="/join_project.html">
+			<div class="col-sm-4 control-label text-right">项目名称</div>
+			<div class="col-sm-4">
+				<input class="form-control" placeholder="请输入项目名" name="Pname">
+			</div>
+			<td><button type="submit" class="btn btn-primary">加入</button></td>
+            </form>
+		</div>
+	</div>
 </div>
+
+
+
+
+    <!-- jQuery Js
+    <script src="../static/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+        $("#wrapper").height($(window).height()-59+"px");
+        $(".iFrame").height($("#wrapper").height());
+    </script>
+
+	<!-- Bootstrap Js -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+
+
+</body>
+
+</html>

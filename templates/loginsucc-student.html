@@ -27,61 +27,8 @@
 			cursor: pointer;
 			color: #0A62AD;
 		}
-		body{
-		font-family: "微软雅黑";
-		}
-		.form_warn h2{
-			letter-spacing: 2px;
-		}
-		.form_warn h3{color: #E80F0F;}
-		.form_warn{
-			margin: 40px 50px 0;
-			padding: 20px 30px;
-			border: 2px solid #fff;
-		    box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
-		    -moz-box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
-		    -webkit-box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
-		}
-		.form_warn p{
-			text-indent: 2em;
-		}
-		.agree_button {
-			display: inline-block;
-			cursor:pointer;
-			outline: none;
-			text-align: center;
-			text-decoration: none;
-			font: 16px/100% 'Microsoft yahei',Arial, Helvetica, sans-serif;
-			padding: .5em 2em .55em;
-			-webkit-border-radius: .5em;
-			-moz-border-radius: .5em;
-			border-radius: .5em;
-			color: #606060;
-			border: solid 1px #b7b7b7;
-			background: #ededed;
-		}
-		.agree_button:active {
-			position: relative;
-			top: 1px;
-			color: #999;
-		}
-		@media all and (max-width: 1500px) and (min-width: 1024px){
-
-		}
-
-		@media all and (max-width: 1024px) and (min-width: 800px){
-
-		}
-		@media all and (max-width: 800px) and (min-width: 640px){
-			.form_warn{
-				padding: 0;
-			}
-
-		}
-		@media only screen and (max-width: 640px) {
-			.form_warn{
-				margin: 0;
-			}
+		.iframe-student{
+			height: 750px;
 		}
 		</style>
 		<!-- 分页 -->
@@ -94,120 +41,57 @@
 <body>
 <div class="wrapper">
 	<header data-spy="scroll" data-target="#top-nav">
-		    <div class="container">
-		        <div class="row">
-		            <div class="col-md-12 col-sm-12 col-xs-12">
-		                <div class="navbar navbar-default navbar-fixed-top default-menu menu-4 ls-header" role="navigation">
-		                    <div class="container">
-		                        <div class="row">
-		                            <div class="navbar-header">
-		                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-4" aria-expanded="false">
-		                                    <span class="sr-only">Toggle navigation</span>
-		                                    <span class="icon-bar"></span>
-		                                    <span class="icon-bar"></span>
-		                                    <span class="icon-bar"></span>
-		                                </button>
-		                                <div class="default-logo scroll">
-		                                <img src="../static/images/logo_school.png" alt="logo"/>
-		                                <!-- <span class="logo-sty">创业中心</span> -->
-		                                </div>
-		                            </div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="navbar navbar-default navbar-fixed-top default-menu menu-4 ls-header" role="navigation">
+	                    <div class="container">
+	                        <div class="row">
+	                            <div class="navbar-header">
+	                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-4" aria-expanded="false">
+	                                    <span class="sr-only">Toggle navigation</span>
+	                                    <span class="icon-bar"></span>
+	                                    <span class="icon-bar"></span>
+	                                    <span class="icon-bar"></span>
+	                                </button>
+	                                <div class="default-logo scroll">
+	                                <img src="../static/images/logo_school.png" alt="logo"/>
+	                                <!-- <span class="logo-sty">创业中心</span> -->
+	                                </div>
+	                            </div>
 
-		                            <div class="collapse navbar-collapse top-nav" id="menu-4">
-		                                <ul class="nav navbar-nav navbar-right">
-		                                    <li><a href="/"><button type="button" class="btn btn-default navbar-btn" style="color:#fff;">
-		                                    首&nbsp&nbsp页</button></a></li>
-		                                    <li><a href="../login.html"><button type="button" class="btn btn-default navbar-btn">
-		                                    退出登录</button></a></li>
-		                                </ul>
-                            		</div>
+	                            <div class="collapse navbar-collapse top-nav" id="menu-4">
+	                                <ul class="nav navbar-nav navbar-right">
+	                                    <li><a href="/"><button type="button" class="btn btn-default navbar-btn" style="color:#fff;">
+	                                    首&nbsp&nbsp页</button></a></li>
+	                                    <li><a href="/loginout.html"><button type="button" class="btn btn-default navbar-btn">
+	                                    退出登录</button></a></li>
+	                                </ul>
+                        		</div>
 
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</header>
 	<div class="loginsucc-main"  style="margin-top:100px;">
 		<div class="container">
 			<div class="row personInformation">
 				<h2>你好，{{name}}<span class="update-personalInfo">修改个人信息</span><br><span class="updatePassword">修改密码</span></h2>
 				<div class="form-group">
-					    <div>
-					        <button type="submit" class="btn btn-primary col-sm-2 col-sm-offset-2 col-xs-offset-1 myProject">我的项目</button>
-					        <button type="submit" class="btn btn-primary col-sm-offset-1 col-xs-offset-1 col-sm-2 joinProject">加入项目</button>
-					        <button type="submit" class="btn btn-primary col-sm-offset-1 col-sm-2 col-xs-offset-1 createProject">项目立项</button>
-					    </div>
+				    <div>
+				        <a href="/myproject" target="iframe-student" class="btn btn-primary col-sm-2 col-sm-offset-2 col-xs-offset-1 myProject">我的项目</a>
+				        <a href="/join_project.html" target="iframe-student" class="btn btn-primary col-sm-offset-1 col-xs-offset-1 col-sm-2 joinProject">加入项目</a>
+				        <a  href="/project_application.html" target="iframe-student" class="btn btn-primary col-sm-offset-1 col-sm-2 col-xs-offset-1 createProject">项目立项</a>
+				    </div>
 	  			</div>
-			</div>
-			<!-- 我的项目 -->
-			<div class="row detail-info tab_content myProject-content">
-				<div class="container" style="margin-top:25px;">
-					<div class="pM-m-main">
-				        <table class="table table-striped table-bordered bootstrap-datatable datatable">
-				            <thead>
-				                <tr>
-				                    <th>项目编号</th>
-				                    <th>项目名称</th>
-				                    <th>当前状态</th>
-				                    <th>项目负责人</th>
-				                    <th>指导教师</th>
-				                    <th>操作</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-							{%for pro in pros%}
-				                <tr>
-				                  <td>{{pro.pid}}</td>
-				                  <td>{{pro.Pname}}</td>
-				                  <td>{{decideStastu(pro.Status)}}</td>
-				                  <td>{{pro.Person_in_charge}}</td>
-				                  <td>{{pro.Teacher}}</td>
-				                  <td><a href="/project/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">进入</button></a></td>
-				                </tr>
-							{%endfor%}
-							</tbody>
-				        </table>
+			</div><br>
 
-					</div>
-				</div>
-			</div>
-			<!-- 加入项目 -->
-			<div class="row detail-info tab_content join-content">
-				<div class="container">
-					<div class="form-group">
-						<div class="col-sm-4 control-label text-right">项目名称</div>
-						<div class="col-sm-4">
-							<input class="form-control" placeholder="请输入项目名" name="Pname">
-						</div>
-						<td><a href="#"><button type="button" class="btn btn-primary">加入</button></a></td>
-					</div>
-				</div>
-			</div>
-			<!-- 项目立项 -->
-			<div class="row detail-info tab_content">
-				<div class="container">
-					<div class="form_warn">
-						<h2 class="text-center">沈阳师范大学“大学生创新创业训练计划”<br>
-						项目申报书</h2>
-						<h3 class="text-center">填表须知</h3>
-						<p>一、项目分类说明：
-						<p>1.创新训练项目是本科生个人或团队，在校内导师指导下，自主完成创新性实验方法的设计、设备和材料的准备、实验的实施、数据处理与分析、总结报告撰写等工作。</p>
-						<p>2.创业训练项目是本科生团队，在校内导师指导下，团队中每个学生在项目实施过程中承担一个或多个具体的角色，通过编制商业计划书、开展可行性研究、模拟企业运行、进行一定程度的验证试验，撰写创业报告等工作。</p>
-						<p>3.创业实践项目是学生团队，在学校导师和企业导师共同指导下，采用前期创新训练项目（或创新性实验）的成果，提出一项具有市场前景的创新性产品或者服务，以此为基础开展创业实践活动。申报该类项目需额外提交企业导师合作指导协议书作为附件。</p>
-						<p>二、申报书请按顺序逐项填写，填写内容必须实事求是，表达明确严谨。空缺项要填“无”。将项目所属类型前的□变成■进行标注。</p>
-						<p>三、申请参加大学生创新创业训练计划项目团队的人数含负责人在内不得超过5人。</p>
-						<p>四、填写时可以改变字体大小等，但要确保表格的样式没有被改变；填写完后用A4纸张双面打印，不得随意涂改。</p>
-						<p>五、申报过程有不明事宜，请与教务处实践教学管理科联系和咨询。</p>
-
-						<br><br><br>
-						<form name="agree" class="text-center" action="project_application_content.html">
-							<input type="submit" class="agree_button" value="请认真查看<填表须知> (10)" id="agree_btn" name="agreeb">
-						</form>
-					</div>
-				</div>
-			</div>
+			<div class="row">
+		       <iframe name="iframe-student" class="iframe-student" width=100% src="/myproject" scrolling="auto" frameborder="0"></iframe>
+	        </div>
 		</div>
 	</div>
 	<footer class="navbar-fixed-bottom">
@@ -249,32 +133,8 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function() {
-$(".tab_content").hide();
-$(".tab_content:first").show();
-	$("button.btn").click(function() {
-	$(".tab_content").hide();
-	$(".tab_content").eq($(this).index()).show();
-	});
-});
 
-// 立项申请书填表须知
-var secs = 10;
-document.agree.agreeb.disabled=true;
-for(var i=1;i<=secs;i++) {
-	window.setTimeout("update(" + i + ")", i * 1000);
-}
-function update(num) {
-	if(num == secs) {
-		document.agree.agreeb.value =" 我 同 意 ";
-		document.agree.agreeb.disabled=false;
-		// window.location.href="project_application_content.html";
-	}
-	else {
-		var printnr = secs-num;
-		document.agree.agreeb.value = "请认真查看<填表须知> (" + printnr +")";
-	}
-};
+
 
 
 </script>
