@@ -232,6 +232,7 @@ class Create_project(Form):
     describe = TextAreaField("项目简介")
     file = FileField("文档")
     submit = SubmitField('创建')
+"""
 #立项申请
 class ProjectApproval(Form):
     projectname = StringField("项目名")
@@ -249,7 +250,7 @@ class ProjectApproval(Form):
     BudgetPlan = TextAreaField("经费使用计划")
     ExpectedResults = TextAreaField("项目预期成果物")
     submit = SubmitField('提交')
-
+"""
 #中期申报表单
 class ProjectMid(Form):
     MidProgress = TextAreaField("研究工作进展情况")
@@ -271,6 +272,9 @@ class Join_project(Form):
     submit = SubmitField('加入')
 
 #小工具
+#判断是否提交了项目成员数据，提交了就添加一个新用户
+def addProUser():
+    pass
 #根据用户名生成一个由项目构成的列表（项目是数据库一行记录的映射）
 def findMyproject(username):
     Userid = User.query.filter_by(username = username).first().userid
@@ -316,7 +320,7 @@ def login():
             session["username"] = username.username
             #判断用户类型
             if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
-                return render_template('loginsucc-student.html',name=username.name)
+                return render_template('loginsucc-student.html',name=username.name,pros=findMyproject(username=session['username']),stalist=createStatuslist())
             elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
                 return render_template('Manager.html', name=username.name,type=1)
             elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
@@ -410,46 +414,144 @@ def create_project():
 def project_application():
     return render_template('project_application.html')
 
-@app.route('/project_application_content.html',methods=['GET','POST'])
-def project_application_content():
-    form = ProjectApproval()
-    if form.validate_on_submit():
-        pname = Project.query.filter_by(Pname=form.projectname.data).first()
+@app.route('/project_application_content.html',methods=['GET'])
+def project_application_content1():
+    return render_template('project_application_content.html')
+
+@app.route('/project_application_content.html', methods=['POST'])
+def project_application_content2():
+        pname = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         if pname is None:
             pro = Project()
             pu = User_Project()
-            pro.Pname = form.projectname.data
-            pro.PlanDate = form.PlanDate.data
+            pro.Pname = request.form.get('Pname')
+            pro.PlanDate = request.form.get('PlanDate')
             pro.Status = Project_mode.query.filter_by(status='等待指导教师审核').first().sid
-            pro.Collage = form.collage.data
-            pro.Teacher = form.Teacher.data
-            pro.Describe = form.Describe.data
-            pro.Pclass = form.projectclass.data
-            pro.ReassonsForApplication = form.ReassonsForApplication.data
-            pro.ProjectPlan = form.ProjectPlan.data
-            pro.Innovate = form.Innovate.data
-            pro.Schedule = form.Schedule.data
-            pro.Budget = form.Budget.data
-            pro.BudgetPlan = form.BudgetPlan.data
-            pro.ExpectedResults = form.ExpectedResults.data
+            pro.Collage = request.form.get('Collage')
+            pro.Teacher = request.form.get('Teacher')
+            pro.Describe = request.form.get('Describe')
+            pro.Pclass = request.form.get('Pclass')
+            pro.ReassonsForApplication = request.form.get('ReassonsForApplication')
+            pro.ProjectPlan = request.form.get('ProjectPlan')
+            pro.Innovate = request.form.get('Innovate')
+            pro.Schedule = request.form.get('Schedule')
+            pro.Budget = request.form.get('Budget')
+            pro.BudgetPlan = request.form.get('BudgetPlan')
+            pro.ExpectedResults = request.form.get('ExpectedResults')
             pro.Person_in_charge = session["username"]
             db.session.add(pro)
             db.session.commit()
-            pu.pid=Project.query.filter_by(Pname=form.projectname.data).first().pid
-            pu.userid=User.query.filter_by(username=Project.query.filter_by(Pname=form.projectname.data).first().Person_in_charge).first().userid
+            pu.pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid
+            pu.userid=User.query.filter_by(username=Project.query.filter_by(Pname=request.form.get('Pname')).first().Person_in_charge).first().userid
             db.session.add(pu)
             db.session.commit()
-            for x in form.member.data.split(","):
-                db.session.add(User_Project(pid=Project.query.filter_by(Pname=form.projectname.data).first().pid,userid=User.query.filter_by(username=x).first().userid))
+            if request.form.get('username1'):
+                isuser = User.query.filter_by(username=request.form.get('username1')).first()
+                if isuser is None:
+                    user1 = User()
+                    user1.username = request.form.get('username1')
+                    user1.password = '123456'
+                    user1.name = request.form.get('name1')
+                    user1.collage = request.form.get('collage1')
+                    user1.major = request.form.get('major1')
+                    user1.tel = request.form.get('tel1')
+                    user1.email = request.form.get('email1')
+                    user1.usermode = User_mode.query.filter_by(name='学生').first().mid
+                    db.session.add(user1)
+                    db.session.commit()
+                db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username1')).first().userid))
                 db.session.commit()
+
+
+
+                if request.form.get('username2'):
+                    isuser = User.query.filter_by(username=request.form.get('username2')).first()
+                    if isuser is None:
+                        user2 = User()
+                        user2.username = request.form.get('username2')
+                        user2.password = '123456'
+                        user2.name = request.form.get('name2')
+                        user2.collage = request.form.get('collage2')
+                        user2.major = request.form.get('major2')
+                        user2.tel = request.form.get('tel2')
+                        user2.email = request.form.get('email2')
+                        user2.usermode = User_mode.query.filter_by(name='学生').first().mid
+                        db.session.add(user2)
+                        db.session.commit()
+                    db.session.add(
+                        User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username2')).first().userid))
+                    db.session.commit()
+
+
+            if request.form.get('username3'):
+                isuser = User.query.filter_by(username=request.form.get('username3')).first()
+                if isuser is None:
+                    user3 = User()
+                    user3.username = request.form.get('username3')
+                    user3.password = '123456'
+                    user3.name = request.form.get('name3')
+                    user3.collage = request.form.get('collage3')
+                    user3.major = request.form.get('major3')
+                    user3.tel = request.form.get('tel3')
+                    user3.email = request.form.get('email3')
+                    user3.usermode = User_mode.query.filter_by(name='学生').first().mid
+                    db.session.add(user3)
+                    db.session.commit()
+                db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username3')).first().userid))
+                db.session.commit()
+
+
+            if request.form.get('username4'):
+                isuser = User.query.filter_by(username=request.form.get('username4')).first()
+                if isuser is None:
+                    user4 = User()
+                    user4.username = request.form.get('username4')
+                    user4.password = '123456'
+                    user4.name = request.form.get('name4')
+                    user4.collage = request.form.get('collage4')
+                    user4.major = request.form.get('major4')
+                    user4.tel = request.form.get('tel4')
+                    user4.email = request.form.get('email4')
+                    user4.usermode = User_mode.query.filter_by(name='学生').first().mid
+                    db.session.add(user4)
+                    db.session.commit()
+                db.session.add(
+                    User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username4')).first().userid))
+                db.session.commit()
+
+
+
+
+            if request.form.get('username5'):
+                isuser = User.query.filter_by(username=request.form.get('username5')).first()
+                if isuser is None:
+                    user5 = User()
+                    user5.username = request.form.get('username5')
+                    user5.password = '123456'
+                    user5.name = request.form.get('name5')
+                    user5.collage = request.form.get('collage5')
+                    user5.major = request.form.get('major5')
+                    user5.tel = request.form.get('tel5')
+                    user5.email = request.form.get('email5')
+                    user5.usermode = User_mode.query.filter_by(name='学生').first().mid
+                    db.session.add(user5)
+                    db.session.commit()
+                db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username5')).first().userid))
+                db.session.commit()
+
+
+
+
+
             return '创建成功'
         else:
             return "项目已存在"
-    return render_template('project_application_content.html',form=form)
 #中期申报
+
 @app.route('/interim_report.html',methods=['GET'])
 def interim_report():
     return render_template('interim_report.html')
+
 @app.route('/interim_report_content.html',methods=['GET','POST'])
 def interim_report_content():
     form = ProjectMid()

@@ -4,9 +4,9 @@
 	<meta charset="utf-8">
 	<title>立项申请书</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" />
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -14,29 +14,1028 @@
 <div class="container">
 	<h1 class="text-center">“大学生创新创业训练计划”<br>
 			项目申报书</h1>
-	<div style="width:300px">
-        <form method="post" enctype="multipart/form-data">
-            {{form.hidden_tag()}}
-            <p>{{form.projectname.label}}{{form.projectname(class="form-control")}}</p
-			<p>{{form.PlanDate.label}}{{form.PlanDate()}}</p>
-			<p>{{form.collage.label}}{{form.collage()}}</p>
-			<p>{{form.member.label}}{{form.member(placeholder="学号，中间用逗号分隔")}}</p>
-			<p>{{form.Teacher.label}}{{form.Teacher()}}</p>
-			<p>{{form.projectclass.label}}{{form.projectclass()}}</p>
-			<p>{{form.Describe.label}}{{form.Describe()}}</p>
-			<p>{{form.ReassonsForApplication.label}}{{form.ReassonsForApplication()}}</p>
-			<p>{{form.ProjectPlan.label}}{{form.ProjectPlan(placeholder="计划、技术路线、人员分工等")}}</p>
-			<p>{{form.Innovate.label}}{{form.Innovate()}}</p>
-			<p>{{form.Schedule.label}}{{form.Schedule()}}</p>
-			<p>{{form.Budget.label}}{{form.Budget()}}</p>
-			<p>{{form.BudgetPlan.label}}{{form.BudgetPlan()}}</p>
-			<p>{{form.ExpectedResults.label}}{{form.ExpectedResults()}}</p>
-            <p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
+
+        <form method="post" action="/project_application_content.html" class="form-horizontal" enctype="multipart/form-data">
+            <div class="form-group">
+				<div class="col-sm-4 control-label">项目名称</div>
+				<div class="col-sm-5">
+					<input class="form-control" placeholder="请输入项目名称" name="Pname">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">学院</div>
+				<div class="col-sm-5">
+	                <select class="form-control" name="Collage">
+	                    <option>学院</option>
+	                    <option>外国语学院</option>
+						<option>文学院</option>
+						<option>马克思主义学院</option>
+						<option>数学与系统科学学院</option>
+						<option>生命科学学院</option>
+						<option>物理科学与技术学院</option>
+						<option>教育科学学院</option>
+						<option>社会学学院</option>
+						<option>化学化工学院</option>
+						<option>法学院</option>
+						<option>教育技术学院</option>
+						<option>科信软件学院</option>
+						<option>管理学院</option>
+						<option>旅游管理学院</option>
+						<option>美术与设计学院</option>
+						<option>学前与初等教育学院</option>
+						<option>国际商学院</option>
+						<option>体育科学学院</option>
+						<option>戏剧艺术学院</option>
+						<option>粮食学院</option>
+						<option>音乐学院</option>
+						<option>古生物学院</option>
+						<option>组织部</option>
+						<option>党校</option>
+						<option>宣传统战部</option>
+						<option>审计监察处</option>
+						<option>工会</option>
+						<option>团委</option>
+						<option>教务处</option>
+						<option>学生处</option>
+						<option>招生就业指导处</option>
+						<option>研究生处</option>
+						<option>教育硕士研究生院</option>
+						<option>教师教育处</option>
+						<option>教师专业发展学院</option>
+						<option>学科与科研工作处</option>
+						<option>国际教育学院</option>
+						<option>继续教育学院</option>
+						<option>校务办公室</option>
+						<option>合作发展处</option>
+						<option>后勤工作处</option>
+						<option>校园安全与管理处</option>
+						<option>人事处</option>
+						<option>离退休工作处</option>
+						<option>财务与资产管理处</option>
+						<option>人力资源开发与管理研究所</option>
+						<option>书法教育研究所</option>
+						<option>教育经济与管理研究所</option>
+						<option>附属艺术学校
+						<option>延松剧场艺术研</option>究所</option>
+						<option>梅兰芳艺术研究所</option>
+						<option>法律文化研究中心</option>
+						<option>法律与公共政策研究中心</option>
+						<option>中国北方少数民族文化研究中心</option>
+						<option>中国文化与文学研究所</option>
+						<option>两栖爬行动物研究所</option>
+						<option>大学外语教学部</option>
+						<option>计算机与数学基础教学部</option>
+						<option>实验教学中心</option>
+						<option>辽宁省基础教育教研培训中心</option>
+						<option>图书馆</option>
+						<option>学报编辑部</option>
+						<option>后勤集团</option>
+						<option>校医院</option>
+	                </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary col-sm-4 col-sm-offset-4 m1">添加团队成员</button>
+			</div>
+			<div class="form-group m11">
+            	<div class="col-sm-2">
+					<input class="form-control" placeholder="学号" name="username1">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="姓名" name="name1">
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="collage1">
+	                    <option>学院</option>
+	                    <option>外国语学院</option>
+						<option>文学院</option>
+						<option>马克思主义学院</option>
+						<option>数学与系统科学学院</option>
+						<option>生命科学学院</option>
+						<option>物理科学与技术学院</option>
+						<option>教育科学学院</option>
+						<option>社会学学院</option>
+						<option>化学化工学院</option>
+						<option>法学院</option>
+						<option>教育技术学院</option>
+						<option>科信软件学院</option>
+						<option>管理学院</option>
+						<option>旅游管理学院</option>
+						<option>美术与设计学院</option>
+						<option>学前与初等教育学院</option>
+						<option>国际商学院</option>
+						<option>体育科学学院</option>
+						<option>戏剧艺术学院</option>
+						<option>粮食学院</option>
+						<option>音乐学院</option>
+						<option>古生物学院</option>
+						<option>组织部</option>
+						<option>党校</option>
+						<option>宣传统战部</option>
+						<option>审计监察处</option>
+						<option>工会</option>
+						<option>团委</option>
+						<option>教务处</option>
+						<option>学生处</option>
+						<option>招生就业指导处</option>
+						<option>研究生处</option>
+						<option>教育硕士研究生院</option>
+						<option>教师教育处</option>
+						<option>教师专业发展学院</option>
+						<option>学科与科研工作处</option>
+						<option>国际教育学院</option>
+						<option>继续教育学院</option>
+						<option>校务办公室</option>
+						<option>合作发展处</option>
+						<option>后勤工作处</option>
+						<option>校园安全与管理处</option>
+						<option>人事处</option>
+						<option>离退休工作处</option>
+						<option>财务与资产管理处</option>
+						<option>人力资源开发与管理研究所</option>
+						<option>书法教育研究所</option>
+						<option>教育经济与管理研究所</option>
+						<option>附属艺术学校
+						<option>延松剧场艺术研</option>究所</option>
+						<option>梅兰芳艺术研究所</option>
+						<option>法律文化研究中心</option>
+						<option>法律与公共政策研究中心</option>
+						<option>中国北方少数民族文化研究中心</option>
+						<option>中国文化与文学研究所</option>
+						<option>两栖爬行动物研究所</option>
+						<option>大学外语教学部</option>
+						<option>计算机与数学基础教学部</option>
+						<option>实验教学中心</option>
+						<option>辽宁省基础教育教研培训中心</option>
+						<option>图书馆</option>
+						<option>学报编辑部</option>
+						<option>后勤集团</option>
+						<option>校医院</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="major1">
+	                    <option>专业</option>
+						<option>俄语</option>
+						<option>汉语言文学</option>
+						<option>思想政治教育</option>
+						<option>英语</option>
+						<option>数学与应用数学</option>
+						<option>生物科学</option>
+						<option>物理学</option>
+						<option>教育学</option>
+						<option>社会学</option>
+						<option>化学</option>
+						<option>法学</option>
+						<option>教育技术学</option>
+						<option>应用化学</option>
+						<option>生物技术</option>
+						<option>电子信息工程</option>
+						<option>计算机科学与技术</option>
+						<option>行政管理</option>
+						<option>旅游管理</option>
+						<option>日语</option>
+						<option>美术学</option>
+						<option>学前教育</option>
+						<option>秘书学</option>
+						<option>音乐学</option>
+						<option>经济学</option>
+						<option>汉语言</option>
+						<option>应用心理学</option>
+						<option>新闻学</option>
+						<option>信息与计算科学</option>
+						<option>环境科学</option>
+						<option>信息管理与信息系统</option>
+						<option>劳动与社会保障</option>
+						<option>小学教育</option>
+						<option>体育教育</option>
+						<option>舞蹈学</option>
+						<option>应用统计学</option>
+						<option>食品科学与工程</option>
+						<option>市场营销</option>
+						<option>音乐表演</option>
+						<option>国际经济与贸易</option>
+						<option>社会体育指导与管理</option>
+						<option>表演</option>
+						<option>人力资源管理</option>
+						<option>会展经济与管理</option>
+						<option>运动训练</option>
+						<option>法语</option>
+						<option>软件工程</option>
+						<option>服装设计与工程</option>
+						<option>播音与主持艺术</option>
+						<option>绘画</option>
+						<option>汉语国际教育</option>
+						<option>应用物理学</option>
+						<option>金融学</option>
+						<option>社会工作</option>
+						<option>物流管理</option>
+						<option>翻译</option>
+						<option>网络工程</option>
+						<option>粮食工程</option>
+						<option>武术与民族传统体育</option>
+						<option>食品质量与安全</option>
+						<option>酒店管理</option>
+						<option>古生物学</option>
+						<option>雕塑</option>
+						<option>舞蹈表演</option>
+						<option>视觉传达设计</option>
+						<option>环境设计</option>
+						<option>产品设计</option>
+						<option>公共艺术</option>
+						<option>数字媒体艺术</option>
+						<option>中国画</option>
+						<option>动画</option>
+						<option>戏剧影视美术设计</option>
+						<option>广播电视编导</option>
+						<option>网络与新媒体</option>
+						<option>工艺美术</option>
+						<option>环境生态工程</option>
+						<option>德语</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="手机号" name="tel1">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="邮箱" name="email1">
+				</div>
+				<button class="btn btn-primary col-sm-2 m2">再添加一个成员</button>
+			</div>
+			<div class="form-group m22">
+                <div class="col-sm-2">
+					<input class="form-control" placeholder="学号" name="username2">
+				</div>
+
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="姓名" name="name2">
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="collage2">
+	                    <option>学院</option>
+	                    <option>外国语学院</option>
+						<option>文学院</option>
+						<option>马克思主义学院</option>
+						<option>数学与系统科学学院</option>
+						<option>生命科学学院</option>
+						<option>物理科学与技术学院</option>
+						<option>教育科学学院</option>
+						<option>社会学学院</option>
+						<option>化学化工学院</option>
+						<option>法学院</option>
+						<option>教育技术学院</option>
+						<option>科信软件学院</option>
+						<option>管理学院</option>
+						<option>旅游管理学院</option>
+						<option>美术与设计学院</option>
+						<option>学前与初等教育学院</option>
+						<option>国际商学院</option>
+						<option>体育科学学院</option>
+						<option>戏剧艺术学院</option>
+						<option>粮食学院</option>
+						<option>音乐学院</option>
+						<option>古生物学院</option>
+						<option>组织部</option>
+						<option>党校</option>
+						<option>宣传统战部</option>
+						<option>审计监察处</option>
+						<option>工会</option>
+						<option>团委</option>
+						<option>教务处</option>
+						<option>学生处</option>
+						<option>招生就业指导处</option>
+						<option>研究生处</option>
+						<option>教育硕士研究生院</option>
+						<option>教师教育处</option>
+						<option>教师专业发展学院</option>
+						<option>学科与科研工作处</option>
+						<option>国际教育学院</option>
+						<option>继续教育学院</option>
+						<option>校务办公室</option>
+						<option>合作发展处</option>
+						<option>后勤工作处</option>
+						<option>校园安全与管理处</option>
+						<option>人事处</option>
+						<option>离退休工作处</option>
+						<option>财务与资产管理处</option>
+						<option>人力资源开发与管理研究所</option>
+						<option>书法教育研究所</option>
+						<option>教育经济与管理研究所</option>
+						<option>附属艺术学校
+						<option>延松剧场艺术研</option>究所</option>
+						<option>梅兰芳艺术研究所</option>
+						<option>法律文化研究中心</option>
+						<option>法律与公共政策研究中心</option>
+						<option>中国北方少数民族文化研究中心</option>
+						<option>中国文化与文学研究所</option>
+						<option>两栖爬行动物研究所</option>
+						<option>大学外语教学部</option>
+						<option>计算机与数学基础教学部</option>
+						<option>实验教学中心</option>
+						<option>辽宁省基础教育教研培训中心</option>
+						<option>图书馆</option>
+						<option>学报编辑部</option>
+						<option>后勤集团</option>
+						<option>校医院</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="major2">
+	                    <option>专业</option>
+						<option>俄语</option>
+						<option>汉语言文学</option>
+						<option>思想政治教育</option>
+						<option>英语</option>
+						<option>数学与应用数学</option>
+						<option>生物科学</option>
+						<option>物理学</option>
+						<option>教育学</option>
+						<option>社会学</option>
+						<option>化学</option>
+						<option>法学</option>
+						<option>教育技术学</option>
+						<option>应用化学</option>
+						<option>生物技术</option>
+						<option>电子信息工程</option>
+						<option>计算机科学与技术</option>
+						<option>行政管理</option>
+						<option>旅游管理</option>
+						<option>日语</option>
+						<option>美术学</option>
+						<option>学前教育</option>
+						<option>秘书学</option>
+						<option>音乐学</option>
+						<option>经济学</option>
+						<option>汉语言</option>
+						<option>应用心理学</option>
+						<option>新闻学</option>
+						<option>信息与计算科学</option>
+						<option>环境科学</option>
+						<option>信息管理与信息系统</option>
+						<option>劳动与社会保障</option>
+						<option>小学教育</option>
+						<option>体育教育</option>
+						<option>舞蹈学</option>
+						<option>应用统计学</option>
+						<option>食品科学与工程</option>
+						<option>市场营销</option>
+						<option>音乐表演</option>
+						<option>国际经济与贸易</option>
+						<option>社会体育指导与管理</option>
+						<option>表演</option>
+						<option>人力资源管理</option>
+						<option>会展经济与管理</option>
+						<option>运动训练</option>
+						<option>法语</option>
+						<option>软件工程</option>
+						<option>服装设计与工程</option>
+						<option>播音与主持艺术</option>
+						<option>绘画</option>
+						<option>汉语国际教育</option>
+						<option>应用物理学</option>
+						<option>金融学</option>
+						<option>社会工作</option>
+						<option>物流管理</option>
+						<option>翻译</option>
+						<option>网络工程</option>
+						<option>粮食工程</option>
+						<option>武术与民族传统体育</option>
+						<option>食品质量与安全</option>
+						<option>酒店管理</option>
+						<option>古生物学</option>
+						<option>雕塑</option>
+						<option>舞蹈表演</option>
+						<option>视觉传达设计</option>
+						<option>环境设计</option>
+						<option>产品设计</option>
+						<option>公共艺术</option>
+						<option>数字媒体艺术</option>
+						<option>中国画</option>
+						<option>动画</option>
+						<option>戏剧影视美术设计</option>
+						<option>广播电视编导</option>
+						<option>网络与新媒体</option>
+						<option>工艺美术</option>
+						<option>环境生态工程</option>
+						<option>德语</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="手机号" name="tel2">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="邮箱" name="email2">
+				</div>
+				<button class="btn btn-primary col-sm-2 m3">再添加一个成员</button>
+			</div>
+			<div class="form-group m33">
+                <div class="col-sm-2">
+					<input class="form-control" placeholder="学号" name="username3">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="姓名" name="name3">
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="collage3">
+	                    <option>学院</option>
+	                    <option>外国语学院</option>
+						<option>文学院</option>
+						<option>马克思主义学院</option>
+						<option>数学与系统科学学院</option>
+						<option>生命科学学院</option>
+						<option>物理科学与技术学院</option>
+						<option>教育科学学院</option>
+						<option>社会学学院</option>
+						<option>化学化工学院</option>
+						<option>法学院</option>
+						<option>教育技术学院</option>
+						<option>科信软件学院</option>
+						<option>管理学院</option>
+						<option>旅游管理学院</option>
+						<option>美术与设计学院</option>
+						<option>学前与初等教育学院</option>
+						<option>国际商学院</option>
+						<option>体育科学学院</option>
+						<option>戏剧艺术学院</option>
+						<option>粮食学院</option>
+						<option>音乐学院</option>
+						<option>古生物学院</option>
+						<option>组织部</option>
+						<option>党校</option>
+						<option>宣传统战部</option>
+						<option>审计监察处</option>
+						<option>工会</option>
+						<option>团委</option>
+						<option>教务处</option>
+						<option>学生处</option>
+						<option>招生就业指导处</option>
+						<option>研究生处</option>
+						<option>教育硕士研究生院</option>
+						<option>教师教育处</option>
+						<option>教师专业发展学院</option>
+						<option>学科与科研工作处</option>
+						<option>国际教育学院</option>
+						<option>继续教育学院</option>
+						<option>校务办公室</option>
+						<option>合作发展处</option>
+						<option>后勤工作处</option>
+						<option>校园安全与管理处</option>
+						<option>人事处</option>
+						<option>离退休工作处</option>
+						<option>财务与资产管理处</option>
+						<option>人力资源开发与管理研究所</option>
+						<option>书法教育研究所</option>
+						<option>教育经济与管理研究所</option>
+						<option>附属艺术学校
+						<option>延松剧场艺术研</option>究所</option>
+						<option>梅兰芳艺术研究所</option>
+						<option>法律文化研究中心</option>
+						<option>法律与公共政策研究中心</option>
+						<option>中国北方少数民族文化研究中心</option>
+						<option>中国文化与文学研究所</option>
+						<option>两栖爬行动物研究所</option>
+						<option>大学外语教学部</option>
+						<option>计算机与数学基础教学部</option>
+						<option>实验教学中心</option>
+						<option>辽宁省基础教育教研培训中心</option>
+						<option>图书馆</option>
+						<option>学报编辑部</option>
+						<option>后勤集团</option>
+						<option>校医院</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="major3">
+	                    <option>专业</option>
+						<option>俄语</option>
+						<option>汉语言文学</option>
+						<option>思想政治教育</option>
+						<option>英语</option>
+						<option>数学与应用数学</option>
+						<option>生物科学</option>
+						<option>物理学</option>
+						<option>教育学</option>
+						<option>社会学</option>
+						<option>化学</option>
+						<option>法学</option>
+						<option>教育技术学</option>
+						<option>应用化学</option>
+						<option>生物技术</option>
+						<option>电子信息工程</option>
+						<option>计算机科学与技术</option>
+						<option>行政管理</option>
+						<option>旅游管理</option>
+						<option>日语</option>
+						<option>美术学</option>
+						<option>学前教育</option>
+						<option>秘书学</option>
+						<option>音乐学</option>
+						<option>经济学</option>
+						<option>汉语言</option>
+						<option>应用心理学</option>
+						<option>新闻学</option>
+						<option>信息与计算科学</option>
+						<option>环境科学</option>
+						<option>信息管理与信息系统</option>
+						<option>劳动与社会保障</option>
+						<option>小学教育</option>
+						<option>体育教育</option>
+						<option>舞蹈学</option>
+						<option>应用统计学</option>
+						<option>食品科学与工程</option>
+						<option>市场营销</option>
+						<option>音乐表演</option>
+						<option>国际经济与贸易</option>
+						<option>社会体育指导与管理</option>
+						<option>表演</option>
+						<option>人力资源管理</option>
+						<option>会展经济与管理</option>
+						<option>运动训练</option>
+						<option>法语</option>
+						<option>软件工程</option>
+						<option>服装设计与工程</option>
+						<option>播音与主持艺术</option>
+						<option>绘画</option>
+						<option>汉语国际教育</option>
+						<option>应用物理学</option>
+						<option>金融学</option>
+						<option>社会工作</option>
+						<option>物流管理</option>
+						<option>翻译</option>
+						<option>网络工程</option>
+						<option>粮食工程</option>
+						<option>武术与民族传统体育</option>
+						<option>食品质量与安全</option>
+						<option>酒店管理</option>
+						<option>古生物学</option>
+						<option>雕塑</option>
+						<option>舞蹈表演</option>
+						<option>视觉传达设计</option>
+						<option>环境设计</option>
+						<option>产品设计</option>
+						<option>公共艺术</option>
+						<option>数字媒体艺术</option>
+						<option>中国画</option>
+						<option>动画</option>
+						<option>戏剧影视美术设计</option>
+						<option>广播电视编导</option>
+						<option>网络与新媒体</option>
+						<option>工艺美术</option>
+						<option>环境生态工程</option>
+						<option>德语</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="手机号" name="tel3">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="邮箱" name="email3">
+				</div>
+				<button class="btn btn-primary col-sm-2 m4">再添加一个成员</button>
+			</div>
+			<div class="form-group m44">
+                <div class="col-sm-2">
+					<input class="form-control" placeholder="学号" name="username4">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="姓名" name="name4">
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="collage4">
+	                    <option>学院</option>
+	                    <option>外国语学院</option>
+						<option>文学院</option>
+						<option>马克思主义学院</option>
+						<option>数学与系统科学学院</option>
+						<option>生命科学学院</option>
+						<option>物理科学与技术学院</option>
+						<option>教育科学学院</option>
+						<option>社会学学院</option>
+						<option>化学化工学院</option>
+						<option>法学院</option>
+						<option>教育技术学院</option>
+						<option>科信软件学院</option>
+						<option>管理学院</option>
+						<option>旅游管理学院</option>
+						<option>美术与设计学院</option>
+						<option>学前与初等教育学院</option>
+						<option>国际商学院</option>
+						<option>体育科学学院</option>
+						<option>戏剧艺术学院</option>
+						<option>粮食学院</option>
+						<option>音乐学院</option>
+						<option>古生物学院</option>
+						<option>组织部</option>
+						<option>党校</option>
+						<option>宣传统战部</option>
+						<option>审计监察处</option>
+						<option>工会</option>
+						<option>团委</option>
+						<option>教务处</option>
+						<option>学生处</option>
+						<option>招生就业指导处</option>
+						<option>研究生处</option>
+						<option>教育硕士研究生院</option>
+						<option>教师教育处</option>
+						<option>教师专业发展学院</option>
+						<option>学科与科研工作处</option>
+						<option>国际教育学院</option>
+						<option>继续教育学院</option>
+						<option>校务办公室</option>
+						<option>合作发展处</option>
+						<option>后勤工作处</option>
+						<option>校园安全与管理处</option>
+						<option>人事处</option>
+						<option>离退休工作处</option>
+						<option>财务与资产管理处</option>
+						<option>人力资源开发与管理研究所</option>
+						<option>书法教育研究所</option>
+						<option>教育经济与管理研究所</option>
+						<option>附属艺术学校
+						<option>延松剧场艺术研</option>究所</option>
+						<option>梅兰芳艺术研究所</option>
+						<option>法律文化研究中心</option>
+						<option>法律与公共政策研究中心</option>
+						<option>中国北方少数民族文化研究中心</option>
+						<option>中国文化与文学研究所</option>
+						<option>两栖爬行动物研究所</option>
+						<option>大学外语教学部</option>
+						<option>计算机与数学基础教学部</option>
+						<option>实验教学中心</option>
+						<option>辽宁省基础教育教研培训中心</option>
+						<option>图书馆</option>
+						<option>学报编辑部</option>
+						<option>后勤集团</option>
+						<option>校医院</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="major4">
+	                    <option>专业</option>
+						<option>俄语</option>
+						<option>汉语言文学</option>
+						<option>思想政治教育</option>
+						<option>英语</option>
+						<option>数学与应用数学</option>
+						<option>生物科学</option>
+						<option>物理学</option>
+						<option>教育学</option>
+						<option>社会学</option>
+						<option>化学</option>
+						<option>法学</option>
+						<option>教育技术学</option>
+						<option>应用化学</option>
+						<option>生物技术</option>
+						<option>电子信息工程</option>
+						<option>计算机科学与技术</option>
+						<option>行政管理</option>
+						<option>旅游管理</option>
+						<option>日语</option>
+						<option>美术学</option>
+						<option>学前教育</option>
+						<option>秘书学</option>
+						<option>音乐学</option>
+						<option>经济学</option>
+						<option>汉语言</option>
+						<option>应用心理学</option>
+						<option>新闻学</option>
+						<option>信息与计算科学</option>
+						<option>环境科学</option>
+						<option>信息管理与信息系统</option>
+						<option>劳动与社会保障</option>
+						<option>小学教育</option>
+						<option>体育教育</option>
+						<option>舞蹈学</option>
+						<option>应用统计学</option>
+						<option>食品科学与工程</option>
+						<option>市场营销</option>
+						<option>音乐表演</option>
+						<option>国际经济与贸易</option>
+						<option>社会体育指导与管理</option>
+						<option>表演</option>
+						<option>人力资源管理</option>
+						<option>会展经济与管理</option>
+						<option>运动训练</option>
+						<option>法语</option>
+						<option>软件工程</option>
+						<option>服装设计与工程</option>
+						<option>播音与主持艺术</option>
+						<option>绘画</option>
+						<option>汉语国际教育</option>
+						<option>应用物理学</option>
+						<option>金融学</option>
+						<option>社会工作</option>
+						<option>物流管理</option>
+						<option>翻译</option>
+						<option>网络工程</option>
+						<option>粮食工程</option>
+						<option>武术与民族传统体育</option>
+						<option>食品质量与安全</option>
+						<option>酒店管理</option>
+						<option>古生物学</option>
+						<option>雕塑</option>
+						<option>舞蹈表演</option>
+						<option>视觉传达设计</option>
+						<option>环境设计</option>
+						<option>产品设计</option>
+						<option>公共艺术</option>
+						<option>数字媒体艺术</option>
+						<option>中国画</option>
+						<option>动画</option>
+						<option>戏剧影视美术设计</option>
+						<option>广播电视编导</option>
+						<option>网络与新媒体</option>
+						<option>工艺美术</option>
+						<option>环境生态工程</option>
+						<option>德语</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="手机号" name="tel4">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="邮箱" name="email4">
+				</div>
+				<button class="btn btn-primary col-sm-2 m5">再添加一个成员</button>
+			</div>
+			<div class="form-group m55">
+                <div class="col-sm-2">
+					<input class="form-control" placeholder="学号" name="username5">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="姓名" name="name5">
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="collage5">
+	                    <option>学院</option>
+	                    <option>外国语学院</option>
+						<option>文学院</option>
+						<option>马克思主义学院</option>
+						<option>数学与系统科学学院</option>
+						<option>生命科学学院</option>
+						<option>物理科学与技术学院</option>
+						<option>教育科学学院</option>
+						<option>社会学学院</option>
+						<option>化学化工学院</option>
+						<option>法学院</option>
+						<option>教育技术学院</option>
+						<option>科信软件学院</option>
+						<option>管理学院</option>
+						<option>旅游管理学院</option>
+						<option>美术与设计学院</option>
+						<option>学前与初等教育学院</option>
+						<option>国际商学院</option>
+						<option>体育科学学院</option>
+						<option>戏剧艺术学院</option>
+						<option>粮食学院</option>
+						<option>音乐学院</option>
+						<option>古生物学院</option>
+						<option>组织部</option>
+						<option>党校</option>
+						<option>宣传统战部</option>
+						<option>审计监察处</option>
+						<option>工会</option>
+						<option>团委</option>
+						<option>教务处</option>
+						<option>学生处</option>
+						<option>招生就业指导处</option>
+						<option>研究生处</option>
+						<option>教育硕士研究生院</option>
+						<option>教师教育处</option>
+						<option>教师专业发展学院</option>
+						<option>学科与科研工作处</option>
+						<option>国际教育学院</option>
+						<option>继续教育学院</option>
+						<option>校务办公室</option>
+						<option>合作发展处</option>
+						<option>后勤工作处</option>
+						<option>校园安全与管理处</option>
+						<option>人事处</option>
+						<option>离退休工作处</option>
+						<option>财务与资产管理处</option>
+						<option>人力资源开发与管理研究所</option>
+						<option>书法教育研究所</option>
+						<option>教育经济与管理研究所</option>
+						<option>附属艺术学校
+						<option>延松剧场艺术研</option>究所</option>
+						<option>梅兰芳艺术研究所</option>
+						<option>法律文化研究中心</option>
+						<option>法律与公共政策研究中心</option>
+						<option>中国北方少数民族文化研究中心</option>
+						<option>中国文化与文学研究所</option>
+						<option>两栖爬行动物研究所</option>
+						<option>大学外语教学部</option>
+						<option>计算机与数学基础教学部</option>
+						<option>实验教学中心</option>
+						<option>辽宁省基础教育教研培训中心</option>
+						<option>图书馆</option>
+						<option>学报编辑部</option>
+						<option>后勤集团</option>
+						<option>校医院</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" name="major5">
+	                    <option>专业</option>
+						<option>俄语</option>
+						<option>汉语言文学</option>
+						<option>思想政治教育</option>
+						<option>英语</option>
+						<option>数学与应用数学</option>
+						<option>生物科学</option>
+						<option>物理学</option>
+						<option>教育学</option>
+						<option>社会学</option>
+						<option>化学</option>
+						<option>法学</option>
+						<option>教育技术学</option>
+						<option>应用化学</option>
+						<option>生物技术</option>
+						<option>电子信息工程</option>
+						<option>计算机科学与技术</option>
+						<option>行政管理</option>
+						<option>旅游管理</option>
+						<option>日语</option>
+						<option>美术学</option>
+						<option>学前教育</option>
+						<option>秘书学</option>
+						<option>音乐学</option>
+						<option>经济学</option>
+						<option>汉语言</option>
+						<option>应用心理学</option>
+						<option>新闻学</option>
+						<option>信息与计算科学</option>
+						<option>环境科学</option>
+						<option>信息管理与信息系统</option>
+						<option>劳动与社会保障</option>
+						<option>小学教育</option>
+						<option>体育教育</option>
+						<option>舞蹈学</option>
+						<option>应用统计学</option>
+						<option>食品科学与工程</option>
+						<option>市场营销</option>
+						<option>音乐表演</option>
+						<option>国际经济与贸易</option>
+						<option>社会体育指导与管理</option>
+						<option>表演</option>
+						<option>人力资源管理</option>
+						<option>会展经济与管理</option>
+						<option>运动训练</option>
+						<option>法语</option>
+						<option>软件工程</option>
+						<option>服装设计与工程</option>
+						<option>播音与主持艺术</option>
+						<option>绘画</option>
+						<option>汉语国际教育</option>
+						<option>应用物理学</option>
+						<option>金融学</option>
+						<option>社会工作</option>
+						<option>物流管理</option>
+						<option>翻译</option>
+						<option>网络工程</option>
+						<option>粮食工程</option>
+						<option>武术与民族传统体育</option>
+						<option>食品质量与安全</option>
+						<option>酒店管理</option>
+						<option>古生物学</option>
+						<option>雕塑</option>
+						<option>舞蹈表演</option>
+						<option>视觉传达设计</option>
+						<option>环境设计</option>
+						<option>产品设计</option>
+						<option>公共艺术</option>
+						<option>数字媒体艺术</option>
+						<option>中国画</option>
+						<option>动画</option>
+						<option>戏剧影视美术设计</option>
+						<option>广播电视编导</option>
+						<option>网络与新媒体</option>
+						<option>工艺美术</option>
+						<option>环境生态工程</option>
+						<option>德语</option>
+	                </select>
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="手机号" name="tel5">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="邮箱" name="email5">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label" name="Teacher">指导教师</div>
+				<div class="col-sm-5">
+					<input class="form-control" placeholder="请输入指导教师">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">项目类型</div>
+				<div class="col-sm-3">
+					<select class="form-control" name="Pclass">
+	                    <option></option>
+	                    <option>创新训练项目</option>
+	                    <option>创业训练项目</option>
+	                    <option>创业实践项目</option>
+	                </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">项目周期</div>
+				<div class="col-sm-3">
+					<select class="form-control" name="PlanDate">
+	                    <option></option>
+	                    <option>一年</option>
+	                    <option>二年</option>
+	                </select>
+	            </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">项目简介</div>
+				<div class="col-sm-5">
+					<textarea class="form-control" maxlength="600" placeholder="请不要超过500字" name="Describe"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">申请理由</div>
+				<div class="col-sm-5">
+					<textarea class="form-control" name="ReassonsForApplication"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">项目方案</div>
+				<div class="col-sm-5">
+					<textarea class="form-control" name="ProjectPlan"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">项目特色和创新点</div>
+				<div class="col-sm-5">
+					<textarea class="form-control" placeholder="计划、技术路线、人员分工等" name="Innovate"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">项目进度安排</div>
+				<div class="col-sm-5">
+					<textarea class="form-control" name="Schedule"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">项目经费</div>
+				<div class="col-sm-5">
+					<textarea class="form-control" name="Budget"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">经费使用计划</div>
+				<div class="col-sm-5">
+					<textarea class="form-control" name="BudgetPlan"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">项目预期成果</div>
+				<div class="col-sm-5">
+					<textarea class="form-control" name="ExpectedResults"></textarea>
+				</div>
+			</div>
+			<button class="btn btn-primary btn-block btn1">确认提交</button>
         </form>
-    </div>
+
+
 </div>
 
 </body>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.m11').hide();
+	$('.m22').hide();
+	$('.m33').hide();
+	$('.m44').hide();
+	$('.m55').hide();
+	$('.m1').click(function(){
+		$('.m11').show();
+		return false;
+	});
+	$('.m2').click(function(){
+		$('.m22').show();
+		$('.m2').hide();
+		return false;
+	});
+	$('.m3').click(function(){
+		$('.m33').show();
+		$('.m3').hide();
+		return false;
+	});
+	$('.m4').click(function(){
+		$('.m44').show();
+		$('.m4').hide();
+		return false;
+	});
+	$('.m5').click(function(){
+		$('.m55').show();
+		$('.m5').hide();
+		return false;
+	});
+});
+</script>
 </html>
 
