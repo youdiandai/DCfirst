@@ -656,7 +656,7 @@ def CollageAdminUser():
 @app.route('/teacherUser.html',methods=['GET'])
 def teacherUser():
     teacherUser = User.query.filter_by(usermode = 3,collage=User.query.filter_by(username=session['username']).first().collage).all()
-    return render_template('teacherUser.html',teacherUser = teacherUser)
+    return render_template('TeacherUser.html',teacherUser = teacherUser)
 
 #创建教师用户
 @app.route('/addTeacherUser.html',methods=['GET'])
