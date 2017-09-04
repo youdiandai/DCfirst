@@ -313,12 +313,12 @@ def projectManage():
         return render_template('/manager/projectManage-manager.html', pros=Project.query.filter_by(Teacher=User.query.filter_by(username=username).first().name).all(),stalist=createStatuslist())
 #完成登录功能
 @app.route('/login',methods=['GET'])
-def login():
+def login1():
     return render_template('login.html')
 
 
 @app.route('/login',methods=['POST'])
-def login():
+def login2():
     username = User.query.filter_by(username=request.form.get('username')).first()
     if username.password == request.form.get('password'):
         session["username"] = username.username
