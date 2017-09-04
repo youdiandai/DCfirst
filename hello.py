@@ -312,26 +312,36 @@ def projectManage():
     elif User_mode.query.filter_by(mid=getUserauth(username)).first().name == '教师用户':
         return render_template('/manager/projectManage-manager.html', pros=Project.query.filter_by(Teacher=User.query.filter_by(username=username).first().name).all(),stalist=createStatuslist())
 #完成登录功能
-@app.route('/login',methods=['GET','POST'])
+@app.route('/login',methods=['GET'])
 def login():
-    form = Login()
-    if form.validate_on_submit():
-        username = User.query.filter_by(username=form.username.data).first()
-        if username.password == form.password.data:
-            session["username"] = username.username
-            #判断用户类型
-            if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
-                return render_template('loginsucc-student.html',name=username.name,pros=findMyproject(username=session['username']),stalist=createStatuslist())
-            elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
-                return render_template('Manager.html', name=username.name,type=1)
-            elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
-                return render_template('Manager.html', name=username.name,type=2)
-            elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
-                return render_template('Manager.html', name=username.name,type=3)
+    return render_template('login.html')
 
-        else:
-            return render_template('loginfail.html')
-    return render_template('login.html',form=form)
+
+@app.route('/login',methods=['POST'])
+def login():
+    username = User.query.filter_by(username=request.form.get('username')).first()
+    if username.password == request.form.get('password'):
+        session["username"] = username.username
+        # 判断用户类型
+        if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
+            return render_template('loginsucc-student.html', name=username.name,
+                                   pros=findMyproject(username=session['username']), stalist=createStatuslist())
+        elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
+            return render_template('Manager.html', name=username.name, type=1)
+        elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
+            return render_template('Manager.html', name=username.name, type=2)
+        elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
+            return render_template('Manager.html', name=username.name, type=3)
+
+    else:
+        return render_template('loginfail.html')
+    """
+    form = Login()
+
+    if form.validate_on_submit():
+    """
+
+
 
 
 @app.route('/home-manager.html')
