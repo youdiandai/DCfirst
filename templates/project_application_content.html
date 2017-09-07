@@ -106,7 +106,7 @@
             	<div class="col-sm-2">
 					<input class="form-control" placeholder="学号" name="username1">
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-1">
 					<input class="form-control" placeholder="姓名" name="name1">
 				</div>
 				<div class="col-sm-2">
@@ -265,14 +265,16 @@
 				<div class="col-sm-2">
 					<input class="form-control" placeholder="邮箱" name="email1">
 				</div>
-				<button class="btn btn-primary col-sm-2 m2">再添加一个成员</button>
+				<div class="col-sm-1">
+					<img class="m2" src="../static/images/plus.png"/>
+				</div>
 			</div>
 			<div class="form-group m22">
                 <div class="col-sm-2">
 					<input class="form-control" placeholder="学号" name="username2">
 				</div>
 
-				<div class="col-sm-2">
+				<div class="col-sm-1">
 					<input class="form-control" placeholder="姓名" name="name2">
 				</div>
 				<div class="col-sm-2">
@@ -431,13 +433,15 @@
 				<div class="col-sm-2">
 					<input class="form-control" placeholder="邮箱" name="email2">
 				</div>
-				<button class="btn btn-primary col-sm-2 m3">再添加一个成员</button>
+				<div class="col-sm-1">
+					<img class="m3" src="../static/images/plus.png"/>
+				</div>
 			</div>
 			<div class="form-group m33">
                 <div class="col-sm-2">
 					<input class="form-control" placeholder="学号" name="username3">
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-1">
 					<input class="form-control" placeholder="姓名" name="name3">
 				</div>
 				<div class="col-sm-2">
@@ -596,13 +600,15 @@
 				<div class="col-sm-2">
 					<input class="form-control" placeholder="邮箱" name="email3">
 				</div>
-				<button class="btn btn-primary col-sm-2 m4">再添加一个成员</button>
+				<div class="col-sm-1">
+					<img class="m4" src="../static/images/plus.png"/>
+				</div>
 			</div>
 			<div class="form-group m44">
                 <div class="col-sm-2">
 					<input class="form-control" placeholder="学号" name="username4">
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-1">
 					<input class="form-control" placeholder="姓名" name="name4">
 				</div>
 				<div class="col-sm-2">
@@ -761,9 +767,9 @@
 				<div class="col-sm-2">
 					<input class="form-control" placeholder="邮箱" name="email4">
 				</div>
-				<button class="btn btn-primary col-sm-2 m5">再添加一个成员</button>
+				<!-- <button class="btn btn-primary col-sm-2 m5">再添加一个成员</button> -->
 			</div>
-			<div class="form-group m55">
+			<!-- <div class="form-group m55">
                 <div class="col-sm-2">
 					<input class="form-control" placeholder="学号" name="username5">
 				</div>
@@ -926,7 +932,7 @@
 				<div class="col-sm-2">
 					<input class="form-control" placeholder="邮箱" name="email5">
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">
 				<div class="col-sm-4 control-label">指导教师</div>
 				<div class="col-sm-5">
@@ -1033,11 +1039,6 @@ $(document).ready(function() {
 	$('.m4').click(function(){
 		$('.m44').show();
 		$('.m4').hide();
-		return false;
-	});
-	$('.m5').click(function(){
-		$('.m55').show();
-		$('.m5').hide();
 		return false;
 	});
 });

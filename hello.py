@@ -95,15 +95,16 @@ class Project(db.Model):
     SchStarOpinion = db.Column(db.Text,nullable=True)#学校意见（立项）
     MidProgress= db.Column(db.Text,nullable=True)#工作进展
     MidResults = db.Column(db.Text,nullable=True)#中期成果
-    TeaMidOpinion = db.Column(db.Text,nullable=True)#指导教师意见（中期）
-    DCCenterMidOpinion = db.Column(db.Text,nullable=True)#大创中心意见（中期）
-    SchMidOpinion = db.Column(db.Text,nullable=True)#学校意见（中期）
     ResultsDescribe = db.Column(db.Text,nullable=True)#项目成果简介
     ResultsType = db.Column(db.Integer,nullable=True)#项目成果形式
     ResultsSummary = db.Column(db.Text,nullable=True)#项目总结报告
     ResultsNum = db.Column(db.Integer,nullable=True)#成果编号
     Problems = db.Column(db.Text,nullable=True)#存在的问题和建议
+    TeaMidOpinion = db.Column(db.Text,nullable=True)#指导教师意见（中期）
+    DCCenterMidOpinion = db.Column(db.Text,nullable=True)#大创中心意见（中期）
+    SchMidOpinion = db.Column(db.Text,nullable=True)#学院意见（中期）
     TeaEndOpinion = db.Column(db.Text,nullable=True)#项目指导教师意见（结题）
+    CollageEndOpinion = db.Column(db.Text,nullable=True)#(学院意见 结题)
     DCCenterEndOpinion = db.Column(db.Text,nullable=True)#大创中心意见（结题）
     Achievement = db.Column(db.String(64),nullable=True)#成绩
     doc = db.Column(db.String(64),nullable=True)#结题成果
@@ -645,10 +646,7 @@ def addCollageAdminUser2():
     if username is None:
         user = User()
         user.username = request.form.get('username')
-        user.name = request.form.get('name')
         user.password = '123456'
-        user.tel = request.form.get('tel')
-        user.email = request.form.get('email')
         user.collage = request.form.get('collage')
         user.usermode = User_mode.query.filter_by(name='学院管理员').first().mid
         db.session.add(user)
@@ -735,6 +733,7 @@ def project(pid):
     session['project']=pid
     pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
     pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
+    teacher = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Teacher).first()
     # 生成用来判断是否显示按钮的变量
     if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员' and pro.Status in [3,7,11]:
         auth=True
@@ -750,32 +749,70 @@ def project(pid):
     for x in createStatuslist():#生成用来判断显示什么按钮的变量
         if pro.Status == x[0]:
             psta = (x[0],x[1]) #x[0]为状态号，x[1]为状态名
-    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=psta,mid=mid,end=end)
+    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=psta,mid=mid,end=end,teacher=teacher)
 
 #完成项目审核和路由
-@app.route('/auth/succ')
-def authyes():
-    info=None
-    pro=Project.query.filter_by(pid=session['project']).first()
-    pro.Status = pro.Status+1
-    info='审核成功'
-    db.session.add(pro)
-    db.session.commit()
-    return render_template('authsucc.html',info=info)
-@app.route('/auth/fail')
-def authno():
+@app.route('/check-suggest.html')
+def check_suggest():
+    return render_template('check-suggest.html',pro=Project.query.filter_by(pid=session['project']).first())
+@app.route('/auth/<yesno>',methods=['POST'])
+def authyes(yesno):
     info=None
     pro = Project.query.filter_by(pid=session['project']).first()
-    if pro.Status in [1,2,3]:
-        pro.Status = 13
-    elif pro.Status in [5,6,7]:
-        pro.Status = 14
-    elif pro.Status in [9,10,11]:
-        pro.Status = 15
-    db.session.add(pro)
-    db.session.commit()
-    info = '审核不通过成功'
-    return render_template('authsucc.html', info=info)
+    if yesno=='succ':
+        pro.Status = pro.Status + 1
+        info = '审核成功'
+        if pro.Status == 1:
+            pro.TeaStarOpinion = request.form.get('opinion')
+        if pro.Status == 2:
+            pro.CollStarOpinion = request.form.get('opinion')
+        if pro.Status == 3:
+            pro.SchStarOpinion = request.form.get('opinion')
+        if pro.Status == 5:
+            pro.TeaMidOpinion = request.form.get('opinion')
+        if pro.Status == 6:
+            pro.SchMidOpinion = request.form.get('opinion')
+        if pro.Status == 7:
+            pro.DCCenterMidOpinion = request.form.get('opinion')
+        if pro.Status == 9:
+            pro.TeaEndOpinion = request.form.get('opinion')
+        if pro.Status == 10:
+            pro.CollageEndOpinion = request.form.get('opinion')
+        if pro.Status == 11:
+            pro.DCCenterEndOpinion = request.form.get('opinion')
+        db.session.add(pro)
+        db.session.commit()
+        return render_template('authsucc.html', info=info)
+    elif yesno=='fail':
+        if pro.Status in [1, 2, 3]:
+            pro.Status = 13
+        elif pro.Status in [5, 6, 7]:
+            pro.Status = 14
+        elif pro.Status in [9, 10, 11]:
+            pro.Status = 15
+        if pro.Status == 1:
+            pro.TeaStarOpinion = request.form.get('opinion')
+        if pro.Status == 2:
+            pro.CollStarOpinion = request.form.get('opinion')
+        if pro.Status == 3:
+            pro.SchStarOpinion = request.form.get('opinion')
+        if pro.Status == 5:
+            pro.TeaMidOpinion = request.form.get('opinion')
+        if pro.Status == 6:
+            pro.SchMidOpinion = request.form.get('opinion')
+        if pro.Status == 7:
+            pro.DCCenterMidOpinion = request.form.get('opinion')
+        if pro.Status == 9:
+            pro.TeaEndOpinion = request.form.get('opinion')
+        if pro.Status == 10:
+            pro.CollageEndOpinion = request.form.get('opinion')
+        if pro.Status == 11:
+            pro.DCCenterEndOpinion = request.form.get('opinion')
+        db.session.add(pro)
+        db.session.commit()
+        info = '审核不通过成功'
+        return render_template('authsucc.html', info=info)
+
 
 #下载文件路由
 @app.route('/download/<filename>', methods=['GET'])
@@ -803,7 +840,6 @@ def updatecollageAdminInfo1():
 def updatecollageAdminInfo2():
     user = User.query.filter_by(username=session['username']).first()
     user.name = request.form.get('name')
-    user.collage = request.form.get('collage')
     user.email = request.form.get('email')
     user.tel = request.form.get('tel')
     db.session.add(user)

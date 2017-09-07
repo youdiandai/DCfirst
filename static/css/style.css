@@ -1,6 +1,9 @@
 /*header{
 	height: 70px;
 }*/
+h1 {
+	font-family: "微软雅黑";
+}
 .navbar.default-menu{
     border-radius: 0;  
     border: 0; 
@@ -17,7 +20,7 @@
 .default-logo img{
     float: left;
     width: 170px;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-left: 10px;
 }
 
@@ -37,6 +40,7 @@
     text-transform: uppercase;
     padding-top: 10px;
     padding-bottom: 10px;
+    font-family: "微软雅黑";
 
 }
 
@@ -94,7 +98,7 @@
 	letter-spacing: 5px;
 }
 .banner-inner{
-	padding: 120px 0;
+	padding: 170px 0;
 	text-align: center;
 	font-family: "微软雅黑";
 }
@@ -121,6 +125,12 @@
 .s-btn-sty{
 	color: #fff;
 	background-color: #ED4C4C;
+	border:2px solid #ED4C4C;
+}
+.s-btn-sty:hover{
+	color: #fff;
+	background-color: #A22424;
+	border:2px solid #A22424;
 }
 .transit{
 	height: 50px;
@@ -235,12 +245,13 @@ footer{
 	font-family: "微软雅黑";
 }
 footer .copyright {
-	height: 70px;
-    background: #111;
+	height: 100px;
+	padding: 25px 0;
+    background: #24292E;
     font-size: 13px;
     text-align: center;
-    color: #555555;
-    line-height: 70px;
+    color: #878787;
+/*    line-height: 70px;*/
     border-top: 1px solid #303030;
 }
 /*弹出层登录 开始*/
