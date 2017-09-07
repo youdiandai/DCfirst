@@ -6,7 +6,10 @@ from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaFie
 from flask.ext.migrate import Migrate,MigrateCommand
 from wtforms.validators import DataRequired,equal_to,Email
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.login import LoginManager
+from flask.ext.mail import Mail,Message
 from werkzeug.utils import secure_filename
+from threading import Thread
 import time
 import os
 
@@ -18,13 +21,40 @@ manager = Manager(app)
 app.config['SECRET_KEY'] ='synudc'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:aizai2017@localhost:3306/dc?charset=utf8mb4'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
+app.config['MAIL_SERVER'] = 'smtp.163.com'
+app.config['MAIL_PORT']=25
+app.config['MAIL_USE_TLS']=True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['FLASKY_MAIL_SUBJECT_PREFIX']='[DC]'
+app.config['FLASKY_MAIL_SENDER']='DCfirst Admin<18504285660@163.com>'
 db = SQLAlchemy(app,use_native_unicode="utf8")
 migrate = Migrate(app,db)
 manager.add_command('db',MigrateCommand)
+mail = Mail(app)
+login_manager = LoginManager()
+login_manager.login_view='/login'
+login_manager.session_protection = "strong"
+login_manager.login_message = "Please login to access this page."
+login_manager.login_message_category = "info"
 #上传功能相关配置
 UPLOAD_FOLDER='upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+#邮件
+def send_async_email(app,msg):
+    with app.app_context():
+        mail.send(msg)
+
+def send_email(to, subject, template, **kwargs):
+    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject, sender=app.config['FLASKY_MAIL_SENDER'],recipients=[to])
+    msg.body = render_template(template + '.txt', **kwargs)
+    msg.html = render_template(template + '.html', **kwargs)
+    thr = Thread(target=send_async_email,args=[app,msg])
+    thr.start()
+    return thr
+
 
 
 #数据库对象
@@ -190,21 +220,6 @@ class Login(Form):
     password = PasswordField("密码" ,validators=[DataRequired()])
     submit = SubmitField('登录')
 
-"""
-#注册页显示的表单
-class Register(Form):
-    username = StringField("学号" ,validators=[DataRequired()])
-    name = StringField("姓名" ,validators=[DataRequired()])
-    password = PasswordField("密码" ,validators=[DataRequired()])
-    repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
-    #根据数据库里的内容，自动生成学院和专业的下拉表单
-    collage = SelectField("学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
-    major = SelectField("专业", validators=[DataRequired()],choices=[(x.mname,x.mname) for x in Major.query.all()])
-    tel = StringField("电话号码")
-    email = StringField("E-mail",validators=[Email()])
-    submit = SubmitField('注册')
-"""
-
 #教师和学院管理员注册页显示的表单
 class teacherRegister(Form):
     username = StringField("用户名" ,validators=[DataRequired()])
@@ -233,25 +248,7 @@ class Create_project(Form):
     describe = TextAreaField("项目简介")
     file = FileField("文档")
     submit = SubmitField('创建')
-"""
-#立项申请
-class ProjectApproval(Form):
-    projectname = StringField("项目名")
-    PlanDate = StringField("预计结束日期")
-    member = StringField("项目成员")#中间用逗号分隔
-    Teacher = StringField("指导教师")#指导教师
-    collage = SelectField("项目所属学院" ,validators=[DataRequired()],choices=[(x.cname,x.cname) for x in Collage.query.all()])
-    Describe = TextAreaField("项目简介")
-    projectclass = RadioField('项目分类', choices=[('创新训练项目', '创新训练项目'), ('创业训练项目', '创业训练项目'),('创业实践项目', '创业实践项目')])
-    ReassonsForApplication = TextAreaField("申请理由")
-    ProjectPlan = TextAreaField("项目方案")
-    Innovate = TextAreaField("项目特色和创新点")
-    Schedule = TextAreaField("项目进度安排")
-    Budget = StringField("项目经费")
-    BudgetPlan = TextAreaField("经费使用计划")
-    ExpectedResults = TextAreaField("项目预期成果物")
-    submit = SubmitField('提交')
-"""
+
 #中期申报表单
 class ProjectMid(Form):
     MidProgress = TextAreaField("研究工作进展情况")
@@ -273,6 +270,12 @@ class Join_project(Form):
     submit = SubmitField('加入')
 
 #小工具
+
+#根据 user_id 找到对应的 user, 如果没有找到，返回None, 此时的 user_id 将会自动从 session 中移除, 若能找到 user ，则 user_id 会被继续保存.
+@login_manager.user_loader
+def load_user(user_id):
+    """Load the user's info."""
+    return User.query.filter_by(id=user_id).first()
 #判断是否提交了项目成员数据，提交了就添加一个新用户
 def addProUser():
     pass
@@ -321,26 +324,24 @@ def login1():
 @app.route('/login',methods=['POST'])
 def login2():
     username = User.query.filter_by(username=request.form.get('username')).first()
-    if username.password == request.form.get('password'):
-        session["username"] = username.username
-        # 判断用户类型
-        if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
-            return render_template('loginsucc-student.html', name=username.name,
-                                   pros=findMyproject(username=session['username']), stalist=createStatuslist())
-        elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
-            return render_template('Manager.html', name=username.name, type=1)
-        elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
-            return render_template('Manager.html', name=username.name, type=2)
-        elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
-            return render_template('Manager.html', name=username.name, type=3)
+    if username:
+        if username.password == request.form.get('password'):
+            session["username"] = username.username
+            # 判断用户类型
+            if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
+                return render_template('loginsucc-student.html', name=username.name,
+                                       pros=findMyproject(username=session['username']), stalist=createStatuslist())
+            elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
+                return render_template('Manager.html', name=username.name, type=1)
+            elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
+                return render_template('Manager.html', name=username.name, type=2)
+            elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
+                return render_template('Manager.html', name=username.name, type=3)
 
+        else:
+            return render_template('loginfail.html')
     else:
         return render_template('loginfail.html')
-    """
-    form = Login()
-
-    if form.validate_on_submit():
-    """
 
 
 
@@ -380,47 +381,6 @@ def register2():
         return render_template('registerfail.html')
 
 #完成创建项目功能
-"""
-@app.route('/createproject.html',methods=['GET','POST'])
-def create_project():
-    form=Create_project()
-    if form.validate_on_submit():
-        pname = Project.query.filter_by(Pname=form.projectname.data).first()
-        if pname is None:
-            #增加各种数据项到数据库
-            pro = Project()
-            pu=User_Project()
-            pro.Pname = form.projectname.data
-            pro.Plevel = form.projectlevel.data
-            pro.Describe = form.describe.data
-            pro.Person_in_charge=session["username"]
-            pro.Collage = form.collage.data
-            pro.Teacher = form.teacher.data
-            pro.Status = Project_mode.query.filter_by(status='未审核').first().sid
-            db.session.add(pro)
-            db.session.commit()
-            pu.pid=Project.query.filter_by(Pname=form.projectname.data).first().pid
-            pu.userid=User.query.filter_by(username=Project.query.filter_by(Pname=form.projectname.data).first().Person_in_charge).first().userid
-            #完成文件上传功能
-            file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])+'/start'
-            if not os.path.exists(file_dir):
-                os.makedirs(file_dir)
-            #重命名文件
-            fname = secure_filename(form.file.data.filename).split('.',1)[-1]
-            unix_time = int(time.time())
-            new_filename = str(unix_time) + '.' + fname
-
-            form.file.data.save('upload/start/' + new_filename)
-            pro.doc = new_filename
-            db.session.add(pu)
-            db.session.add(pro)
-            db.session.commit()
-            return '创建成功'
-        else:
-            return '创建失败'
-    return render_template('createproject.html', form=form)
-"""
-
 #项目申报
 @app.route('/project_application.html',methods=['GET'])
 def project_application():
@@ -432,6 +392,7 @@ def project_application_content1():
 
 @app.route('/project_application_content.html', methods=['POST'])
 def project_application_content2():
+    try:
         pname = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         if pname is None:
             pro = Project()
@@ -473,9 +434,6 @@ def project_application_content2():
                     db.session.commit()
                 db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username1')).first().userid))
                 db.session.commit()
-
-
-
                 if request.form.get('username2'):
                     isuser = User.query.filter_by(username=request.form.get('username2')).first()
                     if isuser is None:
@@ -493,8 +451,6 @@ def project_application_content2():
                     db.session.add(
                         User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username2')).first().userid))
                     db.session.commit()
-
-
             if request.form.get('username3'):
                 isuser = User.query.filter_by(username=request.form.get('username3')).first()
                 if isuser is None:
@@ -511,8 +467,6 @@ def project_application_content2():
                     db.session.commit()
                 db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username3')).first().userid))
                 db.session.commit()
-
-
             if request.form.get('username4'):
                 isuser = User.query.filter_by(username=request.form.get('username4')).first()
                 if isuser is None:
@@ -530,10 +484,6 @@ def project_application_content2():
                 db.session.add(
                     User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username4')).first().userid))
                 db.session.commit()
-
-
-
-
             if request.form.get('username5'):
                 isuser = User.query.filter_by(username=request.form.get('username5')).first()
                 if isuser is None:
@@ -550,14 +500,11 @@ def project_application_content2():
                     db.session.commit()
                 db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username5')).first().userid))
                 db.session.commit()
-
-
-
-
-
             return '创建成功'
         else:
             return "项目已存在"
+    except:
+        return '出现了一些错误，请重试'
 #中期申报
 
 @app.route('/interim_report.html',methods=['GET'])
@@ -614,28 +561,7 @@ def concluding_report_content():
         db.session.commit()
         return '提交成功'
     return render_template('concluding_report_content.html',form=form)
-"""
-#创建学院管理员账号
-@app.route('/addCollageAdminUser.html',methods=['GET','POST'])
-def addCollageAdminUser1():
-    if register.validate_on_submit():
-        username =User.query.filter_by(username=register.username.data).first()
-        if username is None:
-            user=User()
-            user.username=register.username.data
-            user.name=register.name.data
-            user.password=register.password.data
-            user.tel = register.tel.data
-            user.email = register.email.data
-            user.collage = register.collage.data
-            user.usermode = User_mode.query.filter_by(name='学院管理员').first().mid
-            db.session.add(user)
-            db.session.commit()
-            return render_template("registersucc.html")
-        else:
-            return render_template('registerfail.html')
-    return render_template('createCollageAdminUser.html',form=register)
-"""
+
 #创建学院管理员账号
 @app.route('/addCollageAdminUser.html',methods=['GET'])
 def addCollageAdminUser1():
@@ -693,63 +619,58 @@ def addTeacherUser2():
 #完成用户加入项目功能
 @app.route('/join_project.html',methods=['GET'])
 def join_project1():
-    """
-    form = Join_project()
-    if form.validate_on_submit():
-        pud = User_Project.query.filter_by(pid=Project.query.filter_by(Pname=form.projectname.data).first().pid,userid=User.query.filter_by(username=session["username"]).first().userid).first()
-        if pud is None:
-            pu=User_Project()
-            pu.userid=User.query.filter_by(username=session["username"]).first().userid
-            pu.pid=Project.query.filter_by(Pname=form.projectname.data).first().pid
-            db.session.add(pu)
-            db.session.commit()
-            return '加入成功'
-        else:
-            return '加入失败'
-            """
     return render_template('join_project.html')
 @app.route('/join_project.html',methods=['POST'])
 def join_project2():
-    pud = User_Project.query.filter_by(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,
-                                       userid=User.query.filter_by(username=session["username"]).first().userid).first()
-    if pud is None:
-        pu = User_Project()
-        pu.userid = User.query.filter_by(username=session["username"]).first().userid
-        pu.pid = Project.query.filter_by(Pname=request.form.get('Pname')).first().pid
-        db.session.add(pu)
-        db.session.commit()
-        return '加入成功'
-    else:
-        return '加入失败'
+    try:
+        pud = User_Project.query.filter_by(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=session["username"]).first().userid).first()
+        pro = Project.query.filter_by(Pname=request.form.get('Pname')).first()
+        if pud is None:
+            if pro:
+                pu = User_Project()
+                pu.userid = User.query.filter_by(username=session["username"]).first().userid
+                pu.pid = Project.query.filter_by(Pname=request.form.get('Pname')).first().pid
+                db.session.add(pu)
+                db.session.commit()
+                return '加入成功'
+            else:
+                return '您要加入的项目不存在，请确认项目名称后重试'
+        else:
+            return '您已经加入了项目'
+    except:
+        return '发生了未知错误，请联系管理员,感谢您的支持'
 
 
 
 @app.route('/project/<pid>')
 def project(pid):
-    auth=None
-    mid = None
-    end = None
-    pro = Project.query.filter_by(pid=pid).first()
-    session['project']=pid
-    pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
-    pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
-    teacher = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Teacher).first()
-    # 生成用来判断是否显示按钮的变量
-    if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='管理员' and pro.Status in [3,7,11]:
-        auth=True
-    elif User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='学院管理员'and pro.Status in [2,6,10]:
-        auth=True
-    elif User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name=='教师用户' and pro.Status in [1,5,9]:
-        auth=True
-    if pro.Status==4:
-        mid=True
-    if pro.Status==8:
-        end=True
-    psta = None
-    for x in createStatuslist():#生成用来判断显示什么按钮的变量
-        if pro.Status == x[0]:
-            psta = (x[0],x[1]) #x[0]为状态号，x[1]为状态名
-    return render_template('project.html',pro =pro ,pchar=pchar,pmembers=pmembers,auth=auth,pstatus=psta,mid=mid,end=end,teacher=teacher)
+    try:
+        auth = None
+        mid = None
+        end = None
+        pro = Project.query.filter_by(pid=pid).first()
+        session['project'] = pid
+        pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
+        pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
+        teacher = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Teacher).first()
+        # 生成用来判断是否显示按钮的变量
+        if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name == '管理员' and pro.Status in [3,7,11]:
+            auth = True
+        elif User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name == '学院管理员' and pro.Status in [2, 6, 10]:
+            auth = True
+        elif User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name == '教师用户' and pro.Status in [1, 5, 9]:
+            auth = True
+        if pro.Status == 4:
+            mid = True
+        if pro.Status == 8:
+            end = True
+        psta = None
+        for x in createStatuslist():  # 生成用来判断显示什么按钮的变量
+            if pro.Status == x[0]:
+                psta = (x[0], x[1])  # x[0]为状态号，x[1]为状态名
+        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher)
+    except:
+        return '发生了未知错误，请联系管理员，感谢您的支持'
 
 #完成项目审核和路由
 @app.route('/check-suggest.html')
@@ -757,61 +678,64 @@ def check_suggest():
     return render_template('check-suggest.html',pro=Project.query.filter_by(pid=session['project']).first())
 @app.route('/auth/<yesno>',methods=['POST'])
 def authyes(yesno):
-    info=None
-    pro = Project.query.filter_by(pid=session['project']).first()
-    if yesno=='succ':
-        pro.Status = pro.Status + 1
-        info = '审核成功'
-        if pro.Status == 1:
-            pro.TeaStarOpinion = request.form.get('opinion')
-        if pro.Status == 2:
-            pro.CollStarOpinion = request.form.get('opinion')
-        if pro.Status == 3:
-            pro.SchStarOpinion = request.form.get('opinion')
-        if pro.Status == 5:
-            pro.TeaMidOpinion = request.form.get('opinion')
-        if pro.Status == 6:
-            pro.SchMidOpinion = request.form.get('opinion')
-        if pro.Status == 7:
-            pro.DCCenterMidOpinion = request.form.get('opinion')
-        if pro.Status == 9:
-            pro.TeaEndOpinion = request.form.get('opinion')
-        if pro.Status == 10:
-            pro.CollageEndOpinion = request.form.get('opinion')
-        if pro.Status == 11:
-            pro.DCCenterEndOpinion = request.form.get('opinion')
-        db.session.add(pro)
-        db.session.commit()
-        return render_template('authsucc.html', info=info)
-    elif yesno=='fail':
-        if pro.Status in [1, 2, 3]:
-            pro.Status = 13
-        elif pro.Status in [5, 6, 7]:
-            pro.Status = 14
-        elif pro.Status in [9, 10, 11]:
-            pro.Status = 15
-        if pro.Status == 1:
-            pro.TeaStarOpinion = request.form.get('opinion')
-        if pro.Status == 2:
-            pro.CollStarOpinion = request.form.get('opinion')
-        if pro.Status == 3:
-            pro.SchStarOpinion = request.form.get('opinion')
-        if pro.Status == 5:
-            pro.TeaMidOpinion = request.form.get('opinion')
-        if pro.Status == 6:
-            pro.SchMidOpinion = request.form.get('opinion')
-        if pro.Status == 7:
-            pro.DCCenterMidOpinion = request.form.get('opinion')
-        if pro.Status == 9:
-            pro.TeaEndOpinion = request.form.get('opinion')
-        if pro.Status == 10:
-            pro.CollageEndOpinion = request.form.get('opinion')
-        if pro.Status == 11:
-            pro.DCCenterEndOpinion = request.form.get('opinion')
-        db.session.add(pro)
-        db.session.commit()
-        info = '审核不通过成功'
-        return render_template('authsucc.html', info=info)
+    try:
+        info = None
+        pro = Project.query.filter_by(pid=session['project']).first()
+        if yesno == 'succ':
+            pro.Status = pro.Status + 1
+            info = '审核成功'
+            if pro.Status == 1:
+                pro.TeaStarOpinion = request.form.get('opinion')
+            if pro.Status == 2:
+                pro.CollStarOpinion = request.form.get('opinion')
+            if pro.Status == 3:
+                pro.SchStarOpinion = request.form.get('opinion')
+            if pro.Status == 5:
+                pro.TeaMidOpinion = request.form.get('opinion')
+            if pro.Status == 6:
+                pro.SchMidOpinion = request.form.get('opinion')
+            if pro.Status == 7:
+                pro.DCCenterMidOpinion = request.form.get('opinion')
+            if pro.Status == 9:
+                pro.TeaEndOpinion = request.form.get('opinion')
+            if pro.Status == 10:
+                pro.CollageEndOpinion = request.form.get('opinion')
+            if pro.Status == 11:
+                pro.DCCenterEndOpinion = request.form.get('opinion')
+            db.session.add(pro)
+            db.session.commit()
+            return render_template('authsucc.html', info=info)
+        elif yesno == 'fail':
+            if pro.Status in [1, 2, 3]:
+                pro.Status = 13
+            elif pro.Status in [5, 6, 7]:
+                pro.Status = 14
+            elif pro.Status in [9, 10, 11]:
+                pro.Status = 15
+            if pro.Status == 1:
+                pro.TeaStarOpinion = request.form.get('opinion')
+            if pro.Status == 2:
+                pro.CollStarOpinion = request.form.get('opinion')
+            if pro.Status == 3:
+                pro.SchStarOpinion = request.form.get('opinion')
+            if pro.Status == 5:
+                pro.TeaMidOpinion = request.form.get('opinion')
+            if pro.Status == 6:
+                pro.SchMidOpinion = request.form.get('opinion')
+            if pro.Status == 7:
+                pro.DCCenterMidOpinion = request.form.get('opinion')
+            if pro.Status == 9:
+                pro.TeaEndOpinion = request.form.get('opinion')
+            if pro.Status == 10:
+                pro.CollageEndOpinion = request.form.get('opinion')
+            if pro.Status == 11:
+                pro.DCCenterEndOpinion = request.form.get('opinion')
+            db.session.add(pro)
+            db.session.commit()
+            info = '审核不通过成功'
+            return render_template('authsucc.html', info=info)
+    except:
+        return '发生了未知错误，请联系管理员，感谢您的支持'
 
 
 #下载文件路由
@@ -838,13 +762,16 @@ def updatecollageAdminInfo1():
 
 @app.route('/updatecollageAdminInfo.html', methods=['POST'])
 def updatecollageAdminInfo2():
-    user = User.query.filter_by(username=session['username']).first()
-    user.name = request.form.get('name')
-    user.email = request.form.get('email')
-    user.tel = request.form.get('tel')
-    db.session.add(user)
-    db.session.commit()
-    return render_template('changeUserInfoSucc.html')
+    try:
+        user = User.query.filter_by(username=session['username']).first()
+        user.name = request.form.get('name')
+        user.email = request.form.get('email')
+        user.tel = request.form.get('tel')
+        db.session.add(user)
+        db.session.commit()
+        return render_template('changeUserInfoSucc.html')
+    except:
+        return '发生了未知错误，请联系管理员，感谢您的支持'
 
 #修改教师个人信息
 @app.route('/updatePersonalTeacherInfo.html',methods=['GET'])
@@ -853,40 +780,35 @@ def updatePersonalTeacherInfo1():
 
 @app.route('/updatePersonalTeacherInfo.html', methods=['POST'])
 def updatePersonalTeacherInfo2():
-    user = User.query.filter_by(username=session['username']).first()
-    user.name = request.form.get('name')
-    user.collage = request.form.get('collage')
-    user.email = request.form.get('email')
-    user.tel = request.form.get('tel')
-    db.session.add(user)
-    db.session.commit()
-    return render_template('changeUserInfoSucc.html')
+    try:
+        user = User.query.filter_by(username=session['username']).first()
+        user.name = request.form.get('name')
+        user.collage = request.form.get('collage')
+        user.email = request.form.get('email')
+        user.tel = request.form.get('tel')
+        db.session.add(user)
+        db.session.commit()
+        return render_template('changeUserInfoSucc.html')
+    except:
+        return '发生了未知错误，请联系管理员，感谢您的支持'
 
 @app.route('/updateStudentInfo.html',methods=['GET'])
 def updateStudentInfo1():
     return render_template('updateStudentInfo.html')
 @app.route('/updateStudentInfo.html',methods=['POST'])
 def updateStudentInfo2():
-    user = User.query.filter_by(username=session['username']).first()
-    user.email = request.form.get('email')
-    user.tel = request.form.get('tel')
-    user.name = request.form.get('name')
-    user.collage = request.form.get('collage')
-    user.major = request.form.get('major')
-    db.session.add(user)
-    db.session.commit()
-    return render_template('changeUserInfoSucc.html')
-
-"""    user = User.query.filter_by(username=session['username']).first()
-    user.email = request.form.get('email')
-    user.tel = request.form.get('tel')
-    user.name = request.form.get('name')
-    user.collage = request.form.get('collage')
-    user.major = request.form.get('major')
-    db.session.add(user)
-    db.session.commit()
-    return render_template('updateSucc.html')"""
-
+    try:
+        user = User.query.filter_by(username=session['username']).first()
+        user.email = request.form.get('email')
+        user.tel = request.form.get('tel')
+        user.name = request.form.get('name')
+        user.collage = request.form.get('collage')
+        user.major = request.form.get('major')
+        db.session.add(user)
+        db.session.commit()
+        return render_template('changeUserInfoSucc.html')
+    except:
+        return '发生了未知错误，请联系管理员，感谢您的支持'
 
 #删除项目路由
 @app.route('/delete/project/<pid>')
