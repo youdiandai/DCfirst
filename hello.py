@@ -58,6 +58,9 @@ def send_email(to, subject, template, **kwargs):
 
 
 #数据库对象
+# 创建参赛队伍
+joincom = db.Table('joincom', db.Column('User_id', db.Integer, db.ForeignKey('user.userid')),db.Column('Competition_id', db.Integer, db.ForeignKey('Competition.Cid')))
+
 #用户
 class User(db.Model):
     __tablename__ = 'user'
@@ -71,6 +74,7 @@ class User(db.Model):
     email = db.Column(db.String(220),nullable=True)
     usermode = db.Column(db.Integer,db.ForeignKey('user_mode.mid'))
     linkp = db.relationship('User_Project',backref='user')
+    Competitions = db.relationship('Competition',secondary=joincom,backref=db.backref('users',lazy='dynamic'),lazy='dynamic')
     def __repr__(self):
         return '<User %r>' % self.username
     def getUserid(self,username):
@@ -170,7 +174,7 @@ class AwardLevel(db.Model):
     __tablename__ = 'AwardLevel'
     ALid = db.Column(db.Integer, primary_key=True)
     ALname = db.Column(db.String(220), unique=True)
-Competition = db.relationship('Competition',backref='Cawardlevel')
+    Competition = db.relationship('Competition',backref='Cawardlevel')
 #获奖等级
 class AwardGrade(db.Model):
     __tablename__ = 'AwardGrade'
@@ -202,8 +206,10 @@ class Competition(db.Model):
     AwardTime = db.Column(db.String(220), nullable=True)#获奖时间
     Auth = db.Column(db.String(220), nullable=True)#竞赛是否获得了审核
     AwardAuth = db.Column(db.String(220), nullable=True)#竞赛获奖情况是否获得了审核
+
     def __repr__(self):
         return '<Competition %r>' % self.Cname
+
 
 #资金
 class Funds(db.Model):
@@ -665,9 +671,44 @@ def deleteCom(Cid):
     db.session.commit()
     return '删除成功'
 
-
-
-
+#参加竞赛路由
+@app.route('/joinCom/<Cid>')
+def joinCom(Cid):
+    user = User.query.filter_by(username=session['username']).first()
+    user.Competitions.append(Competition.query.filter_by(Cid=Cid).first())
+    db.session.add(user)
+    db.session.commit()
+#创建参赛队伍
+@app.route('/createComTeam/<com>',methods=['GET'])
+def createComTeam(com):
+    return render_template('createComTeam.html',com=com)
+@app.route('/createComTeam/<com>',methods=['POST'])
+def createComTeam1(com):
+    users = request.form.get('users').split(',')
+    coms = Competition.query.filter_by(Cid=com).first()
+    if coms.Teacher is None:
+        for x in users:
+            a=User.query.filter_by(username=x).first()
+            a.Competitions.append(coms)
+            db.session.add(a)
+            db.session.commit()
+        coms.Teacher = session['username']
+        coms.TeacherCollage = User.query.filter_by(username=session['username']).first().collage
+        db.session.add(coms)
+        db.session.commit()
+        return '创建竞赛队伍成功'
+    else:
+        return '已经有参赛队伍了'
+#教师竞赛列表
+@app.route('/teacherComList.html')
+def teacherComList():
+    if User.query.filter_by(username=session['username']).first().mode.name == '教师用户':
+        page = request.args.get('page', 1, type=int)
+        pagination = Competition.query.filter_by(Auth='已审核').paginate(page, per_page=10, error_out=False)
+        pros = pagination.items
+        return render_template('/teacherComList.html', pros=pros, pagination=pagination)
+    else:
+        return '只允许教师用户访问该页面'
 
 
 #项目内容路由
@@ -866,6 +907,22 @@ def changePassword():
     db.session.commit()
     return "密码修改成功"
 
+#找回密码
+@app.route('/findPassword',methods=['GET'])
+def findPassword():
+    return render_template('findPassword.html')
+@app.route('/findPassword',methods=['POST'])
+def findPassword1():
+    username = request.form.get('username')
+    email = request.form.get('email')
+    user = User.query.filter_by(username=username).first()
+    if user.email ==email:
+        user.password = '123456'
+        db.session.add(user)
+        db.session.commit()
+        return render_template('resetPasswordSucc.html')
+    else:
+        '您输入的信息有误，无法找回密码'
 #重置初始密码
 @app.route('/resetPassword/<username>')
 def resetPassword(username):

@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>管理员--竞赛管理</title>
-	
+
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="../../static/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
@@ -19,7 +19,7 @@
 
 <body>
 <div class="pM-m-main">
-    
+
     <h2>竞赛列表</h2><br>
 
         <table class="table table-hover table-bordered">
@@ -28,7 +28,7 @@
                     <th>竞赛名称</th>
                     <th>主办单位</th>
                     <th>竞赛领域</th>
-                    <th>竞赛审核状态</th>
+                    <th>竞赛获奖审核状态</th>
                     <th>指导教师</th>
                     <th>指导教师所属学院</th>
                     <th>获奖级别</th>
@@ -43,10 +43,10 @@
             <tbody>
             {%for pro in pros%}
                 <tr>
-                    <td>{{pro.Cname}}</td>
+                  <td>{{pro.Cname}}</td>
                   <td>{{pro.Sponsor}}</td>
                     <td>{{pro.Field}}</td>
-                    <td>{{pro. Auth}}</td>
+                    <td>{{pro. AwardAuth}}</td>
                     <td>{{pro.Teacher}}</td>
                     <td>{{pro.TeacherCollage}}</td>
                     <td>{{pro.Cawardlevel.ALname}}</td>
@@ -55,8 +55,8 @@
                     <td>{{pro.Works}}</td>
                     <td>{{pro.AwardTime}}</td>
                   <td>{{pro.Remarks}}</td>
-                  <td><a href="/authCom/{{pro.Cid}}" target="iFrame"><button type="button" class="btn btn-primary">审核</button></a>
-                  <a href="/delete/{{pro.Cid}}"><button type="button" class="btn btn-danger">删除</button></a></td>
+                  <td><a href="/createComTeam/{{pro.Cid}}" target="iFrame"><button type="button" class="btn btn-primary">创建参赛队伍</button></a>
+                  <a href="#"><button type="button" class="btn btn-danger">提交获奖信息</button></a></td>
                 </tr>
             {%endfor%}
             </tbody>
@@ -103,12 +103,12 @@
 
 	<!-- Bootstrap Js -->
     <script src="../../static/js/bootstrap.min.js"></script>
-	
+
 	<script src="../../static/js/materialize.min.js"></script>
-	
+
     <!-- Metis Menu Js -->
     <script src="../../static/js/jquery.metisMenu.js"></script>
-	
+
     <!-- Custom Js -->
     <script src="../../static/js/custom-scripts.js"></script>
 

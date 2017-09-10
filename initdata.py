@@ -1,5 +1,5 @@
 ﻿#-*- encoding:utf-8 -*-
-from hello import CompetitionClass,AwardLevel,AwardGrade,db,Major,Collage,User_mode,Project_mode
+from hello import CompetitionClass,AwardLevel,AwardGrade,db,Major,Collage,User_mode,Project_mode,User
 db.session.add(CompetitionClass(CCname='教育部“互联网+创新创业大赛”'))
 db.session.add(CompetitionClass(CCname='挑战杯”全国大学生创业计划大赛'))
 db.session.add(CompetitionClass(CCname='辽宁省大学生创业计划大赛'))
@@ -74,6 +74,8 @@ if not pro:
     db.session.add(Project_mode(status='中期审核失败'))
     db.session.add(Project_mode(status='结题审核失败'))
     db.session.commit()
+db.session.add(User(username='001',password='001',usermode=2))
+db.session.commit()
 
 
 
