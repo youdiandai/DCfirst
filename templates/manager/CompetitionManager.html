@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理员--竞赛管理</title>
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="../../static/css/materialize.min.css" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link href="../../static/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="../../static/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="../../static/css/custom-styles.css" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../../static/css/style-s.css">
+</head>
+
+<body>
+<div class="pM-m-main">
+    
+    <h2>竞赛列表</h2><br>
+
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>竞赛名称</th>
+                    <th>主办单位</th>
+                    <th>竞赛领域</th>
+                    <th>竞赛审核状态</th>
+                    <th>备注</th>
+                    <th>管理</th>
+                </tr>
+            </thead>
+            <tbody>
+            {%for pro in pros%}
+                <tr>
+                  <td>{{pro.Cname}}</td>
+                  <td>{{pro.Sponsor}}</td>
+                    <td>{{pro.Field}}</td>
+                  <td>{{pro.Auth}}</td>
+                  <td>{{pro.Remarks}}</td>
+                  <td><a href="/authCom/{{pro.Cid}}" target="iFrame"><button type="button" class="btn btn-primary">审核</button></a>
+                  <a href="/delete/{{pro.Cid}}"><button type="button" class="btn btn-danger">删除</button></a></td>
+                </tr>
+            {%endfor%}
+            </tbody>
+
+        </table>
+    <ul class="pagination">
+    <li{% if not pagination.has_prev %} class="disabled"{% endif %}>
+        <a href="{% if pagination.has_prev %}{{ url_for('CompetitionManager', page=pagination.prev_num) }}{% else %}#{% endif %}">
+            «
+        </a>
+    </li>
+    {% for p in pagination.iter_pages() %}
+        {% if p %}
+            {% if p == pagination.page %}
+            <li class="active">
+                <a href="{{ url_for('CompetitionManager', page = p) }}">{{ p }}</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{ url_for('CompetitionManager', page = p,) }}">{{ p }}</a>
+            </li>
+            {% endif %}
+        {% else %}
+        <li class="disabled"><a href="#">…</a></li>
+        {% endif %}
+    {% endfor %}
+    <li{% if not pagination.has_next %} class="disabled"{% endif %}>
+        <a href="{% if pagination.has_next %}{{ url_for('CompetitionManager', page=pagination.next_num) }}{% else %}#{% endif %}">
+            »
+        </a>
+    </li>
+</ul>
+
+
+</div>
+
+
+    <!-- jQuery Js -->
+    <script src="../../static/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+        $("#wrapper").height($(window).height()-59+"px");
+        $(".iFrame").height($("#wrapper").height());
+    </script>
+
+	<!-- Bootstrap Js -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+	
+	<script src="../../static/js/materialize.min.js"></script>
+	
+    <!-- Metis Menu Js -->
+    <script src="../../static/js/jquery.metisMenu.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="../../static/js/custom-scripts.js"></script>
+
+</body>
+
+</html>

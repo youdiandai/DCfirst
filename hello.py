@@ -76,6 +76,25 @@ class User(db.Model):
     def getUserid(self,username):
         return self.query.filter_by(username=username).first().userid
 
+# 用户类型
+class User_mode(db.Model):
+    __tablename__ = 'user_mode'
+    mid = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(220), unique=True)
+    users = db.relationship('User', backref='mode')
+
+    def __repr__(self):
+        return '<User_name %r>' % self.name
+
+
+# 用户和项目的映射关系
+class User_Project(db.Model):
+    __tablename__ = 'User_Project'
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
+    pid = db.Column(db.Integer, db.ForeignKey('project.pid'))
+
+
 #学院
 class Collage(db.Model):
     __tablename__ = 'collage'
@@ -88,14 +107,6 @@ class Major(db.Model):
     mid=db.Column(db.Integer,primary_key=True)
     mname = db.Column(db.String(220),unique=True)
 
-#用户类型
-class User_mode(db.Model):
-    __tablename__ = 'user_mode'
-    mid = db.Column(db.Integer,primary_key=True)
-    name = db.Column(db.String(220),unique=True)
-    users = db.relationship('User',backref='mode')
-    def __repr__(self):
-        return '<User_name %r>' % self.name
 
 #项目
 class Project(db.Model):
@@ -146,6 +157,53 @@ class Project(db.Model):
 
     def __repr__(self):
         return  '<Project %r>'%self.pid
+
+# 项目状态
+class Project_mode(db.Model):
+        __tablename__ = 'Project_mode'
+        sid = db.Column(db.Integer, primary_key=True)
+        status = db.Column(db.String(220), unique=True)
+
+
+#获奖级别
+class AwardLevel(db.Model):
+    __tablename__ = 'AwardLevel'
+    ALid = db.Column(db.Integer, primary_key=True)
+    ALname = db.Column(db.String(220), unique=True)
+Competition = db.relationship('Competition',backref='Cawardlevel')
+#获奖等级
+class AwardGrade(db.Model):
+    __tablename__ = 'AwardGrade'
+    AGid = db.Column(db.Integer, primary_key=True)
+    AGname = db.Column(db.String(220), unique=True)
+    Competition = db.relationship('Competition',backref='CawardGrade')
+#竞赛类别
+class CompetitionClass(db.Model):
+    __tablename__ = 'CompetitionClass'
+    CCid = db.Column(db.Integer, primary_key=True)
+    CCname = db.Column(db.String(220), unique=True)
+    Competition = db.relationship('Competition',backref='Cclass')
+
+#竞赛
+class Competition(db.Model):
+    __tablename__ = 'Competition'
+    Cid = db.Column(db.Integer, primary_key=True)
+    Cname = db.Column(db.String(220), unique=True)#竞赛名称
+    Cclass_id = db.Column(db.Integer,db.ForeignKey('CompetitionClass.CCid'))#竞赛类别id
+    Field = db.Column(db.String(220), nullable=True)#领域
+    Works = db.Column(db.String(220), nullable=True)#获奖作品
+    Cawardlevel_id = db.Column(db.Integer,db.ForeignKey('AwardLevel.ALid'))#获奖级别
+    Cawardgrade_id = db.Column(db.Integer,db.ForeignKey('AwardGrade.AGid'))#获奖等级
+    AwardClass = db.Column(db.String(220), nullable=True)#获奖类别
+    Sponsor = db.Column(db.String(220), nullable=True)#主办单位
+    Teacher = db.Column(db.String(220), nullable=True)#指导教师
+    TeacherCollage = db.Column(db.String(220), nullable=True)#指导教师所属单位
+    Remarks = db.Column(db.String(220), nullable=True)#备注
+    AwardTime = db.Column(db.String(220), nullable=True)#获奖时间
+    Auth = db.Column(db.String(220), nullable=True)#竞赛是否获得了审核
+    AwardAuth = db.Column(db.String(220), nullable=True)#竞赛获奖情况是否获得了审核
+    def __repr__(self):
+        return '<Competition %r>' % self.Cname
 
 #资金
 class Funds(db.Model):
@@ -204,57 +262,8 @@ class Other(db.Model):
     remarks = db.Column(db.String(220))
 
 
-#项目状态
-class Project_mode(db.Model):
-    __tablename__ = 'Project_mode'
-    sid = db.Column(db.Integer,primary_key=True)
-    status = db.Column(db.String(220),unique=True)
-
-#用户和项目的映射关系
-class User_Project(db.Model):
-    __tablename__ = 'User_Project'
-    id = db.Column(db.Integer,primary_key=True)
-    userid = db.Column(db.Integer,db.ForeignKey('user.userid'))
-    pid = db.Column(db.Integer,db.ForeignKey('project.pid'))
-
-
 
 #表单
-#登录页显示的表单
-class Login(Form):
-    username = StringField("用户名" ,validators=[DataRequired()])
-    password = PasswordField("密码" ,validators=[DataRequired()])
-    submit = SubmitField('登录')
-
-#教师和学院管理员注册页显示的表单
-class teacherRegister(Form):
-    username = StringField("用户名" ,validators=[DataRequired()])
-    name = StringField("姓名" ,validators=[DataRequired()])
-    password = PasswordField("密码" ,validators=[DataRequired()])
-    repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
-    tel = StringField("电话号码")
-    email = StringField("E-mail",validators=[Email()])
-    submit = SubmitField('注册')
-class adminRegister(Form):
-    username = StringField("用户名" ,validators=[DataRequired()])
-    name = StringField("姓名" ,validators=[DataRequired()])
-    password = PasswordField("密码" ,validators=[DataRequired()])
-    repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
-    collage = SelectField("学院", validators=[DataRequired()], choices=[(x.cname, x.cname) for x in Collage.query.all()])
-    tel = StringField("电话号码")
-    email = StringField("E-mail" ,validators=[Email()])
-    submit = SubmitField('注册')
-
-#创建项目页面的表单
-class Create_project(Form):
-    projectname = StringField("项目名")
-    projectlevel= RadioField('项目分级', choices=[('省级', '省级'), ('校级', '校级'),('院级', '院级')])
-    collage = StringField("学院")
-    teacher = StringField("指导教师")
-    describe = TextAreaField("项目简介")
-    file = FileField("文档")
-    submit = SubmitField('创建')
-
 #中期申报表单
 class ProjectMid(Form):
     MidProgress = TextAreaField("研究工作进展情况")
@@ -583,8 +592,6 @@ def addTeacherUser2():
         return render_template('registerfail.html')
 
 
-
-
 #完成用户加入项目功能
 @app.route('/join_project.html',methods=['GET'])
 def join_project1():
@@ -595,7 +602,7 @@ def join_project2():
         pud = User_Project.query.filter_by(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=session["username"]).first().userid).first()
         pro = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         if pud is None:
-            if pro != None:
+            if pro is not None:
                 pu = User_Project()
                 pu.userid = User.query.filter_by(username=session["username"]).first().userid
                 pu.pid = Project.query.filter_by(Pname=request.form.get('Pname')).first().pid
@@ -609,8 +616,61 @@ def join_project2():
     except:
         return '您要加入的项目不存在，请确认项目名称后重试'
 
+#竞赛申报
+@app.route('/Competition_declaration.html',methods=['GET'])
+def Competition_declaration1():
+    return render_template('Competition_declaration.html')
+@app.route('/Competition_declaration.html',methods=['POST'])
+def Competition_declaration():
+    Cname = Competition.query.filter_by(Cname=request.form.get('Cname')).first()
+    try:
+        if Cname is None:
+            com = Competition()
+            com.Cname = request.form.get('Cname')
+            com.Sponsor = request.form.get('Sponsor')
+            com.Field = request.form.get('Field')
+            com.Remarks = request.form.get('Remarks')
+            com.Auth = '未审核'
+            db.session.add(com)
+            db.session.commit()
+            return '竞赛申报成功'
+        else:
+            return '竞赛申报失败'
+    except:
+        return '发生未知错误，请联系管理员,感谢您的支持'
+
+#竞赛管理页面
+@app.route('/CompetitionManager')
+def CompetitionManager():
+    if User.query.filter_by(username=session['username']).first().mode.name == '管理员':
+        page = request.args.get('page', 1, type=int)
+        pagination = Competition.query.filter_by().paginate(page, per_page=10, error_out=False)
+        pros = pagination.items
+        return render_template('/manager/CompetitionManager.html', pros=pros, pagination=pagination)
+    else:
+        return '只允许管理员访问该页面'
+#审核竞赛路由
+@app.route('/authCom/<Cid>')
+def authCom(Cid):
+    a=Competition.query.filter_by(Cid=Cid).first()
+    a.Auth = '已审核'
+    db.session.add(a)
+    db.session.commit()
+    return '审核成功'
+
+#删除竞赛路由
+@app.route('/delete/<Cid>')
+def deleteCom(Cid):
+    db.session.delete(Competition.query.filter_by(Cid=Cid).first())
+    db.session.commit()
+    return '删除成功'
 
 
+
+
+
+
+#项目内容路由
 @app.route('/project/<pid>')
 def project(pid):
     try:
