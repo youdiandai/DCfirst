@@ -595,7 +595,7 @@ def join_project2():
         pud = User_Project.query.filter_by(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=session["username"]).first().userid).first()
         pro = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         if pud is None:
-            if pro:
+            if pro != None:
                 pu = User_Project()
                 pu.userid = User.query.filter_by(username=session["username"]).first().userid
                 pu.pid = Project.query.filter_by(Pname=request.form.get('Pname')).first().pid
