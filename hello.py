@@ -607,7 +607,7 @@ def join_project2():
         else:
             return '您已经加入了项目'
     except:
-        return '发生了未知错误，请联系管理员,感谢您的支持'
+        return '您要加入的项目不存在，请确认项目名称后重试'
 
 
 
