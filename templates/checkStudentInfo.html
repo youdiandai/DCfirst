@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看个人信息</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="../static/css/materialize.min.css" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="../static/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="../static/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+    <style type="text/css">
+    .register-main form {
+	    margin-top: 40px;
+	}
+    </style>
+</head>
+<body style="background-color: #ECECEC">
+<div class="register-main collageAdmin-register">
+	<div class="container">
+		<form class="form-horizontal" method="POST" action="/updateStudentInfo.html">
+			<h2 class="text-center">查看个人信息</h2><br><br>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">姓名</div>
+				<div class="col-sm-4">
+					<input class="form-control" name="name">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">学院</div>
+				<div class="col-sm-4">
+					<input class="form-control" name="college">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">专业</div>
+				<div class="col-sm-4">
+					<input class="form-control" name="major">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">联系方式</div>
+				<div class="col-sm-4">
+					<input class="form-control" name="tel">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 control-label">E-mail</div>
+				<div class="col-sm-4">
+					<input class="form-control" name="email">
+				</div>
+			</div>
+			
+
+		</form>
+	</div>
+</div>
+</body>
+	<!-- Bootstrap Js -->
+    <script src="../static/js/bootstrap.min.js"></script>
+	
+	<script src="../static/js/materialize.min.js"></script>
+	
+    <!-- Metis Menu Js -->
+    <script src="../static/js/jquery.metisMenu.js"></script>
+	
+    <!-- Custom Js -->
+     <script src="../static/js/custom-scripts.js"></script>
+</html>

@@ -1,13 +1,13 @@
 #-*- encoding:utf-8 -*-
 from flask import Flask,render_template,session,make_response,send_file,request
-from flask.ext.script import Manager
-from flask.ext.wtf import Form
+from flask_script import Manager
+from flask_wtf import Form
 from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaField,SelectField,FileField
-from flask.ext.migrate import Migrate,MigrateCommand
+from flask_migrate import Migrate,MigrateCommand
 from wtforms.validators import DataRequired,equal_to,Email
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
-from flask.ext.mail import Mail,Message
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_mail import Mail,Message
 from werkzeug.utils import secure_filename
 from threading import Thread
 import time
@@ -20,7 +20,7 @@ app = Flask(__name__)
 manager = Manager(app)
 app.config['SECRET_KEY'] ='synudc'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:aizai2017@localhost:3306/dc?charset=utf8mb4'
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 app.config['MAIL_SERVER'] = 'smtp.163.com'
 app.config['MAIL_PORT']=25
 app.config['MAIL_USE_TLS']=True
@@ -73,6 +73,8 @@ class User(db.Model):
     linkp = db.relationship('User_Project',backref='user')
     def __repr__(self):
         return '<User %r>' % self.username
+    def getUserid(self,username):
+        return self.query.filter_by(username=username).first().userid
 
 #学院
 class Collage(db.Model):
@@ -139,6 +141,9 @@ class Project(db.Model):
     Achievement = db.Column(db.String(64),nullable=True)#成绩
     doc = db.Column(db.String(64),nullable=True)#结题成果
     linku = db.relationship('User_Project',backref='project')
+    def getPid(self,Pname):
+        return self.query.filter_by(Pname=Pname).first().pid
+
     def __repr__(self):
         return  '<Project %r>'%self.pid
 
@@ -213,6 +218,7 @@ class User_Project(db.Model):
     pid = db.Column(db.Integer,db.ForeignKey('project.pid'))
 
 
+
 #表单
 #登录页显示的表单
 class Login(Form):
@@ -236,7 +242,7 @@ class adminRegister(Form):
     repassword = PasswordField("确认密码",validators=[DataRequired(),equal_to('password')])
     collage = SelectField("学院", validators=[DataRequired()], choices=[(x.cname, x.cname) for x in Collage.query.all()])
     tel = StringField("电话号码")
-    email = StringField("E-mail",validators=[Email()])
+    email = StringField("E-mail" ,validators=[Email()])
     submit = SubmitField('注册')
 
 #创建项目页面的表单
@@ -270,6 +276,12 @@ class Join_project(Form):
     submit = SubmitField('加入')
 
 #小工具
+#判断是否为空字符串
+def isSpaceStr(srr):
+    if srr == '':
+        return None
+    else:
+        return srr
 
 #根据 user_id 找到对应的 user, 如果没有找到，返回None, 此时的 user_id 将会自动从 session 中移除, 若能找到 user ，则 user_id 会被继续保存.
 @login_manager.user_loader
@@ -281,11 +293,14 @@ def addProUser():
     pass
 #根据用户名生成一个由项目构成的列表（项目是数据库一行记录的映射）
 def findMyproject(username):
-    Userid = User.query.filter_by(username = username).first().userid
-    Pid = User_Project.query.filter_by(userid = Userid).all()
-    pidlist = [x.pid for x in Pid]
-    Prolist = [Project.query.filter_by(pid=x).first() for x in pidlist]
-    return Prolist
+    try:
+        Userid = User.query.filter_by(username=username).first().userid
+        Pid = User_Project.query.filter_by(userid=Userid).all()
+        pidlist = [x.pid for x in Pid]
+        Prolist = [Project.query.filter_by(pid=x).first() for x in pidlist]
+        return Prolist
+    except:
+        return '发生了未知错误，请联系管理员，感谢您的支持<findMyproject>'
 
 #生成一个由状态号和状态名组成的元组构成的列表
 def createStatuslist():
@@ -295,7 +310,6 @@ def createStatuslist():
 #根据提供的用户名获取用户现在的权限
 def getUserauth(user):
    return User.query.filter_by(username=user).first().usermode
-
 #根据状态名获取项目状态号
 def getProStatusSid(status):
     return Project_mode.query.filter_by(status=status).first().sid
@@ -324,24 +338,27 @@ def login1():
 @app.route('/login',methods=['POST'])
 def login2():
     username = User.query.filter_by(username=request.form.get('username')).first()
-    if username:
-        if username.password == request.form.get('password'):
-            session["username"] = username.username
-            # 判断用户类型
-            if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
-                return render_template('loginsucc-student.html', name=username.name,
-                                       pros=findMyproject(username=session['username']), stalist=createStatuslist())
-            elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
-                return render_template('Manager.html', name=username.name, type=1)
-            elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
-                return render_template('Manager.html', name=username.name, type=2)
-            elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
-                return render_template('Manager.html', name=username.name, type=3)
+    try:
+        if username:
+            if username.password == request.form.get('password'):
+                session["username"] = username.username
+                # 判断用户类型
+                if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
+                    return render_template('loginsucc-student.html', name=username.name,
+                                           pros=findMyproject(username=session['username']), stalist=createStatuslist())
+                elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
+                    return render_template('Manager.html', name=username.name, type=1)
+                elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
+                    return render_template('Manager.html', name=username.name, type=2)
+                elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
+                    return render_template('Manager.html', name=username.name, type=3)
 
+            else:
+                return render_template('loginfail.html')
         else:
             return render_template('loginfail.html')
-    else:
-        return render_template('loginfail.html')
+    except:
+        return '发生了未知错误，请联系管理员'
 
 
 
@@ -363,22 +380,25 @@ def register1():
 @app.route('/register', methods=['POST'])
 def register2():
     username = User.query.filter_by(username=request.form.get('username')).first()
-    if username is None:
-        user = User()
-        user.username = request.form.get('username')
-        user.name = request.form.get('name')
-        user.password = request.form.get('password')
-        user.collage = request.form.get('collage')
-        user.major = request.form.get('major')
-        user.tel = request.form.get('tel')
-        user.email = request.form.get('email')
-        user.usermode = User_mode.query.filter_by(name='学生').first().mid
+    try:
+        if username is None:
+            user = User()
+            user.username = request.form.get('username')
+            user.name = request.form.get('name')
+            user.password = request.form.get('password')
+            user.collage = request.form.get('collage')
+            user.major = request.form.get('major')
+            user.tel = request.form.get('tel')
+            user.email = request.form.get('email')
+            user.usermode = User_mode.query.filter_by(name='学生').first().mid
 
-        db.session.add(user)
-        db.session.commit()
-        return render_template("registersucc.html")
-    else:
-        return render_template('registerfail.html')
+            db.session.add(user)
+            db.session.commit()
+            return render_template("registersucc.html")
+        else:
+            return render_template('registerfail.html')
+    except:
+        return '发生了一些错误，请联系管理员，感谢您的支持'
 
 #完成创建项目功能
 #项目申报
@@ -396,110 +416,52 @@ def project_application_content2():
         pname = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         if pname is None:
             pro = Project()
-            pu = User_Project()
-            pro.Pname = request.form.get('Pname')
-            pro.PlanDate = request.form.get('PlanDate')
+            pro.Pname = isSpaceStr(request.form.get('Pname'))
+            pro.PlanDate = isSpaceStr(request.form.get('PlanDate'))
             pro.Status = Project_mode.query.filter_by(status='等待指导教师审核').first().sid
-            pro.Collage = request.form.get('Collage')
+            pro.Collage = isSpaceStr(request.form.get('Collage'))
             pro.Teacher = request.form.get('Teacher')
-            pro.Describe = request.form.get('Describe')
-            pro.Pclass = request.form.get('Pclass')
-            pro.ReassonsForApplication = request.form.get('ReassonsForApplication')
-            pro.ProjectPlan = request.form.get('ProjectPlan')
-            pro.Innovate = request.form.get('Innovate')
-            pro.Schedule = request.form.get('Schedule')
-            pro.Budget = request.form.get('Budget')
-            pro.BudgetPlan = request.form.get('BudgetPlan')
-            pro.ExpectedResults = request.form.get('ExpectedResults')
+            pro.Describe = isSpaceStr(request.form.get('Describe'))
+            pro.Pclass = isSpaceStr(request.form.get('Pclass'))
+            pro.ReassonsForApplication = isSpaceStr(request.form.get('ReassonsForApplication'))
+            pro.ProjectPlan = isSpaceStr(request.form.get('ProjectPlan'))
+            pro.Innovate = isSpaceStr(request.form.get('Innovate'))
+            pro.Schedule = isSpaceStr(request.form.get('Schedule'))
+            pro.Budget = isSpaceStr(request.form.get('Budget'))
+            pro.BudgetPlan = isSpaceStr(request.form.get('BudgetPlan'))
+            pro.ExpectedResults = isSpaceStr(request.form.get('ExpectedResults'))
             pro.Person_in_charge = session["username"]
             db.session.add(pro)
             db.session.commit()
+            pu = User_Project()
             pu.pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid
             pu.userid=User.query.filter_by(username=Project.query.filter_by(Pname=request.form.get('Pname')).first().Person_in_charge).first().userid
             db.session.add(pu)
             db.session.commit()
-            if request.form.get('username1'):
-                isuser = User.query.filter_by(username=request.form.get('username1')).first()
-                if isuser is None:
-                    user1 = User()
-                    user1.username = request.form.get('username1')
-                    user1.password = '123456'
-                    user1.name = request.form.get('name1')
-                    user1.collage = request.form.get('collage1')
-                    user1.major = request.form.get('major1')
-                    user1.tel = request.form.get('tel1')
-                    user1.email = request.form.get('email1')
-                    user1.usermode = User_mode.query.filter_by(name='学生').first().mid
-                    db.session.add(user1)
-                    db.session.commit()
-                db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username1')).first().userid))
-                db.session.commit()
-                if request.form.get('username2'):
-                    isuser = User.query.filter_by(username=request.form.get('username2')).first()
-                    if isuser is None:
-                        user2 = User()
-                        user2.username = request.form.get('username2')
-                        user2.password = '123456'
-                        user2.name = request.form.get('name2')
-                        user2.collage = request.form.get('collage2')
-                        user2.major = request.form.get('major2')
-                        user2.tel = request.form.get('tel2')
-                        user2.email = request.form.get('email2')
-                        user2.usermode = User_mode.query.filter_by(name='学生').first().mid
-                        db.session.add(user2)
-                        db.session.commit()
-                    db.session.add(
-                        User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username2')).first().userid))
-                    db.session.commit()
-            if request.form.get('username3'):
-                isuser = User.query.filter_by(username=request.form.get('username3')).first()
-                if isuser is None:
-                    user3 = User()
-                    user3.username = request.form.get('username3')
-                    user3.password = '123456'
-                    user3.name = request.form.get('name3')
-                    user3.collage = request.form.get('collage3')
-                    user3.major = request.form.get('major3')
-                    user3.tel = request.form.get('tel3')
-                    user3.email = request.form.get('email3')
-                    user3.usermode = User_mode.query.filter_by(name='学生').first().mid
-                    db.session.add(user3)
-                    db.session.commit()
-                db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username3')).first().userid))
-                db.session.commit()
-            if request.form.get('username4'):
-                isuser = User.query.filter_by(username=request.form.get('username4')).first()
-                if isuser is None:
-                    user4 = User()
-                    user4.username = request.form.get('username4')
-                    user4.password = '123456'
-                    user4.name = request.form.get('name4')
-                    user4.collage = request.form.get('collage4')
-                    user4.major = request.form.get('major4')
-                    user4.tel = request.form.get('tel4')
-                    user4.email = request.form.get('email4')
-                    user4.usermode = User_mode.query.filter_by(name='学生').first().mid
-                    db.session.add(user4)
-                    db.session.commit()
-                db.session.add(
-                    User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username4')).first().userid))
-                db.session.commit()
-            if request.form.get('username5'):
-                isuser = User.query.filter_by(username=request.form.get('username5')).first()
-                if isuser is None:
-                    user5 = User()
-                    user5.username = request.form.get('username5')
-                    user5.password = '123456'
-                    user5.name = request.form.get('name5')
-                    user5.collage = request.form.get('collage5')
-                    user5.major = request.form.get('major5')
-                    user5.tel = request.form.get('tel5')
-                    user5.email = request.form.get('email5')
-                    user5.usermode = User_mode.query.filter_by(name='学生').first().mid
-                    db.session.add(user5)
-                    db.session.commit()
-                db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username5')).first().userid))
-                db.session.commit()
+            for x in [1, 2, 3, 4]:
+                try:
+                    if request.form.get('username'+str(x)):
+                        isuser = User.query.filter_by(username=request.form.get('username' + str(x))).first()
+                        if isuser is None:
+                            users = User()
+                            users.username = request.form.get('username' + str(x))
+                            users.password = '123456'
+                            users.name = request.form.get('name' + str(x))
+                            users.collage = request.form.get('collage'+str(x))
+                            users.major = request.form.get('major'+str(x))
+                            users.tel = request.form.get('tel'+str(x))
+                            users.email = request.form.get('email'+str(x))
+                            users.usermode = User_mode.query.filter_by(name='学生').first().mid
+                            db.session.add(users)
+                            db.session.commit()
+                        pub = User_Project.query.filter_by(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,userid=User.query.filter_by(username=request.form.get('username'+ str(x))).first().userid).first()
+                        if pub is None:
+                            db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,
+                                           userid=User.query.filter_by(username=request.form.get('username'+ str(x))).first().userid))
+                            db.session.commit()
+                except:
+                    db.session.close_all()
+                    return '添加学生到项目发生了错误,请重试'
             return '创建成功'
         else:
             return "项目已存在"
@@ -685,23 +647,23 @@ def authyes(yesno):
             pro.Status = pro.Status + 1
             info = '审核成功'
             if pro.Status == 1:
-                pro.TeaStarOpinion = request.form.get('opinion')
+                pro.TeaStarOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 2:
-                pro.CollStarOpinion = request.form.get('opinion')
+                pro.CollStarOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 3:
-                pro.SchStarOpinion = request.form.get('opinion')
+                pro.SchStarOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 5:
-                pro.TeaMidOpinion = request.form.get('opinion')
+                pro.TeaMidOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 6:
-                pro.SchMidOpinion = request.form.get('opinion')
+                pro.SchMidOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 7:
-                pro.DCCenterMidOpinion = request.form.get('opinion')
+                pro.DCCenterMidOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 9:
-                pro.TeaEndOpinion = request.form.get('opinion')
+                pro.TeaEndOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 10:
-                pro.CollageEndOpinion = request.form.get('opinion')
+                pro.CollageEndOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 11:
-                pro.DCCenterEndOpinion = request.form.get('opinion')
+                pro.DCCenterEndOpinion = isSpaceStr(request.form.get('opinion'))
             db.session.add(pro)
             db.session.commit()
             return render_template('authsucc.html', info=info)
@@ -713,23 +675,23 @@ def authyes(yesno):
             elif pro.Status in [9, 10, 11]:
                 pro.Status = 15
             if pro.Status == 1:
-                pro.TeaStarOpinion = request.form.get('opinion')
+                pro.TeaStarOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 2:
-                pro.CollStarOpinion = request.form.get('opinion')
+                pro.CollStarOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 3:
-                pro.SchStarOpinion = request.form.get('opinion')
+                pro.SchStarOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 5:
-                pro.TeaMidOpinion = request.form.get('opinion')
+                pro.TeaMidOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 6:
-                pro.SchMidOpinion = request.form.get('opinion')
+                pro.SchMidOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 7:
-                pro.DCCenterMidOpinion = request.form.get('opinion')
+                pro.DCCenterMidOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 9:
-                pro.TeaEndOpinion = request.form.get('opinion')
+                pro.TeaEndOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 10:
-                pro.CollageEndOpinion = request.form.get('opinion')
+                pro.CollageEndOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 11:
-                pro.DCCenterEndOpinion = request.form.get('opinion')
+                pro.DCCenterEndOpinion = isSpaceStr(request.form.get('opinion'))
             db.session.add(pro)
             db.session.commit()
             info = '审核不通过成功'
@@ -813,14 +775,17 @@ def updateStudentInfo2():
 #删除项目路由
 @app.route('/delete/project/<pid>')
 def deletePro(pid):
-    pro = Project.query.filter_by(pid=pid).first()
-    pu = User_Project.query.filter_by(pid=pid).all()
-    db.session.delete(pro)
-    db.session.commit()
-    for x in pu:
-        db.session.delete(x)
+    try:
+        pro = Project.query.filter_by(pid=pid).first()
+        pu = User_Project.query.filter_by(pid=pid).all()
+        db.session.delete(pro)
         db.session.commit()
-    return render_template('deleteUserSucc.html')
+        for x in pu:
+            db.session.delete(x)
+            db.session.commit()
+        return render_template('deleteUserSucc.html')
+    except:
+        return '发生了未知错误，请联系管理员，感谢您的支持'
 
 #修改密码路由
 @app.route('/updatePassword.html',methods=['GET'])

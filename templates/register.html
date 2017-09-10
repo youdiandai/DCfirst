@@ -11,6 +11,11 @@
         <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
 		<script src="../static/js/jquery-2.1.1.js"></script>
 		<script src="../static/js/bootstrap.min.js"></script>
+	<!-- 	<style type="text/css">
+		.surebtn{
+			margin-left: 80px;
+		}
+		</style> -->
 </head>
 <body>
 <header data-spy="scroll" data-target="#top-nav">
@@ -54,28 +59,28 @@
 
 <div class="register-main">
 	<div class="container">
-		<form class="form-horizontal" action="/register" method="POST">
+		<form class="form-horizontal" action="/register" method="POST" name="myform">
 			<h1 class="text-center">注册</h1><br>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">账号</div>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" placeholder="请输入学号" name="username">
+					<input type="text" class="form-control integrity" placeholder="请输入你的校园卡号" name="username" maxlength="8" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">姓名</div>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" placeholder="请输入姓名" name="name">
+					<input type="text" class="form-control integrity" placeholder="请输入姓名" name="name">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">学院</div>
 				<div class="col-sm-5">
-					<select class="form-control" name="collage">
-	                    <option></option>
+					<select class="form-control integrity" name="collage" onChange="change()" id="college_change">
+	                    <option>学院</option>
 	                    <option>外国语学院</option>
 						<option>文学院</option>
-						<option>马克思主义学院</option>
+						<option>科信软件学院</option>
 						<option>数学与系统科学学院</option>
 						<option>生命科学学院</option>
 						<option>物理科学与技术学院</option>
@@ -84,7 +89,7 @@
 						<option>化学化工学院</option>
 						<option>法学院</option>
 						<option>教育技术学院</option>
-						<option>科信软件学院</option>
+						<option>马克思主义学院</option>
 						<option>管理学院</option>
 						<option>旅游管理学院</option>
 						<option>美术与设计学院</option>
@@ -121,8 +126,8 @@
 						<option>人力资源开发与管理研究所</option>
 						<option>书法教育研究所</option>
 						<option>教育经济与管理研究所</option>
-						<option>附属艺术学校</option>
-						<option>延松剧场艺术研</option>究所
+						<option>附属艺术学校
+						<option>延松剧场艺术研究所</option>
 						<option>梅兰芳艺术研究所</option>
 						<option>法律文化研究中心</option>
 						<option>法律与公共政策研究中心</option>
@@ -143,116 +148,40 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">专业</div>
 				<div class="col-sm-5">
-					<select class="form-control" name="major">
-	                    <option></option>
-						<option>俄语</option>
-						<option>汉语言文学</option>
-						<option>思想政治教育</option>
-						<option>英语</option>
-						<option>数学与应用数学</option>
-						<option>生物科学</option>
-						<option>物理学</option>
-						<option>教育学</option>
-						<option>社会学</option>
-						<option>化学</option>
-						<option>法学</option>
-						<option>教育技术学</option>
-						<option>应用化学</option>
-						<option>生物技术</option>
-						<option>电子信息工程</option>
-						<option>计算机科学与技术</option>
-						<option>行政管理</option>
-						<option>旅游管理</option>
-						<option>日语</option>
-						<option>美术学</option>
-						<option>学前教育</option>
-						<option>秘书学</option>
-						<option>音乐学</option>
-						<option>经济学</option>
-						<option>汉语言</option>
-						<option>应用心理学</option>
-						<option>新闻学</option>
-						<option>信息与计算科学</option>
-						<option>环境科学</option>
-						<option>信息管理与信息系统</option>
-						<option>劳动与社会保障</option>
-						<option>小学教育</option>
-						<option>体育教育</option>
-						<option>舞蹈学</option>
-						<option>应用统计学</option>
-						<option>食品科学与工程</option>
-						<option>市场营销</option>
-						<option>音乐表演</option>
-						<option>国际经济与贸易</option>
-						<option>社会体育指导与管理</option>
-						<option>表演</option>
-						<option>人力资源管理</option>
-						<option>会展经济与管理</option>
-						<option>运动训练</option>
-						<option>法语</option>
-						<option>软件工程</option>
-						<option>服装设计与工程</option>
-						<option>播音与主持艺术</option>
-						<option>绘画</option>
-						<option>汉语国际教育</option>
-						<option>应用物理学</option>
-						<option>金融学</option>
-						<option>社会工作</option>
-						<option>物流管理</option>
-						<option>翻译</option>
-						<option>网络工程</option>
-						<option>粮食工程</option>
-						<option>武术与民族传统体育</option>
-						<option>食品质量与安全</option>
-						<option>酒店管理</option>
-						<option>古生物学</option>
-						<option>雕塑</option>
-						<option>舞蹈表演</option>
-						<option>视觉传达设计</option>
-						<option>环境设计</option>
-						<option>产品设计</option>
-						<option>公共艺术</option>
-						<option>数字媒体艺术</option>
-						<option>中国画</option>
-						<option>动画</option>
-						<option>戏剧影视美术设计</option>
-						<option>广播电视编导</option>
-						<option>网络与新媒体</option>
-						<option>工艺美术</option>
-						<option>环境生态工程</option>
-						<option>德语</option>
+					<select class="form-control integrity " name="major" id="major_change">
+	                    <option>专业</option>
 	                </select>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">密码</div>
 				<div class="col-sm-5">
-					<input type="password" class="form-control" id="lastname" placeholder="请输入密码" name="password">
+					<input type="password" class="form-control integrity" id="input1" placeholder="请输入密码" name="password">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">确认密码</div>
 				<div class="col-sm-5">
-					<input type="password" class="form-control" id="lastname" placeholder="再次输入密码" name="repassword">
+					<input type="password" class="form-control integrity" id="input2" placeholder="再次输入密码" name="repassword" onblur="check()">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">手机号</div>
 				<div class="col-sm-5">
-					<input type="tel" class="form-control" maxlength="11" placeholder="请输入手机号" name="tel">
+					<input type="tel" class="form-control integrity" maxlength="11" placeholder="请输入有效的11位手机号" name="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">E-mail</div>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" placeholder="请输入电子邮箱" name="email">
+					<input type="text" class="form-control integrity" placeholder="请输入常用的电子邮箱" name="email" id="email" onblur="checkMail()">
 				</div>
-			</div>
+			</div><br><br>
 			<div class="form-group">
 				<div>
-					<button type="submit" class="btn btn-danger col-sm-2 col-xs-4 col-sm-offset-4 col-xs-offset-1">确认</button>
+					<button type="submit" class="btn btn-primary col-sm-1 col-xs-4 col-sm-offset-5 col-xs-offset-1 surebtn">确认</button>
 
-					<button type="reset" class="btn btn-default col-sm-2 col-xs-4 col-sm-offset-1 col-xs-offset-2">重置</button>
+					<button type="reset" class="btn btn-default col-sm-1 col-xs-4 col-sm-offset-1 col-xs-offset-2">重置</button>
 				</div>
 			</div>
 
@@ -260,18 +189,224 @@
 	</div>
 </div>
 
-<footer>
-	<div class="copyright">沈阳师范大学&nbsp&nbsp&nbsp&nbsp大学生创新创业中心</div>
+<footer style="background-color:#5E5E5E">
+	<div class="copyright">
+        <p>沈阳师范大学&nbsp大学生创新创业中心&nbsp&nbsp&nbsp</p>
+        <img src="../static/images/MultiBulder LOGO.png"/>&nbsp© 2017 .All rights reserved. Multibuilder 版权所有
+    </div>
 </footer>
 
 </body>
 <script type="text/javascript">
-    $(document).ready(function() {
-		var ww = $(window).width();
-		if (ww > 760){
-			$("body").height($(window).height());
-    		$(".register-main").height($("body").height()-70+"px");
-		}
-	});
+//div 高度设置
+$(document).ready(function() {
+	var ww = $(window).width();
+	if (ww > 760){
+		$("body").height($(window).height());
+		$(".register-main").height($("body").height());
+	}
+	if (ww > 800 && ww < 1520){
+		// $("body").height($(window).height());
+		$(".register-main").height($("container").height());
+		$("footer").css("margin-top","0");
+		$(".form-horizontal").css("margin","25px");
+	}
+});
+//两次密码核对
+function check()
+{ 
+   with(document.all){
+   if(input1.value!=input2.value)
+	   {
+	     alert("两次密码不一致")
+		 input1.value = "";
+		 input2.value = "";
+	   }
+   }
+};
+//验证表单填写完整
+$(".surebtn").click(function() {
+   if ($(".integrity").val() == '' ){
+    alert('请先填写完整');
+    return false;
+    }
+    else{
+        alert('确认提交');
+    } 
+});
+//邮箱格式验证
+function checkMail(){
+  var check = document.myform.email.value;
+ //    if(check.length==0){              //如果输入长度为零,就是没有输入
+ //    alert("请输入邮箱名");
+ //    return false;
+	// }
+	if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
+	    alert("邮箱名格式不正确");          
+	    return false;
+	}
+	if(check.indexOf(".",0)==-1){
+	    alert("邮箱名格式不正确");
+	    return false;
+	}
+};
+//学院专业二级联动
+function change()  
+{  
+   var x = document.getElementById("college_change");  
+   var y = document.getElementById("major_change");  
+   y.options.length = 0; // 清除second下拉框的所有内容  
+   if(x.selectedIndex == 0)  
+   {  
+        y.options.add(new Option("专业", "0")); 
+   }  
+  
+   if(x.selectedIndex == 1)  
+   {  
+        y.options.add(new Option("英语", "0"));  
+        y.options.add(new Option("日语", "1")); 
+        y.options.add(new Option("法语", "2")); 
+        y.options.add(new Option("德语", "3"));  
+
+   }  
+   if(x.selectedIndex == 2)  
+   {  
+        y.options.add(new Option("汉语言文学", "0"));  
+        y.options.add(new Option("55", "1"));   
+        y.options.add(new Option("顶顶顶", "2"));  
+   } 
+   if(x.selectedIndex == 3)  
+   {  
+        y.options.add(new Option("计算机科学与技术", "0"));  
+        y.options.add(new Option("软件工程", "1"));   
+        y.options.add(new Option("网络工程", "2"));  
+   } 
+   if(x.selectedIndex == 4)  
+   {  
+        y.options.add(new Option("数学与应用数学", "0"));  
+        y.options.add(new Option("信息与计算科学", "1"));    
+   } 
+   if(x.selectedIndex == 5)  
+   {  
+        y.options.add(new Option("生物技术", "0"));  
+        y.options.add(new Option("生物科学", "1"));    
+   }
+   if(x.selectedIndex == 6)  
+   {  
+        y.options.add(new Option("物理学", "0"));  
+        y.options.add(new Option("应用物理学", "1"));
+        y.options.add(new Option("电子信息", "2")); 
+   }
+   //教育科学学院
+   if(x.selectedIndex == 7)  
+   {  
+        y.options.add(new Option("", "0"));  
+        y.options.add(new Option("", "1"));
+   }
+   if(x.selectedIndex == 8)  
+   {  
+        y.options.add(new Option("社会学", "0"));  
+        y.options.add(new Option("社会工作", "1"));
+   }
+   if(x.selectedIndex == 9)  
+   {  
+        y.options.add(new Option("化学", "0"));  
+        y.options.add(new Option("应用化学", "1"));
+        y.options.add(new Option("环境科学", "2"));
+        y.options.add(new Option("环境生态", "3"));
+        y.options.add(new Option("环境设计", "4"));
+
+   }
+   if(x.selectedIndex == 10)  
+   {  
+        y.options.add(new Option("法学", "0"));
+   }
+   //教育技术学院
+   if(x.selectedIndex == 11)  
+   {  
+        y.options.add(new Option("教育技术学", "0"));
+        y.options.add(new Option("网络与新媒体", "1"));
+   }
+   if(x.selectedIndex == 12)  
+   {  
+        y.options.add(new Option("劳动与社会保障", "0"));
+        y.options.add(new Option("思想政治教育", "1"));
+   }
+   //管理学院
+   if(x.selectedIndex == 13)  
+   {  
+        y.options.add(new Option("会展经济与管理", "0"));
+        y.options.add(new Option("人力资源管理", "1"));
+        y.options.add(new Option("信息管理与信息系统", "2"));
+   }
+   if(x.selectedIndex == 14)  
+   {  
+        y.options.add(new Option("旅游管理", "0"));
+        y.options.add(new Option("酒店管理", "1"));
+   }
+   if(x.selectedIndex == 15)  
+   {  
+        y.options.add(new Option("美术学", "0"));
+        y.options.add(new Option("视觉传达设计", "1"));
+        y.options.add(new Option("中国画", "2"));
+        y.options.add(new Option("表演", "3"));
+        y.options.add(new Option("绘画", "4"));
+        y.options.add(new Option("服装设计与工程", "5"));
+        y.options.add(new Option("动画", "6"));
+        y.options.add(new Option("数字媒体艺术", "7"));
+
+        y.options.add(new Option("工艺美术", "8"));
+        y.options.add(new Option("公共艺术", "9"));
+        y.options.add(new Option("产品艺术", "10"));
+        y.options.add(new Option("雕塑", "11"));
+   }
+   if(x.selectedIndex == 16)  
+   {  
+        y.options.add(new Option("学前教育", "0"));
+        y.options.add(new Option("小学教育", "1"));
+   }
+   if(x.selectedIndex == 17)  
+   {  
+        y.options.add(new Option("市场营销", "0"));
+        y.options.add(new Option("物流管理", "1"));
+        y.options.add(new Option("金融学", "2"));
+        y.options.add(new Option("国际经济与贸易", "3"));
+        y.options.add(new Option("经济学", "4"));
+   }
+   if(x.selectedIndex == 18)  
+   {  
+        y.options.add(new Option("体育教育", "0"));
+        y.options.add(new Option("运动训练", "1"));
+        y.options.add(new Option("社会体育指导与管理", "2"));
+        y.options.add(new Option("武术与民族传统体育", "3"));
+   }
+   if(x.selectedIndex == 19)  
+   {  
+        y.options.add(new Option("舞蹈学", "0"));
+        y.options.add(new Option("播音与主持艺术", "1"));
+        y.options.add(new Option("舞蹈表演", "2"));
+        y.options.add(new Option("戏剧影视美术设计", "3"));
+        y.options.add(new Option("广播电视编导", "4"));
+   }
+   if(x.selectedIndex == 20)  
+   {  
+        y.options.add(new Option("粮食工程", "0"));
+        y.options.add(new Option("食品科学与工程", "1"));
+        y.options.add(new Option("食品质量与安全", "2"));
+   }
+   if(x.selectedIndex == 21)  
+   {  
+        y.options.add(new Option("音乐学", "0"));
+        y.options.add(new Option("音乐表演", "1"));
+   }
+    if(x.selectedIndex == 22)  
+   {  
+        y.options.add(new Option("古生物学", "0"));
+   }
+   else if(x.selectedIndex > 22 && x.selectedIndex < 64){
+   	y.options.add(new Option("无", "0"));
+   }
+   
+};
 </script>
 </html>

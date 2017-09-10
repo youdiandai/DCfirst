@@ -14,7 +14,13 @@
 		body{
 			background-color: #EBEBEB;
 		}
-		.loginsucc-main h2{padding: 35px 20px 45px;}
+		.loginsucc-main h2{padding: 5px 20px 45px;}
+		.check-personalInfo{
+			float: right;
+			font-size: 14px;
+			cursor: pointer;
+			color: #0A62AD;
+		}
 		.update-personalInfo{
 			float: right;
 			font-size: 14px;
@@ -79,12 +85,19 @@
 	<div class="loginsucc-main"  style="margin-top:100px;">
 		<div class="container">
 			<div class="row personInformation">
-				<h2>你好，{{name}}<span class="update-personalInfo">修改个人信息</span><br><span class="updatePassword">修改密码</span></h2>
+				<h2>你好，{{name}}<span class="check-personalInfo">查看个人信息</span><br>
+				<span class="update-personalInfo">修改个人信息</span><br><span class="updatePassword">修改密码</span></h2>
 				<div class="form-group">
-				    <div>
+				    <div class="row">
 				        <a href="/myproject" target="iframe-student" class="btn btn-primary col-sm-2 col-xs-4 col-sm-offset-2 myProject">我的项目</a>
 				        <a href="/join_project.html" target="iframe-student" class="btn btn-primary col-sm-offset-1 col-sm-2 col-xs-4 joinProject">加入项目</a>
 				        <a  href="/project_application.html" target="iframe-student" class="btn btn-primary col-sm-offset-1 col-sm-2 col-xs-4 createProject">项目立项</a>
+				    </div>
+	  			</div>
+	  			<div class="form-group">
+				    <div class="row">
+				        <a href="/myproject" target="iframe-student" class="btn btn-primary col-sm-2 col-xs-4 col-sm-offset-2 myProject">我的竞赛</a>
+				        <a href="/join_project.html" target="iframe-student" class="btn btn-primary col-sm-offset-1 col-sm-2 col-xs-4 joinProject">加入竞赛</a>
 				    </div>
 	  			</div>
 			</div><br>
@@ -120,6 +133,18 @@ $(document).ready(function(){
         fix: false,
         area: ['800px', '600px'],
         content:"updateStudentInfo.html",
+        });
+    });
+});
+$(document).ready(function(){
+    $('.check-personalInfo').click(function(){
+        layer.open({
+        type: 2,
+        // skin: 'layui-layer-lan',
+        title: '查看个人信息',
+        fix: false,
+        area: ['800px', '500px'],
+        content:"xxxxxx.html",
         });
     });
 });

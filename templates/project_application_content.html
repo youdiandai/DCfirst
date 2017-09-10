@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 	<style type="text/css">
 	.form-horizontal{
-		padding-bottom: 75px;
+		padding-bottom: 125px;
 	}
 	</style>
 </head>
@@ -20,21 +20,21 @@
 	<h1 class="text-center">“大学生创新创业训练计划”<br>
 			项目申报书</h1>
 	
-               <form method="post" action="/project_application_content.html" class="form-horizontal" enctype="multipart/form-data">
+               <form method="post" action="/project_application_content.html" class="form-horizontal" enctype="multipart/form-data" name="myForm">
             <div class="form-group">
 				<div class="col-sm-4 control-label">项目名称</div>
 				<div class="col-sm-5">
-					<input class="form-control" placeholder="请输入项目名称" name="Pname">
+					<input class="form-control integrity" placeholder="请输入项目名称" name="Pname">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">学院</div>
 				<div class="col-sm-5">
-	                <select class="form-control" name="Collage">
+	                <select class="form-control integrity" name="Collage">
 	                    <option>学院</option>
 	                    <option>外国语学院</option>
 						<option>文学院</option>
-						<option>马克思主义学院</option>
+						<option>科信软件学院</option>
 						<option>数学与系统科学学院</option>
 						<option>生命科学学院</option>
 						<option>物理科学与技术学院</option>
@@ -43,7 +43,7 @@
 						<option>化学化工学院</option>
 						<option>法学院</option>
 						<option>教育技术学院</option>
-						<option>科信软件学院</option>
+						<option>马克思主义学院</option>
 						<option>管理学院</option>
 						<option>旅游管理学院</option>
 						<option>美术与设计学院</option>
@@ -104,17 +104,17 @@
 			</div>
 			<div class="form-group m11">
             	<div class="col-sm-2">
-					<input class="form-control" placeholder="学号" name="username1">
+					<input class="form-control integrity" placeholder="学号" name="username1">
 				</div>
 				<div class="col-sm-1">
-					<input class="form-control" placeholder="姓名" name="name1">
+					<input class="form-control integrity" placeholder="姓名" name="name1">
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" name="collage1">
+					<select class="form-control integrity " id="college_change1" name="collage1" onChange="change()">
 	                    <option>学院</option>
 	                    <option>外国语学院</option>
 						<option>文学院</option>
-						<option>马克思主义学院</option>
+						<option>科信软件学院</option>
 						<option>数学与系统科学学院</option>
 						<option>生命科学学院</option>
 						<option>物理科学与技术学院</option>
@@ -123,7 +123,7 @@
 						<option>化学化工学院</option>
 						<option>法学院</option>
 						<option>教育技术学院</option>
-						<option>科信软件学院</option>
+						<option>马克思主义学院</option>
 						<option>管理学院</option>
 						<option>旅游管理学院</option>
 						<option>美术与设计学院</option>
@@ -179,110 +179,35 @@
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" name="major1">
+					<select class="form-control integrity " id="major_change1" name="major1" >
 	                    <option>专业</option>
-						<option>俄语</option>
-						<option>汉语言文学</option>
-						<option>思想政治教育</option>
-						<option>英语</option>
-						<option>数学与应用数学</option>
-						<option>生物科学</option>
-						<option>物理学</option>
-						<option>教育学</option>
-						<option>社会学</option>
-						<option>化学</option>
-						<option>法学</option>
-						<option>教育技术学</option>
-						<option>应用化学</option>
-						<option>生物技术</option>
-						<option>电子信息工程</option>
-						<option>计算机科学与技术</option>
-						<option>行政管理</option>
-						<option>旅游管理</option>
-						<option>日语</option>
-						<option>美术学</option>
-						<option>学前教育</option>
-						<option>秘书学</option>
-						<option>音乐学</option>
-						<option>经济学</option>
-						<option>汉语言</option>
-						<option>应用心理学</option>
-						<option>新闻学</option>
-						<option>信息与计算科学</option>
-						<option>环境科学</option>
-						<option>信息管理与信息系统</option>
-						<option>劳动与社会保障</option>
-						<option>小学教育</option>
-						<option>体育教育</option>
-						<option>舞蹈学</option>
-						<option>应用统计学</option>
-						<option>食品科学与工程</option>
-						<option>市场营销</option>
-						<option>音乐表演</option>
-						<option>国际经济与贸易</option>
-						<option>社会体育指导与管理</option>
-						<option>表演</option>
-						<option>人力资源管理</option>
-						<option>会展经济与管理</option>
-						<option>运动训练</option>
-						<option>法语</option>
-						<option>软件工程</option>
-						<option>服装设计与工程</option>
-						<option>播音与主持艺术</option>
-						<option>绘画</option>
-						<option>汉语国际教育</option>
-						<option>应用物理学</option>
-						<option>金融学</option>
-						<option>社会工作</option>
-						<option>物流管理</option>
-						<option>翻译</option>
-						<option>网络工程</option>
-						<option>粮食工程</option>
-						<option>武术与民族传统体育</option>
-						<option>食品质量与安全</option>
-						<option>酒店管理</option>
-						<option>古生物学</option>
-						<option>雕塑</option>
-						<option>舞蹈表演</option>
-						<option>视觉传达设计</option>
-						<option>环境设计</option>
-						<option>产品设计</option>
-						<option>公共艺术</option>
-						<option>数字媒体艺术</option>
-						<option>中国画</option>
-						<option>动画</option>
-						<option>戏剧影视美术设计</option>
-						<option>广播电视编导</option>
-						<option>网络与新媒体</option>
-						<option>工艺美术</option>
-						<option>环境生态工程</option>
-						<option>德语</option>
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control" placeholder="手机号" name="tel1">
+					<input class="form-control tel integrity" placeholder="手机号" name="tel1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control" placeholder="邮箱" name="email1">
+					<input class="form-control integrity" placeholder="邮箱" name="email1" onblur="checkMail()" id="email1">
 				</div>
 				<div class="col-sm-1">
-					<img class="m2" src="../static/images/plus.png"/>
+					<img class="m2" src="../static/images/add.png"/>&nbsp
+					<img class="m2-" src="../static/images/subtract.png"/>
 				</div>
 			</div>
 			<div class="form-group m22">
                 <div class="col-sm-2">
-					<input class="form-control" placeholder="学号" name="username2">
+					<input class="form-control integrity" placeholder="学号" name="username2">
 				</div>
 
 				<div class="col-sm-1">
-					<input class="form-control" placeholder="姓名" name="name2">
+					<input class="form-control integrity" placeholder="姓名" name="name2">
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" name="collage2">
+					<select class="form-control integrity" name="collage2" id="college_change2" onChange="change2()">
 	                    <option>学院</option>
 	                    <option>外国语学院</option>
 						<option>文学院</option>
-						<option>马克思主义学院</option>
+						<option>科信软件学院</option>
 						<option>数学与系统科学学院</option>
 						<option>生命科学学院</option>
 						<option>物理科学与技术学院</option>
@@ -291,7 +216,7 @@
 						<option>化学化工学院</option>
 						<option>法学院</option>
 						<option>教育技术学院</option>
-						<option>科信软件学院</option>
+						<option>马克思主义学院</option>
 						<option>管理学院</option>
 						<option>旅游管理学院</option>
 						<option>美术与设计学院</option>
@@ -347,109 +272,34 @@
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" name="major2">
+					<select class="form-control integrity" name="major2" id="major_change2">
 	                    <option>专业</option>
-						<option>俄语</option>
-						<option>汉语言文学</option>
-						<option>思想政治教育</option>
-						<option>英语</option>
-						<option>数学与应用数学</option>
-						<option>生物科学</option>
-						<option>物理学</option>
-						<option>教育学</option>
-						<option>社会学</option>
-						<option>化学</option>
-						<option>法学</option>
-						<option>教育技术学</option>
-						<option>应用化学</option>
-						<option>生物技术</option>
-						<option>电子信息工程</option>
-						<option>计算机科学与技术</option>
-						<option>行政管理</option>
-						<option>旅游管理</option>
-						<option>日语</option>
-						<option>美术学</option>
-						<option>学前教育</option>
-						<option>秘书学</option>
-						<option>音乐学</option>
-						<option>经济学</option>
-						<option>汉语言</option>
-						<option>应用心理学</option>
-						<option>新闻学</option>
-						<option>信息与计算科学</option>
-						<option>环境科学</option>
-						<option>信息管理与信息系统</option>
-						<option>劳动与社会保障</option>
-						<option>小学教育</option>
-						<option>体育教育</option>
-						<option>舞蹈学</option>
-						<option>应用统计学</option>
-						<option>食品科学与工程</option>
-						<option>市场营销</option>
-						<option>音乐表演</option>
-						<option>国际经济与贸易</option>
-						<option>社会体育指导与管理</option>
-						<option>表演</option>
-						<option>人力资源管理</option>
-						<option>会展经济与管理</option>
-						<option>运动训练</option>
-						<option>法语</option>
-						<option>软件工程</option>
-						<option>服装设计与工程</option>
-						<option>播音与主持艺术</option>
-						<option>绘画</option>
-						<option>汉语国际教育</option>
-						<option>应用物理学</option>
-						<option>金融学</option>
-						<option>社会工作</option>
-						<option>物流管理</option>
-						<option>翻译</option>
-						<option>网络工程</option>
-						<option>粮食工程</option>
-						<option>武术与民族传统体育</option>
-						<option>食品质量与安全</option>
-						<option>酒店管理</option>
-						<option>古生物学</option>
-						<option>雕塑</option>
-						<option>舞蹈表演</option>
-						<option>视觉传达设计</option>
-						<option>环境设计</option>
-						<option>产品设计</option>
-						<option>公共艺术</option>
-						<option>数字媒体艺术</option>
-						<option>中国画</option>
-						<option>动画</option>
-						<option>戏剧影视美术设计</option>
-						<option>广播电视编导</option>
-						<option>网络与新媒体</option>
-						<option>工艺美术</option>
-						<option>环境生态工程</option>
-						<option>德语</option>
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control" placeholder="手机号" name="tel2">
+					<input class="form-control integrity" placeholder="手机号" name="tel2" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control" placeholder="邮箱" name="email2">
+					<input class="form-control integrity" placeholder="邮箱" name="email2" onblur="checkMail2()"  id="email2">
 				</div>
 				<div class="col-sm-1">
-					<img class="m3" src="../static/images/plus.png"/>
+					<img class="m3" src="../static/images/add.png"/>&nbsp
+					<img class="m3-" src="../static/images/subtract.png"/>
 				</div>
 			</div>
 			<div class="form-group m33">
                 <div class="col-sm-2">
-					<input class="form-control" placeholder="学号" name="username3">
+					<input class="form-control integrity" placeholder="学号" name="username3">
 				</div>
 				<div class="col-sm-1">
-					<input class="form-control" placeholder="姓名" name="name3">
+					<input class="form-control integrity" placeholder="姓名" name="name3">
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" name="collage3">
+					<select class="form-control integrity" name="collage3" id="college_change3" onChange="change3()">
 	                    <option>学院</option>
 	                    <option>外国语学院</option>
 						<option>文学院</option>
-						<option>马克思主义学院</option>
+						<option>科信软件学院</option>
 						<option>数学与系统科学学院</option>
 						<option>生命科学学院</option>
 						<option>物理科学与技术学院</option>
@@ -458,7 +308,7 @@
 						<option>化学化工学院</option>
 						<option>法学院</option>
 						<option>教育技术学院</option>
-						<option>科信软件学院</option>
+						<option>马克思主义学院</option>
 						<option>管理学院</option>
 						<option>旅游管理学院</option>
 						<option>美术与设计学院</option>
@@ -514,109 +364,34 @@
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" name="major3">
+					<select class="form-control integrity" name="major3" id="major_change3">
 	                    <option>专业</option>
-						<option>俄语</option>
-						<option>汉语言文学</option>
-						<option>思想政治教育</option>
-						<option>英语</option>
-						<option>数学与应用数学</option>
-						<option>生物科学</option>
-						<option>物理学</option>
-						<option>教育学</option>
-						<option>社会学</option>
-						<option>化学</option>
-						<option>法学</option>
-						<option>教育技术学</option>
-						<option>应用化学</option>
-						<option>生物技术</option>
-						<option>电子信息工程</option>
-						<option>计算机科学与技术</option>
-						<option>行政管理</option>
-						<option>旅游管理</option>
-						<option>日语</option>
-						<option>美术学</option>
-						<option>学前教育</option>
-						<option>秘书学</option>
-						<option>音乐学</option>
-						<option>经济学</option>
-						<option>汉语言</option>
-						<option>应用心理学</option>
-						<option>新闻学</option>
-						<option>信息与计算科学</option>
-						<option>环境科学</option>
-						<option>信息管理与信息系统</option>
-						<option>劳动与社会保障</option>
-						<option>小学教育</option>
-						<option>体育教育</option>
-						<option>舞蹈学</option>
-						<option>应用统计学</option>
-						<option>食品科学与工程</option>
-						<option>市场营销</option>
-						<option>音乐表演</option>
-						<option>国际经济与贸易</option>
-						<option>社会体育指导与管理</option>
-						<option>表演</option>
-						<option>人力资源管理</option>
-						<option>会展经济与管理</option>
-						<option>运动训练</option>
-						<option>法语</option>
-						<option>软件工程</option>
-						<option>服装设计与工程</option>
-						<option>播音与主持艺术</option>
-						<option>绘画</option>
-						<option>汉语国际教育</option>
-						<option>应用物理学</option>
-						<option>金融学</option>
-						<option>社会工作</option>
-						<option>物流管理</option>
-						<option>翻译</option>
-						<option>网络工程</option>
-						<option>粮食工程</option>
-						<option>武术与民族传统体育</option>
-						<option>食品质量与安全</option>
-						<option>酒店管理</option>
-						<option>古生物学</option>
-						<option>雕塑</option>
-						<option>舞蹈表演</option>
-						<option>视觉传达设计</option>
-						<option>环境设计</option>
-						<option>产品设计</option>
-						<option>公共艺术</option>
-						<option>数字媒体艺术</option>
-						<option>中国画</option>
-						<option>动画</option>
-						<option>戏剧影视美术设计</option>
-						<option>广播电视编导</option>
-						<option>网络与新媒体</option>
-						<option>工艺美术</option>
-						<option>环境生态工程</option>
-						<option>德语</option>
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control" placeholder="手机号" name="tel3">
+					<input class="form-control integrity" placeholder="手机号" name="tel3" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control" placeholder="邮箱" name="email3">
+					<input class="form-control integrity" placeholder="邮箱" name="email3" onblur="checkMail3()"  id="email3">
 				</div>
 				<div class="col-sm-1">
-					<img class="m4" src="../static/images/plus.png"/>
+					<img class="m4" src="../static/images/add.png"/>&nbsp
+					<img class="m4-" src="../static/images/subtract.png"/>
 				</div>
 			</div>
 			<div class="form-group m44">
                 <div class="col-sm-2">
-					<input class="form-control" placeholder="学号" name="username4">
+					<input class="form-control integrity" placeholder="学号" name="username4">
 				</div>
 				<div class="col-sm-1">
-					<input class="form-control" placeholder="姓名" name="name4">
+					<input class="form-control integrity" placeholder="姓名" name="name4">
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" name="collage4">
+					<select class="form-control integrity" name="collage4" id="college_change4" onChange="change4()">
 	                    <option>学院</option>
 	                    <option>外国语学院</option>
 						<option>文学院</option>
-						<option>马克思主义学院</option>
+						<option>科信软件学院</option>
 						<option>数学与系统科学学院</option>
 						<option>生命科学学院</option>
 						<option>物理科学与技术学院</option>
@@ -625,7 +400,7 @@
 						<option>化学化工学院</option>
 						<option>法学院</option>
 						<option>教育技术学院</option>
-						<option>科信软件学院</option>
+						<option>马克思主义学院</option>
 						<option>管理学院</option>
 						<option>旅游管理学院</option>
 						<option>美术与设计学院</option>
@@ -681,268 +456,30 @@
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" name="major4">
+					<select class="form-control integrity" name="major4" id="major_change4">
 	                    <option>专业</option>
-						<option>俄语</option>
-						<option>汉语言文学</option>
-						<option>思想政治教育</option>
-						<option>英语</option>
-						<option>数学与应用数学</option>
-						<option>生物科学</option>
-						<option>物理学</option>
-						<option>教育学</option>
-						<option>社会学</option>
-						<option>化学</option>
-						<option>法学</option>
-						<option>教育技术学</option>
-						<option>应用化学</option>
-						<option>生物技术</option>
-						<option>电子信息工程</option>
-						<option>计算机科学与技术</option>
-						<option>行政管理</option>
-						<option>旅游管理</option>
-						<option>日语</option>
-						<option>美术学</option>
-						<option>学前教育</option>
-						<option>秘书学</option>
-						<option>音乐学</option>
-						<option>经济学</option>
-						<option>汉语言</option>
-						<option>应用心理学</option>
-						<option>新闻学</option>
-						<option>信息与计算科学</option>
-						<option>环境科学</option>
-						<option>信息管理与信息系统</option>
-						<option>劳动与社会保障</option>
-						<option>小学教育</option>
-						<option>体育教育</option>
-						<option>舞蹈学</option>
-						<option>应用统计学</option>
-						<option>食品科学与工程</option>
-						<option>市场营销</option>
-						<option>音乐表演</option>
-						<option>国际经济与贸易</option>
-						<option>社会体育指导与管理</option>
-						<option>表演</option>
-						<option>人力资源管理</option>
-						<option>会展经济与管理</option>
-						<option>运动训练</option>
-						<option>法语</option>
-						<option>软件工程</option>
-						<option>服装设计与工程</option>
-						<option>播音与主持艺术</option>
-						<option>绘画</option>
-						<option>汉语国际教育</option>
-						<option>应用物理学</option>
-						<option>金融学</option>
-						<option>社会工作</option>
-						<option>物流管理</option>
-						<option>翻译</option>
-						<option>网络工程</option>
-						<option>粮食工程</option>
-						<option>武术与民族传统体育</option>
-						<option>食品质量与安全</option>
-						<option>酒店管理</option>
-						<option>古生物学</option>
-						<option>雕塑</option>
-						<option>舞蹈表演</option>
-						<option>视觉传达设计</option>
-						<option>环境设计</option>
-						<option>产品设计</option>
-						<option>公共艺术</option>
-						<option>数字媒体艺术</option>
-						<option>中国画</option>
-						<option>动画</option>
-						<option>戏剧影视美术设计</option>
-						<option>广播电视编导</option>
-						<option>网络与新媒体</option>
-						<option>工艺美术</option>
-						<option>环境生态工程</option>
-						<option>德语</option>
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control" placeholder="手机号" name="tel4">
+					<input class="form-control integrity" placeholder="手机号" name="tel4" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control" placeholder="邮箱" name="email4">
+					<input class="form-control integrity" placeholder="邮箱" name="email4" onblur="checkMail4()"  id="email4">
 				</div>
-				<!-- <button class="btn btn-primary col-sm-2 m5">再添加一个成员</button> -->
+				<div class="col-sm-1">
+					&nbsp&nbsp<img class="m5-" src="../static/images/subtract.png"/>
+				</div>
 			</div>
-			<!-- <div class="form-group m55">
-                <div class="col-sm-2">
-					<input class="form-control" placeholder="学号" name="username5">
-				</div>
-				<div class="col-sm-2">
-					<input class="form-control" placeholder="姓名" name="name5">
-				</div>
-				<div class="col-sm-2">
-					<select class="form-control" name="collage5">
-	                    <option>学院</option>
-	                    <option>外国语学院</option>
-						<option>文学院</option>
-						<option>马克思主义学院</option>
-						<option>数学与系统科学学院</option>
-						<option>生命科学学院</option>
-						<option>物理科学与技术学院</option>
-						<option>教育科学学院</option>
-						<option>社会学学院</option>
-						<option>化学化工学院</option>
-						<option>法学院</option>
-						<option>教育技术学院</option>
-						<option>科信软件学院</option>
-						<option>管理学院</option>
-						<option>旅游管理学院</option>
-						<option>美术与设计学院</option>
-						<option>学前与初等教育学院</option>
-						<option>国际商学院</option>
-						<option>体育科学学院</option>
-						<option>戏剧艺术学院</option>
-						<option>粮食学院</option>
-						<option>音乐学院</option>
-						<option>古生物学院</option>
-						<option>组织部</option>
-						<option>党校</option>
-						<option>宣传统战部</option>
-						<option>审计监察处</option>
-						<option>工会</option>
-						<option>团委</option>
-						<option>教务处</option>
-						<option>学生处</option>
-						<option>招生就业指导处</option>
-						<option>研究生处</option>
-						<option>教育硕士研究生院</option>
-						<option>教师教育处</option>
-						<option>教师专业发展学院</option>
-						<option>学科与科研工作处</option>
-						<option>国际教育学院</option>
-						<option>继续教育学院</option>
-						<option>校务办公室</option>
-						<option>合作发展处</option>
-						<option>后勤工作处</option>
-						<option>校园安全与管理处</option>
-						<option>人事处</option>
-						<option>离退休工作处</option>
-						<option>财务与资产管理处</option>
-						<option>人力资源开发与管理研究所</option>
-						<option>书法教育研究所</option>
-						<option>教育经济与管理研究所</option>
-						<option>附属艺术学校
-						<option>延松剧场艺术研</option>究所</option>
-						<option>梅兰芳艺术研究所</option>
-						<option>法律文化研究中心</option>
-						<option>法律与公共政策研究中心</option>
-						<option>中国北方少数民族文化研究中心</option>
-						<option>中国文化与文学研究所</option>
-						<option>两栖爬行动物研究所</option>
-						<option>大学外语教学部</option>
-						<option>计算机与数学基础教学部</option>
-						<option>实验教学中心</option>
-						<option>辽宁省基础教育教研培训中心</option>
-						<option>图书馆</option>
-						<option>学报编辑部</option>
-						<option>后勤集团</option>
-						<option>校医院</option>
-	                </select>
-				</div>
-				<div class="col-sm-2">
-					<select class="form-control" name="major5">
-	                    <option>专业</option>
-						<option>俄语</option>
-						<option>汉语言文学</option>
-						<option>思想政治教育</option>
-						<option>英语</option>
-						<option>数学与应用数学</option>
-						<option>生物科学</option>
-						<option>物理学</option>
-						<option>教育学</option>
-						<option>社会学</option>
-						<option>化学</option>
-						<option>法学</option>
-						<option>教育技术学</option>
-						<option>应用化学</option>
-						<option>生物技术</option>
-						<option>电子信息工程</option>
-						<option>计算机科学与技术</option>
-						<option>行政管理</option>
-						<option>旅游管理</option>
-						<option>日语</option>
-						<option>美术学</option>
-						<option>学前教育</option>
-						<option>秘书学</option>
-						<option>音乐学</option>
-						<option>经济学</option>
-						<option>汉语言</option>
-						<option>应用心理学</option>
-						<option>新闻学</option>
-						<option>信息与计算科学</option>
-						<option>环境科学</option>
-						<option>信息管理与信息系统</option>
-						<option>劳动与社会保障</option>
-						<option>小学教育</option>
-						<option>体育教育</option>
-						<option>舞蹈学</option>
-						<option>应用统计学</option>
-						<option>食品科学与工程</option>
-						<option>市场营销</option>
-						<option>音乐表演</option>
-						<option>国际经济与贸易</option>
-						<option>社会体育指导与管理</option>
-						<option>表演</option>
-						<option>人力资源管理</option>
-						<option>会展经济与管理</option>
-						<option>运动训练</option>
-						<option>法语</option>
-						<option>软件工程</option>
-						<option>服装设计与工程</option>
-						<option>播音与主持艺术</option>
-						<option>绘画</option>
-						<option>汉语国际教育</option>
-						<option>应用物理学</option>
-						<option>金融学</option>
-						<option>社会工作</option>
-						<option>物流管理</option>
-						<option>翻译</option>
-						<option>网络工程</option>
-						<option>粮食工程</option>
-						<option>武术与民族传统体育</option>
-						<option>食品质量与安全</option>
-						<option>酒店管理</option>
-						<option>古生物学</option>
-						<option>雕塑</option>
-						<option>舞蹈表演</option>
-						<option>视觉传达设计</option>
-						<option>环境设计</option>
-						<option>产品设计</option>
-						<option>公共艺术</option>
-						<option>数字媒体艺术</option>
-						<option>中国画</option>
-						<option>动画</option>
-						<option>戏剧影视美术设计</option>
-						<option>广播电视编导</option>
-						<option>网络与新媒体</option>
-						<option>工艺美术</option>
-						<option>环境生态工程</option>
-						<option>德语</option>
-	                </select>
-				</div>
-				<div class="col-sm-2">
-					<input class="form-control" placeholder="手机号" name="tel5">
-				</div>
-				<div class="col-sm-2">
-					<input class="form-control" placeholder="邮箱" name="email5">
-				</div>
-			</div> -->
 			<div class="form-group">
 				<div class="col-sm-4 control-label">指导教师</div>
 				<div class="col-sm-5">
-					<input class="form-control" placeholder="请输入指导教师" name="Teacher">
+					<input class="form-control integrity" placeholder="请输入指导教师" name="Teacher">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目类型</div>
 				<div class="col-sm-3">
-					<select class="form-control" name="Pclass">
+					<select class="form-control integrity" name="Pclass" id="project_type" onChange="type_change()">
 	                    <option></option>
 	                    <option>创新训练项目</option>
 	                    <option>创业训练项目</option>
@@ -953,64 +490,63 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目周期</div>
 				<div class="col-sm-3">
-					<select class="form-control" name="PlanDate">
-	                    <option></option>
+					<select class="form-control integrity" name="PlanDate" id="period">
+	                   <!--  <option></option>
 	                    <option>一年</option>
-	                    <option>二年</option>
+	                    <option>二年</option> -->
 	                </select>
 	            </div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目简介</div>
 				<div class="col-sm-5">
-					<textarea class="form-control" maxlength="600" placeholder="请不要超过500字" name="Describe"></textarea>
+					<textarea class="form-control integrity" maxlength="600" placeholder="请不要超过500字" name="Describe"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">申请理由</div>
 				<div class="col-sm-5">
-					<textarea class="form-control" name="ReassonsForApplication"></textarea>
+					<textarea class="form-control integrity" name="ReassonsForApplication"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目方案</div>
 				<div class="col-sm-5">
-					<textarea class="form-control" name="ProjectPlan"></textarea>
+					<textarea class="form-control integrity" name="ProjectPlan"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目特色和创新点</div>
 				<div class="col-sm-5">
-					<textarea class="form-control" placeholder="计划、技术路线、人员分工等" name="Innovate"></textarea>
+					<textarea class="form-control integrity" placeholder="计划、技术路线、人员分工等" name="Innovate"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目进度安排</div>
 				<div class="col-sm-5">
-					<textarea class="form-control" name="Schedule"></textarea>
+					<textarea class="form-control integrity" name="Schedule"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目经费</div>
 				<div class="col-sm-5">
-					<textarea class="form-control" name="Budget"></textarea>
+					<textarea class="form-control integrity" name="Budget" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="5"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">经费使用计划</div>
 				<div class="col-sm-5">
-					<textarea class="form-control" name="BudgetPlan"></textarea>
+					<textarea class="form-control integrity" name="BudgetPlan"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目预期成果</div>
 				<div class="col-sm-5">
-					<textarea class="form-control" name="ExpectedResults"></textarea>
+					<textarea class="form-control integrity" name="ExpectedResults"></textarea>
 				</div>
-			</div>
-			<button class="btn btn-primary btn-block btn1">确认提交</button>
+			</div><br>
+			<button class="btn btn-primary btn-block btn1 surebtn col-sm-offset-6" style="width:100px;">确认提交</button>
         </form>
-
 
 </div>
 
@@ -1028,20 +564,742 @@ $(document).ready(function() {
 	});
 	$('.m2').click(function(){
 		$('.m22').show();
-		$('.m2').hide();
+	
+		return false;
+	});
+	$('.m2-').click(function(){
+		$('.m11').hide();
 		return false;
 	});
 	$('.m3').click(function(){
 		$('.m33').show();
-		$('.m3').hide();
+
+		return false;
+	});
+	$('.m3-').click(function(){
+		$('.m22').hide();
 		return false;
 	});
 	$('.m4').click(function(){
 		$('.m44').show();
-		$('.m4').hide();
+
+		return false;
+	});
+	$('.m4-').click(function(){
+		$('.m33').hide();
+		return false;
+	});
+	$('.m5-').click(function(){
+		$('.m44').hide();
 		return false;
 	});
 });
+//邮箱格式验证
+function checkMail(){
+  var check = document.myForm.email1.value;
+	if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
+	    alert("邮箱名格式不正确");          
+	    return false;
+	}
+	if(check.indexOf(".",0)==-1){
+	    alert("邮箱名格式不正确");
+	    return false;
+	}
+};
+function checkMail2(){
+  var check = document.myForm.email2.value;
+	if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
+	    alert("邮箱名格式不正确");          
+	    return false;
+	}
+	if(check.indexOf(".",0)==-1){
+	    alert("邮箱名格式不正确");
+	    return false;
+	}
+};
+function checkMail3(){
+  var check = document.myForm.email3.value;
+	if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
+	    alert("邮箱名格式不正确");          
+	    return false;
+	}
+	if(check.indexOf(".",0)==-1){
+	    alert("邮箱名格式不正确");
+	    return false;
+	}
+};
+function checkMail4(){
+  var check = document.myForm.email4.value;
+	if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
+	    alert("邮箱名格式不正确");          
+	    return false;
+	}
+	if(check.indexOf(".",0)==-1){
+	    alert("邮箱名格式不正确");
+	    return false;
+	}
+};
+//验证表单填写完整
+$(".surebtn").click(function() {
+   if ($(".integrity").val() == '' ){
+    alert('请先填写完整');
+    return false;
+    }
+    else{
+        alert('确认提交');
+    }
+    
+});
+//学院专业二级联动
+function change()  
+{  
+   var x = document.getElementById("college_change1");  
+   var y = document.getElementById("major_change1");  
+   y.options.length = 0; // 清除second下拉框的所有内容  
+   if(x.selectedIndex == 0)  
+   {  
+        y.options.add(new Option("专业", "0")); 
+   }  
+  
+   if(x.selectedIndex == 1)  
+   {  
+        y.options.add(new Option("英语", "0"));  
+        y.options.add(new Option("日语", "1")); 
+        y.options.add(new Option("法语", "2")); 
+        y.options.add(new Option("德语", "3"));  
+
+   }  
+   if(x.selectedIndex == 2)  
+   {  
+        y.options.add(new Option("汉语言文学", "0"));  
+        y.options.add(new Option("55", "1"));   
+        y.options.add(new Option("顶顶顶", "2"));  
+   } 
+   if(x.selectedIndex == 3)  
+   {  
+        y.options.add(new Option("计算机科学与技术", "0"));  
+        y.options.add(new Option("软件工程", "1"));   
+        y.options.add(new Option("网络工程", "2"));  
+   } 
+   if(x.selectedIndex == 4)  
+   {  
+        y.options.add(new Option("数学与应用数学", "0"));  
+        y.options.add(new Option("信息与计算科学", "1"));    
+   } 
+   if(x.selectedIndex == 5)  
+   {  
+        y.options.add(new Option("生物技术", "0"));  
+        y.options.add(new Option("生物科学", "1"));    
+   }
+   if(x.selectedIndex == 6)  
+   {  
+        y.options.add(new Option("物理学", "0"));  
+        y.options.add(new Option("应用物理学", "1"));
+        y.options.add(new Option("电子信息", "2")); 
+   }
+   //教育科学学院
+   if(x.selectedIndex == 7)  
+   {  
+        y.options.add(new Option("", "0"));  
+        y.options.add(new Option("", "1"));
+   }
+   if(x.selectedIndex == 8)  
+   {  
+        y.options.add(new Option("社会学", "0"));  
+        y.options.add(new Option("社会工作", "1"));
+   }
+   if(x.selectedIndex == 9)  
+   {  
+        y.options.add(new Option("化学", "0"));  
+        y.options.add(new Option("应用化学", "1"));
+        y.options.add(new Option("环境科学", "2"));
+        y.options.add(new Option("环境生态", "3"));
+        y.options.add(new Option("环境设计", "4"));
+
+   }
+   if(x.selectedIndex == 10)  
+   {  
+        y.options.add(new Option("法学", "0"));
+   }
+   //教育技术学院
+   if(x.selectedIndex == 11)  
+   {  
+        y.options.add(new Option("教育技术学", "0"));
+        y.options.add(new Option("网络与新媒体", "1"));
+   }
+   if(x.selectedIndex == 12)  
+   {  
+        y.options.add(new Option("劳动与社会保障", "0"));
+        y.options.add(new Option("思想政治教育", "1"));
+   }
+   //管理学院
+   if(x.selectedIndex == 13)  
+   {  
+        y.options.add(new Option("会展经济与管理", "0"));
+        y.options.add(new Option("人力资源管理", "1"));
+        y.options.add(new Option("信息管理与信息系统", "2"));
+   }
+   if(x.selectedIndex == 14)  
+   {  
+        y.options.add(new Option("旅游管理", "0"));
+        y.options.add(new Option("酒店管理", "1"));
+   }
+   if(x.selectedIndex == 15)  
+   {  
+        y.options.add(new Option("美术学", "0"));
+        y.options.add(new Option("视觉传达设计", "1"));
+        y.options.add(new Option("中国画", "2"));
+        y.options.add(new Option("表演", "3"));
+        y.options.add(new Option("绘画", "4"));
+        y.options.add(new Option("服装设计与工程", "5"));
+        y.options.add(new Option("动画", "6"));
+        y.options.add(new Option("数字媒体艺术", "7"));
+
+        y.options.add(new Option("工艺美术", "8"));
+        y.options.add(new Option("公共艺术", "9"));
+        y.options.add(new Option("产品艺术", "10"));
+        y.options.add(new Option("雕塑", "11"));
+   }
+   if(x.selectedIndex == 16)  
+   {  
+        y.options.add(new Option("学前教育", "0"));
+        y.options.add(new Option("小学教育", "1"));
+   }
+   if(x.selectedIndex == 17)  
+   {  
+        y.options.add(new Option("市场营销", "0"));
+        y.options.add(new Option("物流管理", "1"));
+        y.options.add(new Option("金融学", "2"));
+        y.options.add(new Option("国际经济与贸易", "3"));
+        y.options.add(new Option("经济学", "4"));
+   }
+   if(x.selectedIndex == 18)  
+   {  
+        y.options.add(new Option("体育教育", "0"));
+        y.options.add(new Option("运动训练", "1"));
+        y.options.add(new Option("社会体育指导与管理", "2"));
+        y.options.add(new Option("武术与民族传统体育", "3"));
+   }
+   if(x.selectedIndex == 19)  
+   {  
+        y.options.add(new Option("舞蹈学", "0"));
+        y.options.add(new Option("播音与主持艺术", "1"));
+        y.options.add(new Option("舞蹈表演", "2"));
+        y.options.add(new Option("戏剧影视美术设计", "3"));
+        y.options.add(new Option("广播电视编导", "4"));
+   }
+   if(x.selectedIndex == 20)  
+   {  
+        y.options.add(new Option("粮食工程", "0"));
+        y.options.add(new Option("食品科学与工程", "1"));
+        y.options.add(new Option("食品质量与安全", "2"));
+   }
+   if(x.selectedIndex == 21)  
+   {  
+        y.options.add(new Option("音乐学", "0"));
+        y.options.add(new Option("音乐表演", "1"));
+   }
+    if(x.selectedIndex == 22)  
+   {  
+        y.options.add(new Option("古生物学", "0"));
+   }
+   else{
+   	y.options.add(new Option("无", "0"));
+   }
+   
+}  
+function change2()  
+{  
+   var x = document.getElementById("college_change2");  
+   var y = document.getElementById("major_change2");  
+   y.options.length = 0; // 清除second下拉框的所有内容  
+   if(x.selectedIndex == 0)  
+   {  
+        y.options.add(new Option("专业", "0")); 
+   }  
+  
+   if(x.selectedIndex == 1)  
+   {  
+        y.options.add(new Option("英语", "0"));  
+        y.options.add(new Option("日语", "1")); 
+        y.options.add(new Option("法语", "2")); 
+        y.options.add(new Option("德语", "3"));  
+
+   }  
+   if(x.selectedIndex == 2)  
+   {  
+        y.options.add(new Option("汉语言文学", "0"));
+   } 
+   if(x.selectedIndex == 3)  
+   {  
+        y.options.add(new Option("计算机科学与技术", "0"));  
+        y.options.add(new Option("软件工程", "1"));   
+        y.options.add(new Option("网络工程", "2"));  
+   } 
+   if(x.selectedIndex == 4)  
+   {  
+        y.options.add(new Option("数学与应用数学", "0"));  
+        y.options.add(new Option("信息与计算科学", "1"));    
+   } 
+   if(x.selectedIndex == 5)  
+   {  
+        y.options.add(new Option("生物技术", "0"));  
+        y.options.add(new Option("生物科学", "1"));    
+   }
+   if(x.selectedIndex == 6)  
+   {  
+        y.options.add(new Option("物理学", "0"));  
+        y.options.add(new Option("应用物理学", "1"));
+        y.options.add(new Option("电子信息", "2")); 
+   }
+   //教育科学学院
+   if(x.selectedIndex == 7)  
+   {  
+        y.options.add(new Option("", "0"));  
+        y.options.add(new Option("", "1"));
+   }
+   if(x.selectedIndex == 8)  
+   {  
+        y.options.add(new Option("社会学", "0"));  
+        y.options.add(new Option("社会工作", "1"));
+   }
+   if(x.selectedIndex == 9)  
+   {  
+        y.options.add(new Option("化学", "0"));  
+        y.options.add(new Option("应用化学", "1"));
+        y.options.add(new Option("环境科学", "2"));
+        y.options.add(new Option("环境生态", "3"));
+        y.options.add(new Option("环境设计", "4"));
+
+   }
+   if(x.selectedIndex == 10)  
+   {  
+        y.options.add(new Option("法学", "0"));
+   }
+   //教育技术学院
+   if(x.selectedIndex == 11)  
+   {  
+        y.options.add(new Option("教育技术学", "0"));
+        y.options.add(new Option("网络与新媒体", "1"));
+   }
+   if(x.selectedIndex == 12)  
+   {  
+        y.options.add(new Option("劳动与社会保障", "0"));
+        y.options.add(new Option("思想政治教育", "1"));
+   }
+   //管理学院
+   if(x.selectedIndex == 13)  
+   {  
+        y.options.add(new Option("会展经济与管理", "0"));
+        y.options.add(new Option("人力资源管理", "1"));
+        y.options.add(new Option("信息管理与信息系统", "2"));
+   }
+   if(x.selectedIndex == 14)  
+   {  
+        y.options.add(new Option("旅游管理", "0"));
+        y.options.add(new Option("酒店管理", "1"));
+   }
+   if(x.selectedIndex == 15)  
+   {  
+        y.options.add(new Option("美术学", "0"));
+        y.options.add(new Option("视觉传达设计", "1"));
+        y.options.add(new Option("中国画", "2"));
+        y.options.add(new Option("表演", "3"));
+        y.options.add(new Option("绘画", "4"));
+        y.options.add(new Option("服装设计与工程", "5"));
+        y.options.add(new Option("动画", "6"));
+        y.options.add(new Option("数字媒体艺术", "7"));
+
+        y.options.add(new Option("工艺美术", "8"));
+        y.options.add(new Option("公共艺术", "9"));
+        y.options.add(new Option("产品艺术", "10"));
+        y.options.add(new Option("雕塑", "11"));
+   }
+   if(x.selectedIndex == 16)  
+   {  
+        y.options.add(new Option("学前教育", "0"));
+        y.options.add(new Option("小学教育", "1"));
+   }
+   if(x.selectedIndex == 17)  
+   {  
+        y.options.add(new Option("市场营销", "0"));
+        y.options.add(new Option("物流管理", "1"));
+        y.options.add(new Option("金融学", "2"));
+        y.options.add(new Option("国际经济与贸易", "3"));
+        y.options.add(new Option("经济学", "4"));
+   }
+   if(x.selectedIndex == 18)  
+   {  
+        y.options.add(new Option("体育教育", "0"));
+        y.options.add(new Option("运动训练", "1"));
+        y.options.add(new Option("社会体育指导与管理", "2"));
+        y.options.add(new Option("武术与民族传统体育", "3"));
+   }
+   if(x.selectedIndex == 19)  
+   {  
+        y.options.add(new Option("舞蹈学", "0"));
+        y.options.add(new Option("播音与主持艺术", "1"));
+        y.options.add(new Option("舞蹈表演", "2"));
+        y.options.add(new Option("戏剧影视美术设计", "3"));
+        y.options.add(new Option("广播电视编导", "4"));
+   }
+   if(x.selectedIndex == 20)  
+   {  
+        y.options.add(new Option("粮食工程", "0"));
+        y.options.add(new Option("食品科学与工程", "1"));
+        y.options.add(new Option("食品质量与安全", "2"));
+   }
+   if(x.selectedIndex == 21)  
+   {  
+        y.options.add(new Option("音乐学", "0"));
+        y.options.add(new Option("音乐表演", "1"));
+   }
+    if(x.selectedIndex == 22)  
+   {  
+        y.options.add(new Option("古生物学", "0"));
+   }
+   else{
+   	y.options.add(new Option("无", "0"));
+   }
+   
+}
+function change3()  
+{  
+   var x = document.getElementById("college_change3");  
+   var y = document.getElementById("major_change3");  
+   y.options.length = 0; // 清除second下拉框的所有内容  
+   if(x.selectedIndex == 0)  
+   {  
+        y.options.add(new Option("专业", "0")); 
+   }  
+  
+   if(x.selectedIndex == 1)  
+   {  
+        y.options.add(new Option("英语", "0"));  
+        y.options.add(new Option("日语", "1")); 
+        y.options.add(new Option("法语", "2")); 
+        y.options.add(new Option("德语", "3"));  
+
+   }  
+   if(x.selectedIndex == 2)  
+   {  
+        y.options.add(new Option("汉语言文学", "0"));
+   } 
+   if(x.selectedIndex == 3)  
+   {  
+        y.options.add(new Option("计算机科学与技术", "0"));  
+        y.options.add(new Option("软件工程", "1"));   
+        y.options.add(new Option("网络工程", "2"));  
+   } 
+   if(x.selectedIndex == 4)  
+   {  
+        y.options.add(new Option("数学与应用数学", "0"));  
+        y.options.add(new Option("信息与计算科学", "1"));    
+   } 
+   if(x.selectedIndex == 5)  
+   {  
+        y.options.add(new Option("生物技术", "0"));  
+        y.options.add(new Option("生物科学", "1"));    
+   }
+   if(x.selectedIndex == 6)  
+   {  
+        y.options.add(new Option("物理学", "0"));  
+        y.options.add(new Option("应用物理学", "1"));
+        y.options.add(new Option("电子信息", "2")); 
+   }
+   //教育科学学院
+   if(x.selectedIndex == 7)  
+   {  
+        y.options.add(new Option("", "0"));  
+        y.options.add(new Option("", "1"));
+   }
+   if(x.selectedIndex == 8)  
+   {  
+        y.options.add(new Option("社会学", "0"));  
+        y.options.add(new Option("社会工作", "1"));
+   }
+   if(x.selectedIndex == 9)  
+   {  
+        y.options.add(new Option("化学", "0"));  
+        y.options.add(new Option("应用化学", "1"));
+        y.options.add(new Option("环境科学", "2"));
+        y.options.add(new Option("环境生态", "3"));
+        y.options.add(new Option("环境设计", "4"));
+
+   }
+   if(x.selectedIndex == 10)  
+   {  
+        y.options.add(new Option("法学", "0"));
+   }
+   //教育技术学院
+   if(x.selectedIndex == 11)  
+   {  
+        y.options.add(new Option("教育技术学", "0"));
+        y.options.add(new Option("网络与新媒体", "1"));
+   }
+   if(x.selectedIndex == 12)  
+   {  
+        y.options.add(new Option("劳动与社会保障", "0"));
+        y.options.add(new Option("思想政治教育", "1"));
+   }
+   //管理学院
+   if(x.selectedIndex == 13)  
+   {  
+        y.options.add(new Option("会展经济与管理", "0"));
+        y.options.add(new Option("人力资源管理", "1"));
+        y.options.add(new Option("信息管理与信息系统", "2"));
+   }
+   if(x.selectedIndex == 14)  
+   {  
+        y.options.add(new Option("旅游管理", "0"));
+        y.options.add(new Option("酒店管理", "1"));
+   }
+   if(x.selectedIndex == 15)  
+   {  
+        y.options.add(new Option("美术学", "0"));
+        y.options.add(new Option("视觉传达设计", "1"));
+        y.options.add(new Option("中国画", "2"));
+        y.options.add(new Option("表演", "3"));
+        y.options.add(new Option("绘画", "4"));
+        y.options.add(new Option("服装设计与工程", "5"));
+        y.options.add(new Option("动画", "6"));
+        y.options.add(new Option("数字媒体艺术", "7"));
+
+        y.options.add(new Option("工艺美术", "8"));
+        y.options.add(new Option("公共艺术", "9"));
+        y.options.add(new Option("产品艺术", "10"));
+        y.options.add(new Option("雕塑", "11"));
+   }
+   if(x.selectedIndex == 16)  
+   {  
+        y.options.add(new Option("学前教育", "0"));
+        y.options.add(new Option("小学教育", "1"));
+   }
+   if(x.selectedIndex == 17)  
+   {  
+        y.options.add(new Option("市场营销", "0"));
+        y.options.add(new Option("物流管理", "1"));
+        y.options.add(new Option("金融学", "2"));
+        y.options.add(new Option("国际经济与贸易", "3"));
+        y.options.add(new Option("经济学", "4"));
+   }
+   if(x.selectedIndex == 18)  
+   {  
+        y.options.add(new Option("体育教育", "0"));
+        y.options.add(new Option("运动训练", "1"));
+        y.options.add(new Option("社会体育指导与管理", "2"));
+        y.options.add(new Option("武术与民族传统体育", "3"));
+   }
+   if(x.selectedIndex == 19)  
+   {  
+        y.options.add(new Option("舞蹈学", "0"));
+        y.options.add(new Option("播音与主持艺术", "1"));
+        y.options.add(new Option("舞蹈表演", "2"));
+        y.options.add(new Option("戏剧影视美术设计", "3"));
+        y.options.add(new Option("广播电视编导", "4"));
+   }
+   if(x.selectedIndex == 20)  
+   {  
+        y.options.add(new Option("粮食工程", "0"));
+        y.options.add(new Option("食品科学与工程", "1"));
+        y.options.add(new Option("食品质量与安全", "2"));
+   }
+   if(x.selectedIndex == 21)  
+   {  
+        y.options.add(new Option("音乐学", "0"));
+        y.options.add(new Option("音乐表演", "1"));
+   }
+    if(x.selectedIndex == 22)  
+   {  
+        y.options.add(new Option("古生物学", "0"));
+   }
+   else{
+   	y.options.add(new Option("无", "0"));
+   }
+   
+}
+function change4()  
+{  
+   var x = document.getElementById("college_change4");  
+   var y = document.getElementById("major_change4");  
+   y.options.length = 0; // 清除second下拉框的所有内容  
+   if(x.selectedIndex == 0)  
+   {  
+        y.options.add(new Option("专业", "0")); 
+   }  
+  
+   if(x.selectedIndex == 1)  
+   {  
+        y.options.add(new Option("英语", "0"));  
+        y.options.add(new Option("日语", "1")); 
+        y.options.add(new Option("法语", "2")); 
+        y.options.add(new Option("德语", "3"));  
+
+   }  
+   if(x.selectedIndex == 2)  
+   {  
+        y.options.add(new Option("汉语言文学", "0"));
+   } 
+   if(x.selectedIndex == 3)  
+   {  
+        y.options.add(new Option("计算机科学与技术", "0"));  
+        y.options.add(new Option("软件工程", "1"));   
+        y.options.add(new Option("网络工程", "2"));  
+   } 
+   if(x.selectedIndex == 4)  
+   {  
+        y.options.add(new Option("数学与应用数学", "0"));  
+        y.options.add(new Option("信息与计算科学", "1"));    
+   } 
+   if(x.selectedIndex == 5)  
+   {  
+        y.options.add(new Option("生物技术", "0"));  
+        y.options.add(new Option("生物科学", "1"));    
+   }
+   if(x.selectedIndex == 6)  
+   {  
+        y.options.add(new Option("物理学", "0"));  
+        y.options.add(new Option("应用物理学", "1"));
+        y.options.add(new Option("电子信息", "2")); 
+   }
+   //教育科学学院
+   if(x.selectedIndex == 7)  
+   {  
+        y.options.add(new Option("", "0"));  
+        y.options.add(new Option("", "1"));
+   }
+   if(x.selectedIndex == 8)  
+   {  
+        y.options.add(new Option("社会学", "0"));  
+        y.options.add(new Option("社会工作", "1"));
+   }
+   if(x.selectedIndex == 9)  
+   {  
+        y.options.add(new Option("化学", "0"));  
+        y.options.add(new Option("应用化学", "1"));
+        y.options.add(new Option("环境科学", "2"));
+        y.options.add(new Option("环境生态", "3"));
+        y.options.add(new Option("环境设计", "4"));
+
+   }
+   if(x.selectedIndex == 10)  
+   {  
+        y.options.add(new Option("法学", "0"));
+   }
+   //教育技术学院
+   if(x.selectedIndex == 11)  
+   {  
+        y.options.add(new Option("教育技术学", "0"));
+        y.options.add(new Option("网络与新媒体", "1"));
+   }
+   if(x.selectedIndex == 12)  
+   {  
+        y.options.add(new Option("劳动与社会保障", "0"));
+        y.options.add(new Option("思想政治教育", "1"));
+   }
+   //管理学院
+   if(x.selectedIndex == 13)  
+   {  
+        y.options.add(new Option("会展经济与管理", "0"));
+        y.options.add(new Option("人力资源管理", "1"));
+        y.options.add(new Option("信息管理与信息系统", "2"));
+   }
+   if(x.selectedIndex == 14)  
+   {  
+        y.options.add(new Option("旅游管理", "0"));
+        y.options.add(new Option("酒店管理", "1"));
+   }
+   if(x.selectedIndex == 15)  
+   {  
+        y.options.add(new Option("美术学", "0"));
+        y.options.add(new Option("视觉传达设计", "1"));
+        y.options.add(new Option("中国画", "2"));
+        y.options.add(new Option("表演", "3"));
+        y.options.add(new Option("绘画", "4"));
+        y.options.add(new Option("服装设计与工程", "5"));
+        y.options.add(new Option("动画", "6"));
+        y.options.add(new Option("数字媒体艺术", "7"));
+
+        y.options.add(new Option("工艺美术", "8"));
+        y.options.add(new Option("公共艺术", "9"));
+        y.options.add(new Option("产品艺术", "10"));
+        y.options.add(new Option("雕塑", "11"));
+   }
+   if(x.selectedIndex == 16)  
+   {  
+        y.options.add(new Option("学前教育", "0"));
+        y.options.add(new Option("小学教育", "1"));
+   }
+   if(x.selectedIndex == 17)  
+   {  
+        y.options.add(new Option("市场营销", "0"));
+        y.options.add(new Option("物流管理", "1"));
+        y.options.add(new Option("金融学", "2"));
+        y.options.add(new Option("国际经济与贸易", "3"));
+        y.options.add(new Option("经济学", "4"));
+   }
+   if(x.selectedIndex == 18)  
+   {  
+        y.options.add(new Option("体育教育", "0"));
+        y.options.add(new Option("运动训练", "1"));
+        y.options.add(new Option("社会体育指导与管理", "2"));
+        y.options.add(new Option("武术与民族传统体育", "3"));
+   }
+   if(x.selectedIndex == 19)  
+   {  
+        y.options.add(new Option("舞蹈学", "0"));
+        y.options.add(new Option("播音与主持艺术", "1"));
+        y.options.add(new Option("舞蹈表演", "2"));
+        y.options.add(new Option("戏剧影视美术设计", "3"));
+        y.options.add(new Option("广播电视编导", "4"));
+   }
+   if(x.selectedIndex == 20)  
+   {  
+        y.options.add(new Option("粮食工程", "0"));
+        y.options.add(new Option("食品科学与工程", "1"));
+        y.options.add(new Option("食品质量与安全", "2"));
+   }
+   if(x.selectedIndex == 21)  
+   {  
+        y.options.add(new Option("音乐学", "0"));
+        y.options.add(new Option("音乐表演", "1"));
+   }
+    if(x.selectedIndex == 22)  
+   {  
+        y.options.add(new Option("古生物学", "0"));
+   }
+   else{
+   	y.options.add(new Option("无", "0"));
+   }
+   
+}
+//项目类型联动
+function type_change()  
+{  
+   var x = document.getElementById("project_type");  
+   var y = document.getElementById("period");  
+   y.options.length = 0; // 清除second下拉框的所有内容  
+   if(x.selectedIndex == 0)  
+   {  
+        y.options.add(new Option("", "0")); 
+   }  
+  
+   if(x.selectedIndex == 1)  
+   {  
+        y.options.add(new Option("一年", "0"));
+
+   }  
+   if(x.selectedIndex == 2)  
+   {  
+        y.options.add(new Option("一年", "0"));
+   } 
+   if(x.selectedIndex == 3)  
+   {  
+        y.options.add(new Option("二年", "0"));  
+   }
+   
+};
 </script>
+
 </html>
 

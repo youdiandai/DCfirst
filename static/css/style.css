@@ -33,7 +33,7 @@ h1 {
 
 .default-menu.navbar-default .navbar-nav > li > a{
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
     color: #fff;
     line-height: 40px !important;
     letter-spacing: 2px;
@@ -70,18 +70,21 @@ h1 {
 .btn.btn-default.navbar-btn {
     background-color: transparent;
     color: #fff;
-    font-weight: 600;
+    font-weight: 400;
     padding: 5px 15px;
-	border-radius: 5em;
-    border: 1px solid #fff;
-}
+    border: none;
 
+/*    border: 1px solid #fff;*/
+}
+.homeMenu_active{
+	background-color: #C99A05 !important;
+}
 .btn.btn-default.navbar-btn:hover{
     background-color: rgba(255,255,255,0.3);
 }
 
 .banner{
-	background: url(../images/bg5.jpg) no-repeat center/cover;
+	background: url(../images/bg.jpg) no-repeat center/cover;
 }
 .banner-cover{
 	padding-top: 70px;
@@ -98,28 +101,35 @@ h1 {
 	letter-spacing: 5px;
 }
 .banner-inner{
-	padding: 170px 0;
+	padding-top: 30vh;
+	/*vertical-align: middle;*/
 	text-align: center;
 	font-family: "微软雅黑";
 }
 .p1{
 	color: #fff;
-	font-size: 20px;
-	letter-spacing: 4px;	
+	font-size: 28px;
+	letter-spacing: 5px;	
 }
 .enter-sty{
-	color: #fff;
-	padding: 5px 50px;
-	letter-spacing: 5px;	
-	background-color: #ED4C4C;
+	color: #fff !important;
+	padding: 8px 25px;
+	letter-spacing: 2px;	
+	background-color: #0090E3;
 	margin-top: 15px;
 }
 .enter-sty:hover{
 	color: #fff;
-	background-color: #A22424;
+	background-color: #037EC4;
+}
+/*popover弹出*/
+.popover-content {
+	height: 210px;
+    background-image: url(../images/code.jpg);
+    background-repeat: no-repeat;
 }
 /*search 框*/
-.search-sty{
+/*.search-sty{
 	margin-top: 80px;
 }
 .s-btn-sty{
@@ -175,7 +185,7 @@ h1 {
 .introduce .message-right3{
 	padding: 35px;
 	background-color: #fff;
-}
+}*/
 /*loginsucc 开始*/
 .wrapper{
 	font-family: "微软雅黑";
@@ -243,16 +253,17 @@ h1 {
 
 footer{
 	font-family: "微软雅黑";
+	margin-top: -100px;
 }
 footer .copyright {
 	height: 100px;
 	padding: 25px 0;
-    background: #24292E;
+    background: rgba(0,0,0,0.6);
     font-size: 13px;
     text-align: center;
     color: #878787;
 /*    line-height: 70px;*/
-    border-top: 1px solid #303030;
+
 }
 /*弹出层登录 开始*/
 #login{
