@@ -115,8 +115,8 @@ class Project(db.Model):
     MidSubdate = db.Column(db.String(64),nullable=True)#中期报告提交日期
     EndSubdate = db.Column(db.String(64),nullable=True)#结题提交日期
     EndDate = db.Column(db.String(64),nullable=True)#项目结束日期
-    ReassonsForApplication = db.Column(db.String(64),nullable=True)#申请理由
-    ProjectPlan = db.Column(db.String(64),nullable=True)#项目方案
+    ReassonsForApplication = db.Column(db.Text,nullable=True)#申请理由
+    ProjectPlan = db.Column(db.Text,nullable=True)#项目方案
     Innovate = db.Column(db.Text,nullable=True)#特色和创新点
     Schedule = db.Column(db.Text,nullable=True)#项目进度安排
     Budget = db.Column(db.Integer,nullable=True)#项目经费预算
