@@ -814,6 +814,10 @@ def resetPassword(username):
     db.session.add(user)
     db.session.commit()
     return render_template('resetPasswordSucc.html')
+#查看个人信息路由
+@app.route('/checkStudentInfo.html')
+def checkStudentInfo():
+    return render_template('checkStudentInfo.html',userinfo=User.query.filter_by(username=session['username']).first())
 
 @app.route('/loginout.html',methods=['GET'])
 def loginout():
