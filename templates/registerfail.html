@@ -14,14 +14,18 @@
 		<style type="text/css">
 			h3{
 				font-family: "微软雅黑";
-				color: red;
+				color: #000;
+			}
+			a{
+				color: #000;
 			}
 		</style>
 </head>
 <body>
 
 <div class="succ">
-	<h3 class="text-center">用户已存在！</h3>
+	<h3 class="text-center">用户已存在辣~~</h3>
+	<div class="btn btn-default col-sm-8 col-xs-8 col-xs-offset-2"><a href="/" class="return">返回</a></div>
 </div>
 
 </body>
@@ -34,11 +38,11 @@ $(document).ready(function(){
         type: 1,
         // skin: 'layui-layer-lan',
         title: '提醒',
+        closeBtn: 0,
         fix: false,
         area: ['300px', '150px'],
         content: $(".succ"),
-        });
-    
+        }); 
 });
 </script>
 </html>

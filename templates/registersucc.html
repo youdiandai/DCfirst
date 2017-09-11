@@ -15,6 +15,13 @@
 			h2{
 				font-family: "微软雅黑"
 			}
+			a{
+				color: #fff;
+				text-decoration: none;
+			}
+			.return{
+				color: #000;
+			}
 		</style>
 </head>
 <body>
@@ -22,8 +29,8 @@
 <div class="succ">
 	<h2 class="text-center">注册成功</h2><br>
 	<h4 class="text-center">请牢记您的账号密码哦~~</h4><br>
-	<div type="button" class="btn btn-primary col-sm-offset-4"><a   href="/login">登录</a></div>
-	<div  class="btn btn-default col-sm-offset-1"><a href="/">返回</a></div>
+	<div type="button" class="btn btn-primary col-sm-offset-3 col-xs-offset-3"><a href="/login">登录</a></div>
+	<div class="btn btn-default col-sm-offset-2 col-xs-offset-2"><a href="/" class="return">返回</a></div>
 </div>
 
 </body>
@@ -36,8 +43,9 @@ $(document).ready(function(){
         type: 1,
         // skin: 'layui-layer-lan',
         title: '提醒',
+        closeBtn: 0,
         fix: false,
-        area: ['400px', '250px'],
+        area: ['320px', '250px'],
         content: $(".succ"),
         });
     

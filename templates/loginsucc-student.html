@@ -14,6 +14,9 @@
 		body{
 			background-color: #EBEBEB;
 		}
+		iframe{
+			padding-bottom: 150px;
+		}
 		.loginsucc-main h2{padding: 5px 20px 45px;}
 		.check-personalInfo{
 			float: right;
@@ -131,7 +134,7 @@ $(document).ready(function(){
         // skin: 'layui-layer-lan',
         title: '修改个人信息',
         fix: false,
-        area: ['800px', '600px'],
+        area: ['350px', '700px'],
         content:"updateStudentInfo.html",
         });
     });
@@ -143,7 +146,7 @@ $(document).ready(function(){
         // skin: 'layui-layer-lan',
         title: '查看个人信息',
         fix: false,
-        area: ['800px', '500px'],
+        area: ['350px', '500px'],
         content:"checkStudentInfo.html",
         });
     });
@@ -155,15 +158,10 @@ $(document).ready(function(){
         // skin: 'layui-layer-lan',
         title: '修改密码',
         fix: false,
-        area: ['800px', '500px'],
+        area: ['350px', '500px'],
         content:"updatePassword.html",
         });
     });
 });
-
-
-
-
-
 </script>
 </html>

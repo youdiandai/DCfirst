@@ -13,16 +13,26 @@
         <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
 		<script src="../static/js/jquery-2.1.1.js"></script>
 		<script src="../static/js/bootstrap.min.js"></script>
+		<style type="text/css">
+		a{
+			color: #fff;
+			text-decoration: none;
+		}
+		.return{
+			color: #000;
+		}
+		</style>
 </head>
 <body>
 	<div class="error-layout">
-		<h3 style="text-align:center">登录失败</h3>
-		<p style="text-align:center">
+		<p style="text-align:center;padding-top:25px">
 		有可能是以下原因：<br>
 		1、账号不存在<br>
 		2、网络未连接<br>
 		3、账号或密码不匹配
-		</p>
+		</p><br>
+		<div type="button" class="btn btn-primary col-sm-offset-3 col-xs-offset-3"><a href="/login">登录</a></div>
+		<div class="btn btn-default col-sm-offset-2 col-xs-offset-2"><a href="/" class="return">返回</a></div>
 	</div>
 </body>
 <script src="../static/layer/layer.js"></script>
@@ -33,9 +43,9 @@ $(document).ready(function(){
         layer.open({
         type: 1,
         // skin: 'layui-layer-lan',
-        title: '提示',
+        title: '登录失败',
         fix: false,
-        area: ['400px', '200px'],
+        area: ['320px', '235px'],
         content: $(".error-layout"),
         });
 
