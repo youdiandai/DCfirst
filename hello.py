@@ -902,7 +902,12 @@ def updatePassword():
 @app.route('/change/password',methods=['POST'])
 def changePassword():
     user = User.query.filter_by(username = session['username']).first()
-    user.password=request.form.get('password')
+    password=request.form.get('password')
+    repassword = request.form.get('repassword')
+    if password == repassword :
+        user.password = repassword
+    else:
+        return '两次输入密码不通，请重试'
     db.session.add(user)
     db.session.commit()
     return "密码修改成功"
