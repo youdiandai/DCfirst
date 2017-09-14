@@ -29,14 +29,14 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">姓名</div>
 				<div class="col-sm-4">
-					<input class="form-control" placeholder="请输入姓名" name="name">
+					<input class="form-control" placeholder="请输入姓名" id="name_change" name="name" value="{{userinfo.name}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">学院</div>
 				<div class="col-sm-4">
 					<select class="form-control" name="collage" id="college_change" onChange="change()">
-	                    <option></option>
+	                    <option>{{userinfo.collage}}</option>
 	                    <option>外国语学院</option>
 						<option>文学院</option>
 						<option>科信软件学院</option>
@@ -108,7 +108,7 @@
 				<div class="col-sm-4 control-label">专业</div>
 				<div class="col-sm-4">
 					<select class="form-control" name="major" id="major_change">
-	                    <option></option>
+	                    <option>{{userinfo.major}}</option>
 						
 	                </select>
 				</div>
@@ -116,18 +116,18 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">联系方式</div>
 				<div class="col-sm-4">
-					<input class="form-control" placeholder="请输入联系方式" name="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+					<input class="form-control" name="tel" id="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11" value="{{userinfo.tel}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">E-mail</div>
 				<div class="col-sm-4">
-					<input class="form-control" placeholder="请输入邮箱地址" name="email" onblur="checkMail()">
+					<input class="form-control" name="email" id="email" onblur="checkMail()" value="{{userinfo.email}}">
 				</div>
 			</div>
 			<br>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary col-sm-2 col-xs-4 col-sm-offset-4 col-xs-offset-1">确认</button>
+				<button type="submit" class="btn btn-primary col-sm-2 col-xs-4 col-sm-offset-4 col-xs-offset-1 surebtn">确认</button>
 
 				<button type="reset" class="btn btn-default col-sm-1 col-xs-5 col-sm-offset-1 col-xs-offset-2">重置</button>
 			</div>
@@ -136,6 +136,7 @@
 	</div>
 </div>
 </body>
+  <script src="../static/js/jquery-1.10.2.js"></script>
 	<!-- Bootstrap Js -->
     <script src="../static/js/bootstrap.min.js"></script>
 	
@@ -321,5 +322,35 @@ function checkMail(){
 	    return false;
 	}
 };
+//验证表单填写完整
+$(".surebtn").click(function() {
+   if ($("#name_change").val() == '' ){
+    alert('不能空着阿，空着你就白参加了我和你说');
+    return false;    
+    }
+    if ($("#college_change").val() == '' ){
+    alert('不能空着阿，又不是黑户');
+    return false;    
+    }
+    if ($("#major_change").val() == '' ){
+    alert('？？专业为什么不填？');
+    return false;    
+    }
+    if ($("#tel").val() == '' ){
+    alert('不能空着阿，空着咋联系你');
+    return false;    
+    }
+    if ($("#email").val() == '' ){
+    alert('邮箱不能空着阿，空着不能给你发邮件了');
+    return false;    
+    }
+    // if ($(".test").val() == '' ){
+    // alert('请先填写完整');
+    // return true;    
+    // }
+    else{
+        alert('确认修改');
+    }    
+});
     </script>
 </html>

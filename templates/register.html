@@ -168,13 +168,13 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">手机号</div>
 				<div class="col-sm-5">
-					<input type="tel" class="form-control integrity" maxlength="11" placeholder="请输入有效的11位手机号" name="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					<input type="tel" class="form-control integrity" maxlength="11" placeholder="请输入有效的11位手机号" name="tel" id="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">E-mail</div>
 				<div class="col-sm-5">
-					<input type="text" class="form-control integrity" placeholder="请输入常用的电子邮箱" name="email" id="email" onblur="checkMail()">
+					<input type="text" class="form-control integrity test" placeholder="请输入常用的电子邮箱" name="email" id="email" onblur="checkMail()">
 				</div>
 			</div><br><br>
 			<div class="form-group">
@@ -218,7 +218,7 @@ function check()
    with(document.all){
    if(input1.value!=input2.value)
 	   {
-	     alert("两次密码不一致")
+	     alert("两次密码不一样啊老铁")
 		 input1.value = "";
 		 input2.value = "";
 	   }
@@ -228,6 +228,18 @@ function check()
 $(".surebtn").click(function() {
    if ($(".integrity").val() == '' ){
     alert('请先填写完整');
+    return false;
+    }
+    if ($("#input1").val() == '' ){
+    alert('密码不填？？别是个傻子吧');
+    return false;
+    }
+    if ($("#tel").val() == '' ){
+    alert('手机号手机号！');
+    return false;
+    }
+    if ($("#email").val() == '' ){
+    alert('赶紧给我把邮箱填上！');
     return false;
     }
     else{

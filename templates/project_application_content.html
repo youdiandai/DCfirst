@@ -473,7 +473,7 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">指导教师</div>
 				<div class="col-sm-5">
-					<input class="form-control integrity" placeholder="请输入指导教师" name="Teacher">
+					<input class="form-control integrity" placeholder="请输入指导教师校园卡号" name="Teacher" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8">
 				</div>
 			</div>
 			<div class="form-group">
@@ -491,8 +491,8 @@
 				<div class="col-sm-4 control-label">项目周期</div>
 				<div class="col-sm-3">
 					<select class="form-control integrity" name="PlanDate" id="period">
-	                   <!--  <option></option>
-	                    <option>一年</option>
+	                    <option>项目类型决定项目周期</option>
+	                    <!-- <option>一年</option>
 	                    <option>二年</option> -->
 	                </select>
 	            </div>
@@ -543,7 +543,7 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目预期成果</div>
 				<div class="col-sm-5">
-					<textarea class="form-control integrity" name="ExpectedResults"></textarea>
+					<textarea class="form-control integrity test" name="ExpectedResults"></textarea>
 				</div>
 			</div><br>
 			<button class="btn btn-primary btn-block btn1 surebtn col-sm-offset-6" style="width:100px;">确认提交</button>
@@ -644,12 +644,15 @@ function checkMail4(){
 $(".surebtn").click(function() {
    if ($(".integrity").val() == '' ){
     alert('请先填写完整');
-    return false;
+    return true;    
+    }
+    if ($(".test").val() == '' ){
+    alert('请先填写完整');
+    return true;    
     }
     else{
         alert('确认提交');
-    }
-    
+    }    
 });
 //学院专业二级联动
 function change()  

@@ -392,7 +392,7 @@ def home_manager():
 #我的项目
 @app.route('/myproject')
 def myproject():
-    return render_template('myproject.html',pros=findMyproject(username=session['username']),stalist=createStatuslist())
+    return render_template('myproject.html',pros=findMyproject(username=session['username']),stalist=createStatuslist(),user=User.query.filter_by(username=session['username']).first(),users=User,int = int)
 
 #完成注册功能
 @app.route('/register',methods=['GET'])
@@ -864,7 +864,7 @@ def updatePersonalTeacherInfo2():
 
 @app.route('/updateStudentInfo.html',methods=['GET'])
 def updateStudentInfo1():
-    return render_template('updateStudentInfo.html')
+    return render_template('updateStudentInfo.html',userinfo = User.query.filter_by(username=session['username']).first())
 @app.route('/updateStudentInfo.html',methods=['POST'])
 def updateStudentInfo2():
     try:
@@ -894,6 +894,11 @@ def deletePro(pid):
         return render_template('deleteUserSucc.html')
     except:
         return '发生了未知错误，请联系管理员，感谢您的支持'
+
+#确认删除
+@app.route('/secondConfirmation/<pid>')
+def secondConfirmation(pid):
+    return render_template('secondConfirmation.html',pid=pid)
 
 #修改密码路由
 @app.route('/updatePassword.html',methods=['GET'])

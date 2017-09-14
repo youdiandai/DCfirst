@@ -38,10 +38,13 @@
                       <td>{{pro.pid}}</td>
                       <td>{{pro.Pname}}</td>
                       <td>{{decideStastu(pro.Status)}}</td>
-                      <td>{{pro.Person_in_charge}}</td>
+                      <td>{{users.query.filter_by(username=pro.Person_in_charge).first().name}}{{pro.Person_in_charge}}</td>
                       <td>{{pro.Teacher}}</td>
                       <td><a href="/project/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">进入</button></a>
-					   <a href="/delete/project/{{pro.pid}}"><button type="button" class="btn btn-danger">删除</button></a></td>
+					   {%if int(user.username) ==int(pro.Person_in_charge)%}
+                          <a href="/secondConfirmation/{{pro.pid}}"><button type="button" class="btn btn-danger areYouSure">删除</button></a>
+                          {%endif%}
+                      </td>
                     </tr>
                 {%endfor%}
                 </tbody>
@@ -52,13 +55,16 @@
 
     <!-- jQuery Js -->
     <script src="../static/js/jquery-1.10.2.js"></script>
+    <script src="../static/layer/layer.js"></script>
 	<script type="text/javascript">
         $("#wrapper").height($(window).height()-59+"px");
         $(".iFrame").height($("#wrapper").height());
+        //确认删除？
     </script>
 
 	<!-- Bootstrap Js -->
     <script src="../static/js/bootstrap.min.js"></script>
+
 
 
 
