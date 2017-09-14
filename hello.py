@@ -621,6 +621,17 @@ def join_project2():
             return '您已经加入了项目'
     except:
         return '您要加入的项目不存在，请确认项目名称后重试'
+#删除项目成员路由
+@app.route('/delete/members/<userid>')
+def deleteMembers(userid):
+    pud = User_Project.query.filter_by(pid=session['project'],userid=userid).first()
+    db.session.delete(pud)
+    db.session.commit()
+    return '删除成功'
+
+
+
+
 
 #竞赛申报
 @app.route('/Competition_declaration.html',methods=['GET'])
@@ -714,7 +725,7 @@ def teacherComList():
 #项目内容路由
 @app.route('/project/<pid>')
 def project(pid):
-    try:
+  #  try:
         auth = None
         mid = None
         end = None
@@ -738,9 +749,9 @@ def project(pid):
         for x in createStatuslist():  # 生成用来判断显示什么按钮的变量
             if pro.Status == x[0]:
                 psta = (x[0], x[1])  # x[0]为状态号，x[1]为状态名
-        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher)
-    except:
-        return '发生了未知错误，请联系管理员，感谢您的支持'
+        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher,user=User.query.filter_by(username=session['username']).first())
+   # except:
+    #    return '发生了未知错误，请联系管理员，感谢您的支持'
 
 #完成项目审核和路由
 @app.route('/check-suggest.html')
@@ -945,6 +956,8 @@ def resetPassword(username):
 @app.route('/checkStudentInfo.html')
 def checkStudentInfo():
     return render_template('checkStudentInfo.html',userinfo=User.query.filter_by(username=session['username']).first())
+
+
 
 @app.route('/loginout.html',methods=['GET'])
 def loginout():

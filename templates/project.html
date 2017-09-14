@@ -73,6 +73,7 @@
                 <th colspan="2">专业</th>
                 <th>联系电话</th>
                 <th>E-mail</th>
+                <th>删除项目成员</th>
             </tr>
             {%for member in pmembers%}
             <tr>
@@ -82,6 +83,7 @@
                 <td colspan="2">{{member.major}}</td>
                 <td>{{member.tel}}</td>
                 <td>{{member.email}}</td>
+                <td>{%if user.username==pchar.username%}<a href="/delete/members/{{member.userid}}"><button type="button" class="btn btn-danger areYouSure">删除</button></a>{%endif%}</td>
             </tr>
             {%endfor%}
             </p>
