@@ -536,7 +536,7 @@ def concluding_report_content():
         # 重命名文件
         fname = secure_filename(form.file.data.filename).split('.', 1)[-1]
         unix_time = int(time.time())
-        new_filename = pro.Pname+'End'+ '.' + fname
+        new_filename = pro.Pid+'End'+ '.' + fname
 
         form.file.data.save('upload/'+ new_filename)
         pro.doc = new_filename
