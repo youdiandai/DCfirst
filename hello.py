@@ -348,7 +348,7 @@ def projectManage():
         pros = pagination.items
         return render_template('/manager/projectManage-manager.html', pros=pros,stalist=createStatuslist(),pagination=pagination)
     elif User_mode.query.filter_by(mid=getUserauth(username)).first().name == '教师用户':
-        pagination = Project.query.filter_by(Teacher=User.query.filter_by(username=username).first().name).paginate(page, per_page=10, error_out=False)
+        pagination = Project.query.filter_by(Teacher=User.query.filter_by(username=username).first().username).paginate(page, per_page=10, error_out=False)
         pros = pagination.items
         return render_template('/manager/projectManage-manager.html', pros=pros,stalist=createStatuslist(),pagination=pagination)
 #完成登录功能
