@@ -166,8 +166,9 @@
             <textarea class="form-control" rows="5">{{pro. Problems}}</textarea>
         </div>
 
-        <h3><a href="/start/{{pro.doc}}">三、下载附件</a></h3>
-
+        <h3>三、下载附件</h3>
+        <a href="/download/{{pro.Pid}}Mid.doc">下载中期文档</a><br>
+        <a href="/download/{{pro.Pid}}End.doc">下载结题文档</a>
         <hr>
         <div>
         {%if auth%}
