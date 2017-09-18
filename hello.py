@@ -19,7 +19,7 @@ import os
 app = Flask(__name__)
 manager = Manager(app)
 app.config['SECRET_KEY'] ='synudc'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:aizai2017@localhost:3306/dc?charset=utf8mb4'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 app.config['MAIL_SERVER'] = 'smtp.163.com'
 app.config['MAIL_PORT']=25
