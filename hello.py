@@ -123,7 +123,7 @@ class Project(db.Model):
     Collage = db.Column(db.String(220),nullable=True)#学院
     Person_in_charge = db.Column(db.Integer,nullable=True)#负责人
     Teacher = db.Column(db.String(220),nullable=True)#指导教师
-    Forteacher = db.Column(db.String(220),nullable=True)#校外导师
+    ForTeacher_ID = db.Column(db.Integer,db.ForeignKey('ForTeacher.id'))#校外导师
     Describe = db.Column(db.Text,nullable=True)#项目简介
     Status = db.Column(db.Integer,nullable=True)#项目状态
     StartDate = db.Column(db.String(220),nullable=True)#立项日期
@@ -162,6 +162,18 @@ class Project(db.Model):
 
     def __repr__(self):
         return  '<Project %r>'%self.pid
+
+class ForTeacher(db.Model):
+    __tablename__ = 'ForTeacher'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(220),nullable=True)
+    title = db.Column(db.String(220),nullable=True)
+    company = db.Column(db.String(220),nullable=True)
+    tel = db.Column(db.String(220),nullable=True)
+    email = db.Column(db.String(220),nullable=True)
+    projects = db.relationship('Project',backref = 'ForTeacher')
+
+
 
 # 项目状态
 class Project_mode(db.Model):
@@ -437,6 +449,15 @@ def project_application_content1():
 def project_application_content2():
     try:
         pname = Project.query.filter_by(Pname=request.form.get('Pname')).first()
+        fortea = ForTeacher()
+        if request.form.get('forname') != '':
+            fortea.name = request.form.get('forname')
+            fortea.title = request.form.get('fortitle')
+            fortea.email = request.form.get('foremail')
+            fortea.company = request.form.get('forcompany')
+            fortea.tel = request.form.get('fortel')
+            db.session.add(fortea)
+            db.session.commit()
         if pname is None:
             pro = Project()
             pro.StartDate = datetime.datetime.now().strftime('%Y/%m/%d')
@@ -455,6 +476,8 @@ def project_application_content2():
             pro.BudgetPlan = isSpaceStr(request.form.get('BudgetPlan'))
             pro.ExpectedResults = isSpaceStr(request.form.get('ExpectedResults'))
             pro.Person_in_charge = session["username"]
+            if request.form.get('forname') != '':
+                pro.ForTeacher_ID=ForTeacher.query.filter_by(forname = request.form.get('forname')).first().id
             db.session.add(pro)
             db.session.commit()
             pu = User_Project()

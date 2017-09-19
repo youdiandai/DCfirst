@@ -15,7 +15,7 @@
     <link href="../../static/css/custom-styles.css" rel="stylesheet"/>
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="../static/css/style-s.css">
+    <link rel="stylesheet" href="../../static/css/style-s.css">
 </head>
 
 <body>
@@ -24,100 +24,124 @@
     <form name="form" class="form-horizontal aja-form">
         <h3>一、项目概况</h3>
         <hr>
-        <table class="table text-center table-bordered">
-            <tr>
-                <th>项目名称</th>
-                <td colspan="3">{{pro.Pname}}</td>
-                <th>项目编号</th>
-                <td colspan="2">{{pro.pid}}</td>
-            </tr>
-            <tr>
-                <th>项目类型</th>
-                <td colspan="3">{{pro.Pclass}}</td>
-                <th>项目周期</th>
-                <td colspan="3">{{pro.PlanDate}}</td>
-            </tr>
-            <tr>
-                <th>项目级别</th>
-                <td colspan="6">
-                    {%if pro.Plevel==None%}
-                    未评级
-                    {%else%}
-                    {{pro.Plevel}}
-                    {%endif%}
-                </td>
+        <div class="table-responsive">
+            <table class="table text-center table-bordered">
+                <tr>
+                    <th>项目名称</th>
+                    <td colspan="7">{{pro.Pname}}</td>
+                </tr>
+                <tr>
+                    <th>项目编号</th>
+                    <td colspan="3">{{pro.pid}}</td>
+                    <th>项目立项时间</th>
+                    <td colspan="3">{{pro.StartDate}}</td>
+                </tr>
+                <tr>
+                    <th>项目类型</th>
+                    <td colspan="3">{{pro.Pclass}}</td>
+                    <th>项目周期</th>
+                    <td colspan="3">{{pro.PlanDate}}</td>
+                </tr>
+                <tr>
+                    <th>项目级别</th>
+                    <td colspan="3">
+                        {%if pro.Plevel==None%}
+                        未评级
+                        {%else%}
+                        {{pro.Plevel}}
+                        {%endif%}
+                    </td>
+                    <th>项目所属专业</th>
+                    <td colspan="3">{{pchar.collage}}{{pchar.major}}</td>
+                </tr>
+                <tr>
+                    <th>项目负责人</th>
+                    <td colspan="3">{{pchar.name}}</td>
+                    <th>学号</th>
+                    <td colspan="3">{{pchar.username}}</td>
+                </tr>
+                <tr>
+                    <th>联系电话</th>
+                    <td colspan="3">{{pchar.tel}}</td>
+                    <th>E-mail</th>
+                    <td colspan="3">{{pchar.email}}</td>
+                </tr>
+                <p>
+                <tr>
+                    <th colspan="8">团队成员信息</th>
+                </tr>
+                <tr>
+                    <th>姓名</th>
+                    <th>学号</th>
+                    <th>学院</th>
+                    <th colspan="2">专业</th>
+                    <th>联系电话</th>
+                    <th>E-mail</th>
+                    <th>删除项目成员</th>
+                </tr>
+                {%for member in pmembers%}
+                <tr>
+                    <td>{{member.name}}</td>
+                    <td>{{member.username}}</td>
+                    <td>{{member.collage}}</td>
+                    <td colspan="2">{{member.major}}</td>
+                    <td>{{member.tel}}</td>
+                    <td>{{member.email}}</td>
+                    <td>{%if user.username==pchar.username%}<a href="/delete/members/{{member.userid}}"><button type="button" class="btn btn-danger areYouSure">删除</button></a>{%endif%}</td>
+                </tr>
+                {%endfor%}
+                </p>
+            </table>
+        </div>
+        <div class="table-responsive"> 
+            <table class="table text-center table-bordered">
+                <p>
+                <tr>
+                    <th colspan="8">指导教师信息</th>
+                </tr>
+                <tr>
+                    <th colspan="2">姓名</th>
+                    <th colspan="3">联系电话</th>
+                    <th colspan="3">E-mail</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{teacher.name}}</td>
+                    <td colspan="3">{{teacher.tel}}</td>
+                    <td colspan="3">{{teacher.email}}</td>
+                </tr>
+                </p>
+                <tr>
+                    <th colspan="8">校外指导教师信息</th>
+                </tr>
+                <tr>
+                    <th>姓名</th>
+                    <th>联系电话</th>
+                    <th>E-mail</th>
+                    <th colspan="3">所在单位</th>
+                    <th colspan="2">职务职称</th>
 
-            </tr>
-            <tr>
-                <th>项目负责人</th>
-                <td colspan="1">{{pchar.name}}</td>
-                <th>项目所属专业</th>
-                <td colspan="2">{{pchar.collage}}{{pchar.major}}</td>
-                <th>学号</th>
-                <td colspan="2">{{pchar.username}}</td>
-            </tr>
-            <tr>
-                <th>联系电话</th>
-                <td colspan="3">{{pchar.tel}}</td>
-                <th>E-mail</th>
-                <td colspan="3">{{pchar.email}}</td>
-            </tr>
-            <p>
-            <tr>
-                <th colspan="7">团队成员信息</th>
-            </tr>
-            <tr>
-                <th>姓名</th>
-                <th>学号</th>
-                <th>学院</th>
-                <th colspan="2">专业</th>
-                <th>联系电话</th>
-                <th>E-mail</th>
-                <th>删除项目成员</th>
-            </tr>
-            {%for member in pmembers%}
-            <tr>
-                <td>{{member.name}}</td>
-                <td>{{member.username}}</td>
-                <td>{{member.collage}}</td>
-                <td colspan="2">{{member.major}}</td>
-                <td>{{member.tel}}</td>
-                <td>{{member.email}}</td>
-                <td>{%if user.username==pchar.username%}<a href="/delete/members/{{member.userid}}"><button type="button" class="btn btn-danger areYouSure">删除</button></a>{%endif%}</td>
-            </tr>
-            {%endfor%}
-            </p>
-        </table>
-<table class="table text-center table-bordered">
-            <p>
-            <tr>
-                <th colspan="7">指导教师信息</th>
-            </tr>
-            <tr>
-                <th>姓名</th>
-                <th>联系电话</th>
-                <th>E-mail</th>
-            </tr>
-            <tr>
-                <td>{{teacher.name}}</td>
-                <td>{{teacher.tel}}</td>
-                <td>{{teacher.email}}</td>
-            </tr>
-            </p>
-        </table>
-
+                </tr>
+                <tr>
+                    <td>{{pro.ForTeacher.name}}</td>
+                    <td>{{pro.ForTeacher.tel}}</td>
+                    <td>{{pro.ForTeacher.email}}</td>
+                    <td colspan="3">{{pro.ForTeacher.company}}</td>
+                    <td colspan="2">{{pro.ForTeacher.title}}</td>
+                </tr>
+            </table>
+        </div>
         <h3>二、项目简介</h3>
         <hr>
         <div class="form-group">
-            <label>项目简介</label>
+            <label>项目简介（500字左右）</label>
             <textarea class="form-control" rows="5">{{pro.Describe}}</textarea>
         </div>
         <div class="form-group">
-            <label>项目申请理由</label>
+            <label>项目申请理由（包括/自身/团队具备的知识、条件、特长、兴趣、前期准备等）</label>
             <textarea class="form-control" rows="5">{{pro.ReassonsForApplication}}</textarea>
         </div>
         <div class="form-group">
-            <label>项目方案</label>
+            <label>项目方案（计划、技术路线、人员分工等）</label>
             <textarea class="form-control" rows="5">{{pro.ProjectPlan}}</textarea>
         </div>
         <div class="form-group">
@@ -133,12 +157,24 @@
             <textarea class="form-control" rows="5">{{pro.Budget}}</textarea>
         </div>
         <div class="form-group">
-            <label>项目经费使用计划</label>
+            <label>项目经费使用计划（说明经费用途）</label>
             <textarea class="form-control" rows="5">{{pro.BudgetPlan}}</textarea>
         </div>
         <div class="form-group">
-            <label>项目预期成果物</label>
+            <label>项目预期成果（论文级别、专利、设计、产品、服务；创新实践项目需说明公司规模、营业额等）</label>
             <textarea class="form-control" rows="5">{{pro.ExpectedResults}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>教师意见</label>
+            <textarea class="form-control" rows="5">{{pro.TeaStarOpinion}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>学院意见</label>
+            <textarea class="form-control" rows="5">{{pro.CollStarOpinion}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>大创中心意见</label>
+            <textarea class="form-control" rows="5">{{pro.SchStarOpinion}}</textarea>
         </div>
          <hr>
                 {%if mid%}
@@ -148,9 +184,22 @@
             <label>项目中期工作进展</label>
             <textarea class="form-control" rows="5">{{pro.MidProgress}}</textarea>
         </div>
+        <div class="form-group">
+            <label>教师意见</label>
+            <textarea class="form-control" rows="5">{{pro.TeaMidOpinion}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>学院意见</label>
+            <textarea class="form-control" rows="5">{{pro.SchMidOpinion}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>大创中心意见</label>
+            <textarea class="form-control" rows="5">{{pro.DCCenterMidOpinion}}</textarea>
+        </div>
          <hr>
                 {%if end%}
           <p><a href="/concluding_report.html" target="iFrame"><button type="button" class="btn btn-warning">提交结题报告</button></a></p>
+
 {%endif%}
 
         <div class="form-group">
@@ -164,6 +213,18 @@
         <div class="form-group">
             <label>项目遇到的问题和建议</label>
             <textarea class="form-control" rows="5">{{pro. Problems}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>教师意见</label>
+            <textarea class="form-control" rows="5">{{pro.TeaEndOpinion}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>学院意见</label>
+            <textarea class="form-control" rows="5">{{pro.CollageEndOpinion}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>大创中心意见</label>
+            <textarea class="form-control" rows="5">{{pro.DCCenterEndOpinion}}</textarea>
         </div>
 
         <h3>三、下载附件</h3>

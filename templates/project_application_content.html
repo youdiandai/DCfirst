@@ -100,7 +100,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<button class="btn btn-primary col-sm-4 col-sm-offset-4 m1">添加团队成员</button>
+				<button class="btn btn-primary col-sm-3 col-sm-offset-5 m1">添加团队成员</button>
 			</div>
 			<div class="form-group m11">
             	<div class="col-sm-2">
@@ -477,6 +477,29 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<button class="btn btn-primary col-sm-3 col-sm-offset-5 t1">添加校外指导老师(非必填)</button>
+			</div>
+			<div class="form-group t11">
+				<div class="col-sm-2">
+					<input class="form-control integrity" placeholder="姓名" name="forname">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control integrity" placeholder="职务/职称" name="fortitle" >
+				</div>
+				<div class="col-sm-3">
+					<input class="form-control integrity" placeholder="所在单位" name="forcompany" >
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control integrity" placeholder="手机号" name="fortel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+				</div>
+				<div class="col-sm-2">
+					<input class="form-control integrity" placeholder="邮箱" name="foremail" onblur="checkMail6()"  id="email6">
+				</div>
+				<div class="col-sm-1">
+					<img class="t1-" src="../static/images/subtract.png"/>
+				</div>
+			</div>
+			<div class="form-group">
 				<div class="col-sm-4 control-label">项目类型</div>
 				<div class="col-sm-3">
 					<select class="form-control integrity" name="Pclass" id="project_type" onChange="type_change()">
@@ -518,7 +541,7 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目特色和创新点</div>
 				<div class="col-sm-5">
-					<textarea class="form-control integrity" placeholder="计划、技术路线、人员分工等" name="Innovate"></textarea>
+					<textarea class="form-control integrity" name="Innovate"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
@@ -559,6 +582,7 @@ $(document).ready(function() {
 	$('.m33').hide();
 	$('.m44').hide();
 	$('.m55').hide();
+	$('.t11').hide();
 	$('.m1').click(function(){
 		$('.m11').show();
 		return false;
@@ -592,6 +616,14 @@ $(document).ready(function() {
 	});
 	$('.m5-').click(function(){
 		$('.m44').hide();
+		return false;
+	});
+	$('.t1').click(function(){
+		$('.t11').show();
+		return false;
+	});
+	$('.t1-').click(function(){
+		$('.t11').hide();
 		return false;
 	});
 });
@@ -631,6 +663,17 @@ function checkMail3(){
 };
 function checkMail4(){
   var check = document.myForm.email4.value;
+	if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
+	    alert("邮箱名格式不正确");          
+	    return false;
+	}
+	if(check.indexOf(".",0)==-1){
+	    alert("邮箱名格式不正确");
+	    return false;
+	}
+};
+function checkMail6(){
+  var check = document.myForm.email6.value;
 	if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
 	    alert("邮箱名格式不正确");          
 	    return false;
