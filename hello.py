@@ -121,6 +121,8 @@ class Project(db.Model):
     Plevel = db.Column(db.String(220),nullable=True)#项目级别
     Pclass = db.Column(db.String(220),nullable=True)#项目类别
     Collage = db.Column(db.String(220),nullable=True)#学院
+    Deferred_problems = db.Column(db.String(220),nullable=True)#延期结题
+    Appraising = db.Column(db.String(220),nullable=True)#评优
     Person_in_charge = db.Column(db.Integer,nullable=True)#负责人
     Teacher = db.Column(db.String(220),nullable=True)#指导教师
     ForTeacher_ID = db.Column(db.Integer,db.ForeignKey('ForTeacher.id'))#校外导师
