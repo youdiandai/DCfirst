@@ -477,7 +477,7 @@ def project_application_content2():
             pro.ExpectedResults = isSpaceStr(request.form.get('ExpectedResults'))
             pro.Person_in_charge = session["username"]
             if request.form.get('forname') != '':
-                pro.ForTeacher_ID=ForTeacher.query.filter_by(forname = request.form.get('forname')).first().id
+                pro.ForTeacher_ID=ForTeacher.query.filter_by(name = request.form.get('forname')).first().id
             db.session.add(pro)
             db.session.commit()
             pu = User_Project()
