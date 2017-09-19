@@ -12,6 +12,7 @@ from werkzeug.utils import secure_filename
 from threading import Thread
 import time
 import os
+import datetime
 
 
 
@@ -438,6 +439,7 @@ def project_application_content2():
         pname = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         if pname is None:
             pro = Project()
+            pro.StartDate = datetime.datetime.now().strftime('%Y/%m/%d')
             pro.Pname = isSpaceStr(request.form.get('Pname'))
             pro.PlanDate = isSpaceStr(request.form.get('PlanDate'))
             pro.Status = Project_mode.query.filter_by(status='等待指导教师审核').first().sid
