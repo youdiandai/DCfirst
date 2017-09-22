@@ -29,6 +29,7 @@ app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['FLASKY_MAIL_SUBJECT_PREFIX']='[DC]'
 app.config['FLASKY_MAIL_SENDER']='DCfirst Admin<18504285660@163.com>'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','zip','rar'])
 db = SQLAlchemy(app,use_native_unicode="utf8")
 migrate = Migrate(app,db)
 manager.add_command('db',MigrateCommand)
@@ -449,7 +450,7 @@ def project_application_content1():
 
 @app.route('/project_application_content.html', methods=['POST'])
 def project_application_content2():
-    try:
+  #  try:
         pname = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         fortea = ForTeacher()
         if request.form.get('forname') != '':
@@ -508,14 +509,24 @@ def project_application_content2():
                             db.session.add(User_Project(pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid,
                                            userid=User.query.filter_by(username=request.form.get('username'+ str(x))).first().userid))
                             db.session.commit()
+
                 except:
                     db.session.close_all()
                     return '添加学生到项目发生了错误,请重试'
+            file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
+            if not os.path.exists(file_dir):
+                os.makedirs(file_dir)
+            # 重命名文件
+            file = request.files['file']
+            fname = secure_filename(file.filename).split('.', 1)[-1]
+            new_filename = str(pro.pid) + 'Star' + '.' + fname
+
+            file.save(file_dir,new_filename)
             return '创建成功'
         else:
             return "项目已存在"
-    except:
-        return '出现了一些错误，请重试'
+   # except:
+    #    return '出现了一些错误，请重试'
 #中期申报
 
 @app.route('/interim_report.html',methods=['GET'])
