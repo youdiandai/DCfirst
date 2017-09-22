@@ -84,7 +84,9 @@ h1 {
 }
 
 .banner{
-	background: url(../images/bg.jpg) no-repeat center/cover;
+	background-image: url(../images/bg.jpg);
+	background-repeat: no-repeat;
+	background-position:  center/cover;
 }
 .banner-cover{
 	padding-top: 70px;
@@ -101,7 +103,7 @@ h1 {
 	letter-spacing: 5px;
 }
 .banner-inner{
-	padding-top: 30vh;
+	padding-top: 250px;
 	/*vertical-align: middle;*/
 	text-align: center;
 	font-family: "微软雅黑";
