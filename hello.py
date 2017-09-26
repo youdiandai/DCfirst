@@ -117,7 +117,9 @@ class Major(db.Model):
 #项目
 class Project(db.Model):
     __tablename__ = 'project'
-    pid = db.Column(db.Integer,primary_key=True)#项目编号
+    pid = db.Column(db.Integer,primary_key=True)#项目系统
+    secondTeacher = db.Column(db.String(220),nullable=True)#第二指导教师
+    proID = db.Column(db.String(220),nullable=False) #项目编号
     Pname = db.Column(db.String(220),nullable=False)#项目名称
     Plevel = db.Column(db.String(220),nullable=True)#项目级别
     Pclass = db.Column(db.String(220),nullable=True)#项目类别
@@ -419,7 +421,7 @@ def register1():
 def register2():
     username = User.query.filter_by(username=request.form.get('username')).first()
     try:
-        if username is None:
+        if username is  None:
             user = User()
             user.username = request.form.get('username')
             user.name = request.form.get('name')
@@ -469,6 +471,8 @@ def project_application_content2():
             pro.Status = Project_mode.query.filter_by(status='等待指导教师审核').first().sid
             pro.Collage = isSpaceStr(request.form.get('Collage'))
             pro.Teacher = request.form.get('Teacher')
+            pro.secondTeacher = request.form.get('secondTeacher')
+            pro.proID = request.form.get('proID')
             pro.Describe = isSpaceStr(request.form.get('Describe'))
             pro.Pclass = isSpaceStr(request.form.get('Pclass'))
             pro.ReassonsForApplication = isSpaceStr(request.form.get('ReassonsForApplication'))
