@@ -24,17 +24,17 @@
             <div class="form-group">
 				<div class="col-sm-4 control-label">项目名称</div>
 				<div class="col-sm-5">
-					<input class="form-control integrity" value="请输入项目名称" name="Pname">
+					<input class="form-control integrity" placeholder="请输入项目名称" name="Pname">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目编号</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity1" value="请输入项目编号" name="proID" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					<input class="form-control integrity1" placeholder="请输入项目编号" name="proID" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 				</div>
 				<div class="col-sm-1 control-label">立项时间</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity2" value="请输入项目立项时间" name="">
+					<input class="form-control integrity2" placeholder="请输入项目立项时间" name="">
 				</div>
 			</div>
 			<div class="form-group">
@@ -110,14 +110,22 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<button class="btn btn-primary col-sm-3 col-sm-offset-5 m1">添加团队成员</button>
+				<button class="btn btn-primary col-sm-3 col-sm-offset-5 m1">添加团队成员(至少再填俩)</button>
 			</div>
 			<div class="form-group m11">
+				<div class="col-sm-12">
+					<div class="col-sm-2 control-label" style="text-align:center">学号</div>
+					<div class="col-sm-1 control-label" style="text-align:center">姓名</div>
+					<div class="col-sm-2 control-label" style="text-align:center">学院</div>
+					<div class="col-sm-2 control-label" style="text-align:center">专业</div>
+					<div class="col-sm-2 control-label" style="text-align:center">手机号</div>
+					<div class="col-sm-2 control-label" style="text-align:center">邮箱</div>
+				</div><br>
             	<div class="col-sm-2">
-					<input class="form-control integrity" value="学号" name="username1">
+					<input class="form-control integrity" placeholder="学号" name="username1">
 				</div>
 				<div class="col-sm-1">
-					<input class="form-control integrity" value="姓名" name="name1">
+					<input class="form-control integrity" placeholder="姓名" name="name1">
 				</div>
 				<div class="col-sm-2">
 					<select class="form-control integrity " id="college_change1" name="collage1" onChange="change()">
@@ -194,10 +202,10 @@
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control tel integrity" value="手机号" name="tel1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+					<input class="form-control tel integrity" placeholder="手机号" name="tel1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="邮箱" name="email1" onblur="checkMail()" id="email1">
+					<input class="form-control integrity" placeholder="邮箱" name="email1" onblur="checkMail()" id="email1">
 				</div>
 				<div class="col-sm-1">
 					<img class="m2" src="../static/images/add.png"/>
@@ -206,11 +214,11 @@
 			</div>
 			<div class="form-group m22">
                 <div class="col-sm-2">
-					<input class="form-control integrity" value="学号" name="username2">
+					<input class="form-control integrity" placeholder="学号" name="username2">
 				</div>
 
 				<div class="col-sm-1">
-					<input class="form-control integrity" value="姓名" name="name2">
+					<input class="form-control integrity" placeholder="姓名" name="name2">
 				</div>
 				<div class="col-sm-2">
 					<select class="form-control integrity" name="collage2" id="college_change2" onChange="change2()">
@@ -287,10 +295,10 @@
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="手机号" name="tel2" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+					<input class="form-control integrity" placeholder="手机号" name="tel2" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="邮箱" name="email2" onblur="checkMail2()"  id="email2">
+					<input class="form-control integrity" placeholder="邮箱" name="email2" onblur="checkMail2()"  id="email2">
 				</div>
 				<div class="col-sm-1">
 					<img class="m3" src="../static/images/add.png"/>
@@ -299,10 +307,10 @@
 			</div>
 			<div class="form-group m33">
                 <div class="col-sm-2">
-					<input class="form-control integrity" value="学号" name="username3">
+					<input class="form-control integrity" placeholder="学号" name="username3">
 				</div>
 				<div class="col-sm-1">
-					<input class="form-control integrity" value="姓名" name="name3">
+					<input class="form-control integrity" placeholder="姓名" name="name3">
 				</div>
 				<div class="col-sm-2">
 					<select class="form-control integrity" name="collage3" id="college_change3" onChange="change3()">
@@ -379,10 +387,10 @@
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="手机号" name="tel3" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+					<input class="form-control integrity" placeholder="手机号" name="tel3" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="邮箱" name="email3" onblur="checkMail3()"  id="email3">
+					<input class="form-control integrity" placeholder="邮箱" name="email3" onblur="checkMail3()"  id="email3">
 				</div>
 				<div class="col-sm-1">
 					<img class="m4" src="../static/images/add.png"/>
@@ -391,10 +399,10 @@
 			</div>
 			<div class="form-group m44">
                 <div class="col-sm-2">
-					<input class="form-control integrity" value="学号" name="username4">
+					<input class="form-control integrity" placeholder="学号" name="username4">
 				</div>
 				<div class="col-sm-1">
-					<input class="form-control integrity" value="姓名" name="name4">
+					<input class="form-control integrity" placeholder="姓名" name="name4">
 				</div>
 				<div class="col-sm-2">
 					<select class="form-control integrity" name="collage4" id="college_change4" onChange="change4()">
@@ -471,39 +479,50 @@
 	                </select>
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="手机号" name="tel4" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+					<input class="form-control integrity" placeholder="手机号" name="tel4" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="邮箱" name="email4" onblur="checkMail4()"  id="email4">
+					<input class="form-control integrity" placeholder="邮箱" name="email4" onblur="checkMail4()"  id="email4">
 				</div>
 				<div class="col-sm-1">
 					<img class="m5-" src="../static/images/subtract.png"/>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-4 control-label">指导教师</div>
-				<div class="col-sm-5">
-					<input class="form-control integrity" value="请输入指导教师校园卡号" name="Teacher" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8">
+				<div class="col-sm-4 control-label">指导教师一</div>
+				<div class="col-sm-2">
+					<input class="form-control integrity" placeholder="输入教师校园卡号" name="Teacher" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8">
+				</div>
+				<div class="col-sm-1 control-label">教师二</div>
+				<div class="col-sm-2">
+					<input class="form-control" placeholder="输入教师校园卡号" name="secondTeacher" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8">
 				</div>
 			</div>
 			<div class="form-group">
 				<button class="btn btn-primary col-sm-3 col-sm-offset-5 t1">添加校外指导老师(非必填)</button>
 			</div>
 			<div class="form-group t11">
+				<div class="col-sm-12">
+					<div class="col-sm-2 control-label" style="text-align:center">姓名</div>
+					<div class="col-sm-2 control-label" style="text-align:center">职务/职称</div>
+					<div class="col-sm-3 control-label" style="text-align:center">所在单位</div>
+					<div class="col-sm-2 control-label" style="text-align:center">手机号</div>
+					<div class="col-sm-2 control-label" style="text-align:center">邮箱</div>
+				</div><br>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="姓名" name="forname">
+					<input class="form-control integrity" placeholder="姓名" name="forname">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="职务/职称" name="fortitle" >
+					<input class="form-control integrity" placeholder="职务/职称" name="fortitle" >
 				</div>
 				<div class="col-sm-3">
-					<input class="form-control integrity" value="所在单位" name="forcompany" >
+					<input class="form-control integrity" placeholder="所在单位" name="forcompany" >
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="手机号" name="fortel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
+					<input class="form-control integrity" placeholder="手机号" name="fortel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 				</div>
 				<div class="col-sm-2">
-					<input class="form-control integrity" value="邮箱" name="foremail" onblur="checkMail6()"  id="email6">
+					<input class="form-control integrity" placeholder="邮箱" name="foremail" onblur="checkMail6()"  id="email6">
 				</div>
 				<div class="col-sm-1">
 					<img class="t1-" src="../static/images/subtract.png"/>
@@ -576,11 +595,10 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">项目预期成果</div>
 				<div class="col-sm-5">
-					<textarea class="form-control integrity test" name="ExpectedResults" value="论文级别、专利、设计、产品、服务"></textarea>
+					<textarea class="form-control integrity test" name="ExpectedResults" placeholder="论文级别、专利、设计、产品、服务"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="file" name=""/>
 			</div>
 			<br>
 			<button class="btn btn-primary btn-block btn1 surebtn col-sm-offset-6" style="width:100px;">确认提交</button>
