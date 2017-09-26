@@ -777,6 +777,7 @@ def project(pid):
         pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
         pmembers = [User.query.filter_by(userid=x.userid).first() for x in User_Project.query.filter_by(pid=pid).all()]
         teacher = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Teacher).first()
+        secondTeacher = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().secondTeacher).first()
         # 生成用来判断是否显示按钮的变量
         if User_mode.query.filter_by(mid=getUserauth(session['username'])).first().name == '管理员' and pro.Status in [3,7,11]:
             auth = True
@@ -792,7 +793,7 @@ def project(pid):
         for x in createStatuslist():  # 生成用来判断显示什么按钮的变量
             if pro.Status == x[0]:
                 psta = (x[0], x[1])  # x[0]为状态号，x[1]为状态名
-        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher,user=User.query.filter_by(username=session['username']).first())
+        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher,secondTeacher=secondTeacher,user=User.query.filter_by(username=session['username']).first())
    # except:
     #    return '发生了未知错误，请联系管理员，感谢您的支持'
 
