@@ -2,33 +2,52 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>中期报告</title>
+	<title>中期报告--填写</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" />
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	input{
+		display: inline-block !important;
+		margin-top:25px
+	}
+	</style>
 </head>
 
 <body>
 
-<div class="container">
-	<table class="table table-hover table-bordered">	
-			<h1 class="text-center">“大学生创新创业训练计划”<br>
-			项目中期检查报告书</h1>
-			<tbody>
-			<form method="post" enctype="multipart/form-data">
-            {{form.hidden_tag()}}
-			<p>{{form.MidProgress.label}}</p>
-			<p>{{form.MidProgress(placeholder="工作方案实施情况，拟开展工作、存在的问题，能否按时完成研究计划，推迟或终止研究工作的原因等")}}</p>
-			<p>{{form.file.label}}{{form.file()}}</p>
-			<p>{{form.submit(class="btn btn-info btn-block btn1")}}</p>
-			</form>
-			</tbody>
-		</table>
-
+<div class="container">	
+	<h3 class="text-center">“大学生创新创业训练计划”<br>
+	项目中期检查报告书</h3>
+	<form method="post" enctype="multipart/form-data" class="form-horizontal" >
+    {{form.hidden_tag()}}
+		<div class="form-group">
+			<div class="col-sm-4 control-label">研究工作进展情况</div>
+			<div class="col-sm-5">
+				<textarea rows="5" class="form-control integrity" placeholder="工作方案实施情况，拟开展工作、存在的问题，能否按时完成研究计划，推迟或终止研究工作的原因等" name=""></textarea>
+			</div>
+		</div>
+		<div class="form-group" style="text-align:center">
+			<input type="file" name=""/>
+		</div>
+		<br>
+		<button class="btn btn-primary btn-block btn1 surebtn col-sm-offset-5" style="width:100px;">确认提交</button>
+	</form>
 </div>
 
 </body>
-
+<script type="text/javascript">
+//验证表单填写完整
+$(".surebtn").click(function() {
+   if ($(".integrity").val() == '' ){
+    alert('请先填写完整');
+    return true;    
+    }
+    else{
+        alert('确认提交');
+    }    
+});
+</script>
 </html>
 

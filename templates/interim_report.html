@@ -4,9 +4,9 @@
 	<meta charset="utf-8">
 	<title>中期报告</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" />
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 	<style type="text/css">
 	body{
 		font-family: "微软雅黑";
@@ -15,12 +15,12 @@
 		display: inline-block;
 		margin: 0 auto;
 	}
-	h1{
+	h3{
 		letter-spacing: 2px;
 	}
-	h3{color: #E80F0F;}
+	h4{color: #E80F0F;}
 	.form_warn{
-		margin: 40px 200px 0;
+		margin: 40px 50px 0;
 		padding: 20px 30px;
 		border: 2px solid #fff;
 	    box-shadow: inset 0 1px #fff, 0 2px 5px rgba(34,25,25,0.4);
@@ -38,7 +38,7 @@
 		text-decoration: none;
 		font: 16px/100% 'Microsoft yahei',Arial, Helvetica, sans-serif;
 		padding: .5em 2em .55em;
-		-webkit-border-radius: .5em; 
+		-webkit-border-radius: .5em;
 		-moz-border-radius: .5em;
 		border-radius: .5em;
 		color: #606060;
@@ -51,17 +51,17 @@
 		color: #999;
 	}
 	@media all and (max-width: 1500px) and (min-width: 1024px){
-	
+
 	}
 
 	@media all and (max-width: 1024px) and (min-width: 800px){
-		
+
 	}
 	@media all and (max-width: 800px) and (min-width: 640px){
 		.form_warn{
 			padding: 0;
 		}
-		
+
 	}
 	@media only screen and (max-width: 640px) {
 		.form_warn{
@@ -69,22 +69,26 @@
 		}
 	}
 	</style>
+	</style>
 </head>
 
 <body>
 
 <div class="container">
-	<img src="images/p1.png" class="img-responsive" />
 	<div class="form_warn">
-		<h1 class="text-center">“大学生创新创业训练计划”<br>
-			项目结题验收报告</h1>
-		<h3 class="text-center">填表须知</h3>
-		<p>一、项目中期检查报告书要按照《沈阳师范大学大学生创新创业训练计划管理办法》的相关要求，逐项认真填写，填写内容必须实事求是，表达明确严谨。</p>
-		<p>二、报告书填写内容应言简意赅，思路清晰，论证充分，字迹清楚，一律用计算机输入打印，填写中如栏目篇幅不够，可自行加页。表格中正文字体应为小四号宋体，22磅行距，需签字部分由相关人员以黑色钢笔或水笔签名。</p>
-		<p>三、报告书须由项目负责人填写，项目所在单位领导审核，并签署明确意见，再由院（系）评审汇总后统一上报教务处。</p>
-		<p>四、报告书一式两份，均用A4纸打印，于左侧装订成册。</p>
+		<h3 class="text-center">“大学生创新创业训练计划”<br>
+		项目中期检查报告书</h3>
+		<h4 class="text-center">填表须知</h4>
+		<p>一、结题验收书应按照本表格要求，逐项认真填写，内容必须实事求是，表达明确严谨，空缺处要填“无”。</p>
+		<p>二、结题验收书一律用计算机输入打印，填写中如栏目篇幅不够，可自行加页。表格中正文字体应为小四号宋体，22磅行距，需签字部分由相关人员以黑色钢笔或水笔签名。</p>
+		<p>三、“项目类别”：将对应的方框涂黑。</p>
+		<p>四、“项目成员”按照实际参与项目实施的人员填写。</p>
+		<p>五、“指导教师意见”要对项目成果和学生实施情况进行总结，由指导教师亲自填写。</p>
+		<p>六、“学院创新性实验计划工作领导小组意见”要对成果内容和成果水平进行评价。</p>
+		<p>七、结题验收书用A4纸打印，于左侧装订成册。</p>
+		<p>八、结题材料需纸质材料和电子文档一并提交，由各个学院汇总后统一上报。</p>
 		<br><br><br>
-		<form name="agree" class="text-center" action="interim_report_content.html">
+		<form name="agree" class="text-center" action="project_application_content.html">
 			<input type="submit" class="agree_button" value="请认真查看<填表须知> (10)" id="agree_btn" name="agreeb">
 		</form>   
 	</div>
@@ -103,7 +107,7 @@ function update(num) {
 	if(num == secs) {
 		document.agree.agreeb.value =" 我 同 意 ";
 		document.agree.agreeb.disabled=false;
-		// window.location.href="interim_report_content.html";
+		// window.location.href="project_application_content.html";
 	}
 	else {
 		var printnr = secs-num;

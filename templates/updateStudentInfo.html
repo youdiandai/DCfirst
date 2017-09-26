@@ -5,7 +5,7 @@
     <title>修改学生个人信息</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="../static/css/materialize.min.css" media="screen,projection" />
+  <link rel="stylesheet" href="../static/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
     <link href="../static/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
@@ -17,134 +17,133 @@
     <link href="../static/css/style.css" rel='stylesheet' type='text/css' />
     <style type="text/css">
     .register-main form {
-	    margin-top: 40px;
-	}
+      margin-top: 40px;
+  }
     </style>
 </head>
 <body style="background-color: #ECECEC">
 <div class="register-main collageAdmin-register">
-	<div class="container">
-		<form class="form-horizontal" method="POST" action="/updateStudentInfo.html" name="update_form">
-			<h2 class="text-center">修改个人信息</h2><br><br>
-			<div class="form-group">
-				<div class="col-sm-4 control-label">姓名</div>
-				<div class="col-sm-4">
-					<input class="form-control" placeholder="请输入姓名" id="name_change" name="name" value="{{userinfo.name}}">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-4 control-label">学院</div>
-				<div class="col-sm-4">
-					<select class="form-control" name="collage" id="college_change" onChange="change()">
-	                    <option>{{userinfo.collage}}</option>
-	                    <option>外国语学院</option>
-						<option>文学院</option>
-						<option>科信软件学院</option>
-						<option>数学与系统科学学院</option>
-						<option>生命科学学院</option>
-						<option>物理科学与技术学院</option>
-						<option>教育科学学院</option>
-						<option>社会学学院</option>
-						<option>化学化工学院</option>
-						<option>法学院</option>
-						<option>教育技术学院</option>
-						<option>马克思主义学院</option>
-						<option>管理学院</option>
-						<option>旅游管理学院</option>
-						<option>美术与设计学院</option>
-						<option>学前与初等教育学院</option>
-						<option>国际商学院</option>
-						<option>体育科学学院</option>
-						<option>戏剧艺术学院</option>
-						<option>粮食学院</option>
-						<option>音乐学院</option>
-						<option>古生物学院</option>
-						<option>组织部</option>
-						<option>党校</option>
-						<option>宣传统战部</option>
-						<option>审计监察处</option>
-						<option>工会</option>
-						<option>团委</option>
-						<option>教务处</option>
-						<option>学生处</option>
-						<option>招生就业指导处</option>
-						<option>研究生处</option>
-						<option>教育硕士研究生院</option>
-						<option>教师教育处</option>
-						<option>教师专业发展学院</option>
-						<option>学科与科研工作处</option>
-						<option>国际教育学院</option>
-						<option>继续教育学院</option>
-						<option>校务办公室</option>
-						<option>合作发展处</option>
-						<option>后勤工作处</option>
-						<option>校园安全与管理处</option>
-						<option>人事处</option>
-						<option>离退休工作处</option>
-						<option>财务与资产管理处</option>
-						<option>人力资源开发与管理研究所</option>
-						<option>书法教育研究所</option>
-						<option>教育经济与管理研究所</option>
-						<option>附属艺术学校
-						<option>延松剧场艺术研</option>究所</option>
-						<option>梅兰芳艺术研究所</option>
-						<option>法律文化研究中心</option>
-						<option>法律与公共政策研究中心</option>
-						<option>中国北方少数民族文化研究中心</option>
-						<option>中国文化与文学研究所</option>
-						<option>两栖爬行动物研究所</option>
-						<option>大学外语教学部</option>
-						<option>计算机与数学基础教学部</option>
-						<option>实验教学中心</option>
-						<option>辽宁省基础教育教研培训中心</option>
-						<option>图书馆</option>
-						<option>学报编辑部</option>
-						<option>后勤集团</option>
-						<option>校医院</option>
-	                </select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-4 control-label">专业</div>
-				<div class="col-sm-4">
-					<select class="form-control" name="major" id="major_change">
-	                    <option>{{userinfo.major}}</option>
-						
-	                </select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-4 control-label">联系方式</div>
-				<div class="col-sm-4">
-					<input class="form-control" name="tel" id="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11" value="{{userinfo.tel}}">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-4 control-label">E-mail</div>
-				<div class="col-sm-4">
-					<input class="form-control" name="email" id="email" onblur="checkMail()" value="{{userinfo.email}}">
-				</div>
-			</div>
-			<br>
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary col-sm-2 col-xs-4 col-sm-offset-4 col-xs-offset-1 surebtn">确认</button>
+  <div class="container">
+    <form class="form-horizontal" method="POST" action="/updateStudentInfo.html" name="update_form">
+      <h2 class="text-center">修改个人信息</h2><br><br>
+      <div class="form-group">
+        <div class="col-sm-4 control-label">姓名</div>
+        <div class="col-sm-4">
+          <input class="form-control" placeholder="请输入姓名" id="name_change" name="name" value="{{userinfo.name}}">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4 control-label">学院</div>
+        <div class="col-sm-4">
+          <select class="form-control" name="collage" id="college_change" onChange="change()">
+                      <option>{{userinfo.collage}}</option>
+                      <option>外国语学院</option>
+            <option>文学院</option>
+            <option>科信软件学院</option>
+            <option>数学与系统科学学院</option>
+            <option>生命科学学院</option>
+            <option>物理科学与技术学院</option>
+            <option>教育科学学院</option>
+            <option>社会学学院</option>
+            <option>化学化工学院</option>
+            <option>法学院</option>
+            <option>教育技术学院</option>
+            <option>马克思主义学院</option>
+            <option>管理学院</option>
+            <option>旅游管理学院</option>
+            <option>美术与设计学院</option>
+            <option>学前与初等教育学院</option>
+            <option>国际商学院</option>
+            <option>体育科学学院</option>
+            <option>戏剧艺术学院</option>
+            <option>粮食学院</option>
+            <option>音乐学院</option>
+            <option>古生物学院</option>
+            <option>组织部</option>
+            <option>党校</option>
+            <option>宣传统战部</option>
+            <option>审计监察处</option>
+            <option>工会</option>
+            <option>团委</option>
+            <option>教务处</option>
+            <option>学生处</option>
+            <option>招生就业指导处</option>
+            <option>研究生处</option>
+            <option>教育硕士研究生院</option>
+            <option>教师教育处</option>
+            <option>教师专业发展学院</option>
+            <option>学科与科研工作处</option>
+            <option>国际教育学院</option>
+            <option>继续教育学院</option>
+            <option>校务办公室</option>
+            <option>合作发展处</option>
+            <option>后勤工作处</option>
+            <option>校园安全与管理处</option>
+            <option>人事处</option>
+            <option>离退休工作处</option>
+            <option>财务与资产管理处</option>
+            <option>人力资源开发与管理研究所</option>
+            <option>书法教育研究所</option>
+            <option>教育经济与管理研究所</option>
+            <option>附属艺术学校
+            <option>延松剧场艺术研</option>究所</option>
+            <option>梅兰芳艺术研究所</option>
+            <option>法律文化研究中心</option>
+            <option>法律与公共政策研究中心</option>
+            <option>中国北方少数民族文化研究中心</option>
+            <option>中国文化与文学研究所</option>
+            <option>两栖爬行动物研究所</option>
+            <option>大学外语教学部</option>
+            <option>计算机与数学基础教学部</option>
+            <option>实验教学中心</option>
+            <option>辽宁省基础教育教研培训中心</option>
+            <option>图书馆</option>
+            <option>学报编辑部</option>
+            <option>后勤集团</option>
+            <option>校医院</option>
+                  </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4 control-label">专业</div>
+        <div class="col-sm-4">
+          <select class="form-control" name="major" id="major_change">
+              
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4 control-label">联系方式</div>
+        <div class="col-sm-4">
+          <input class="form-control" name="tel" id="tel" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11" value="{{userinfo.tel}}">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4 control-label">E-mail</div>
+        <div class="col-sm-4">
+          <input class="form-control" name="email" id="email" onblur="checkMail()" value="{{userinfo.email}}">
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary col-sm-2 col-xs-4 col-sm-offset-4 col-xs-offset-1 surebtn">确认</button>
 
-				<button type="reset" class="btn btn-default col-sm-1 col-xs-5 col-sm-offset-1 col-xs-offset-2">重置</button>
-			</div>
+        <button type="reset" class="btn btn-default col-sm-1 col-xs-5 col-sm-offset-1 col-xs-offset-2">重置</button>
+      </div>
 
-		</form>
-	</div>
+    </form>
+  </div>
 </div>
 </body>
   <script src="../static/js/jquery-1.10.2.js"></script>
-	<!-- Bootstrap Js -->
+  <!-- Bootstrap Js -->
     <script src="../static/js/bootstrap.min.js"></script>
-	
-	<script src="../static/js/materialize.min.js"></script>
-	
+  
+  <script src="../static/js/materialize.min.js"></script>
+  
     <!-- Metis Menu Js -->
     <script src="../static/js/jquery.metisMenu.js"></script>
-	
+  
     <!-- Custom Js -->
     <script src="../static/js/custom-scripts.js"></script>
     <script type="text/javascript">
@@ -217,7 +216,6 @@ function change()
    {  
         y.options.add(new Option("化学", "化学"));  
         y.options.add(new Option("应用化学", "应用化学"));
-
    }
    if(x.selectedIndex == 10)  
    {  
@@ -292,7 +290,6 @@ function change()
         y.options.add(new Option("数字媒体艺术", "数字媒体艺术"));
         y.options.add(new Option("表演", "表演"));
         y.options.add(new Option("音乐表演", "音乐表演"));
-
    }
    if(x.selectedIndex == 20)  
    {  
@@ -310,17 +307,18 @@ function change()
         y.options.add(new Option("古生物学", "古生物学"));
    }
 };
+
 //邮箱格式验证
 function checkMail(){
   var check = document.update_form.email.value;
-	if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
-	    alert("邮箱名格式不正确");          
-	    return false;
-	}
-	if(check.indexOf(".",0)==-1){
-	    alert("邮箱名格式不正确");
-	    return false;
-	}
+  if(check.indexOf("@",0)==-1){        //String.indexOf("子字符串",起始位置) 查找某个字符,如果找不到则返回-1
+      alert("邮箱名格式不正确");          
+      return false;
+  }
+  if(check.indexOf(".",0)==-1){
+      alert("邮箱名格式不正确");
+      return false;
+  }
 };
 //验证表单填写完整
 $(".surebtn").click(function() {

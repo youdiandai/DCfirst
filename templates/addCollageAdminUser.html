@@ -25,13 +25,13 @@
 			<div class="form-group">
 				<div class="col-sm-4 control-label">用户名</div>
 				<div class="col-sm-4">
-					<input class="form-control" placeholder="请输入用户名" name="username">
+					<input class="form-control integrity1" placeholder="请输入用户名" name="username">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 control-label">所属单位/学院</div>
 				<div class="col-sm-4">
-					<select class="form-control" name="collage">
+					<select class="form-control integrity2" name="collage">
 	                    <option>学院</option>
 	                    <option>外国语学院</option>
 						<option>文学院</option>
@@ -102,7 +102,7 @@
 			</div><br><br>
 			<div class="form-group">
 				<div>
-					<button type="submit" class="btn btn-primary col-sm-2 col-xs-4 col-sm-offset-4 col-xs-offset-1">确认</button>
+					<button type="submit" class="btn btn-primary col-sm-2 col-xs-4 col-sm-offset-4 col-xs-offset-1 addbtn">确认</button>
 
 					<button type="reset" class="btn btn-default col-sm-1 col-xs-5 col-sm-offset-1 col-xs-offset-2">重置</button>
 				</div>
@@ -112,6 +112,23 @@
 	</div>
 </div>
 </body>
+<script src="../static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+//验证表单填写完整
+$(".addbtn").click(function() {
+   if ($(".integrity1").val() == '' ){
+    alert('请先填写完整');
+    return true;    
+    }
+    if ($(".integrity2").val() == '' ){
+    alert('请先填写完整');
+    return true;    
+    }
+    else{
+        alert('确认提交');
+    }    
+});
+</script>
 	<!-- Bootstrap Js -->
     <script src="../static/js/bootstrap.min.js"></script>
 	
