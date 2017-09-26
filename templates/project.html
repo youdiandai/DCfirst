@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <th>项目编号</th>
-                    <td colspan="3">{{pro.pid}}</td>
+                    <td colspan="3">{{pro.proID}}</td>
                     <th>项目立项时间</th>
                     <td colspan="3">{{pro.StartDate}}</td>
                 </tr>
@@ -109,6 +109,11 @@
                     <td colspan="3">{{teacher.tel}}</td>
                     <td colspan="3">{{teacher.email}}</td>
                 </tr>
+                <tr>
+                    <td colspan="2">{{secondTeacher.name}}</td>
+                    <td colspan="3">{{secondTeacher.tel}}</td>
+                    <td colspan="3">{{secondTeacher.email}}</td>
+                </tr>
                 </p>
                 <tr>
                     <th colspan="8">校外指导教师信息</th>
@@ -173,6 +178,7 @@
             <textarea class="form-control" rows="5">{{pro.CollStarOpinion}}</textarea>
         </div>
         <div class="form-group">
+
             <label>大创中心意见</label>
             <textarea class="form-control" rows="5">{{pro.SchStarOpinion}}</textarea>
         </div>
@@ -228,13 +234,13 @@
         </div>
 
         <h3>三、下载附件</h3>
-        <a href="/download/{{pro.pid}}Star.doc">下载中期文档</a><br>
+        <a href="/download/{{pro.pid}}Star.doc">下载初期文档</a><br>
         <a href="/download/{{pro.pid}}Mid.doc">下载中期文档</a><br>
         <a href="/download/{{pro.pid}}End.doc">下载结题文档</a>
         <hr>
         <div>
         {%if auth%}
-                <a href="/check-suggest.html" target="iFrame"><button type="button" class="btn btn-warning">审核</button></a>
+                <a href="/check-suggest.html"  id="iejianrong"><button type="button" class="btn btn-warning">审核</button></a>
         {%endif%}
 
         </div>
