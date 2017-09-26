@@ -514,13 +514,12 @@ def project_application_content2():
                     db.session.close_all()
                     return '添加学生到项目发生了错误,请重试'
             file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
-            if not os.path.exists(file_dir):
+            if not os.path.exists(file_dir)
                 os.makedirs(file_dir)
             # 重命名文件
             file = request.files['file']
             fname = secure_filename(file.filename).split('.', 1)[-1]
             new_filename = str(pro.pid) + 'Star' + '.' + fname
-
             file.save(file_dir,new_filename)
             return '创建成功'
         else:
@@ -801,7 +800,6 @@ def authyes(yesno):
         info = None
         pro = Project.query.filter_by(pid=session['project']).first()
         if yesno == 'succ':
-            pro.Status = pro.Status + 1
             info = '审核成功'
             if pro.Status == 1:
                 pro.TeaStarOpinion = isSpaceStr(request.form.get('opinion'))
@@ -821,16 +819,11 @@ def authyes(yesno):
                 pro.CollageEndOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 11:
                 pro.DCCenterEndOpinion = isSpaceStr(request.form.get('opinion'))
+            pro.Status = pro.Status + 1
             db.session.add(pro)
             db.session.commit()
             return render_template('authsucc.html', info=info)
         elif yesno == 'fail':
-            if pro.Status in [1, 2, 3]:
-                pro.Status = 13
-            elif pro.Status in [5, 6, 7]:
-                pro.Status = 14
-            elif pro.Status in [9, 10, 11]:
-                pro.Status = 15
             if pro.Status == 1:
                 pro.TeaStarOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 2:
@@ -849,6 +842,12 @@ def authyes(yesno):
                 pro.CollageEndOpinion = isSpaceStr(request.form.get('opinion'))
             if pro.Status == 11:
                 pro.DCCenterEndOpinion = isSpaceStr(request.form.get('opinion'))
+            if pro.Status in [1, 2, 3]:
+                pro.Status = 13
+            elif pro.Status in [5, 6, 7]:
+                pro.Status = 14
+            elif pro.Status in [9, 10, 11]:
+                pro.Status = 15
             db.session.add(pro)
             db.session.commit()
             info = '审核不通过成功'
