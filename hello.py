@@ -878,7 +878,8 @@ def deleteUser(username):
 #修改个人信息
 @app.route('/updatecollageAdminInfo.html',methods=['GET'])
 def updatecollageAdminInfo1():
-    return render_template('updatecollageAdminInfo.html')
+    user = User.query.filter_by(username=session['username']).first()
+    return render_template('updatecollageAdminInfo.html',userinfo=user)
 
 @app.route('/updatecollageAdminInfo.html', methods=['POST'])
 def updatecollageAdminInfo2():
@@ -896,7 +897,8 @@ def updatecollageAdminInfo2():
 #修改教师个人信息
 @app.route('/updatePersonalTeacherInfo.html',methods=['GET'])
 def updatePersonalTeacherInfo1():
-    return render_template('/updatePersonalTeacherInfo.html')
+    user = User.query.filter_by(username=session['username']).first()
+    return render_template('/updatePersonalTeacherInfo.html',userinfo=user)
 
 @app.route('/updatePersonalTeacherInfo.html', methods=['POST'])
 def updatePersonalTeacherInfo2():
