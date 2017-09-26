@@ -452,7 +452,7 @@ def project_application_content1():
 
 @app.route('/project_application_content.html', methods=['POST'])
 def project_application_content2():
-    try:
+    #try:
         pname = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         fortea = ForTeacher()
         if request.form.get('forname') != '':
@@ -530,8 +530,8 @@ def project_application_content2():
             return '创建成功'
         else:
             return "项目已存在"
-    except:
-        return '出现了一些错误，请重试'
+   # except:
+    #    return '出现了一些错误，请重试'
 #中期申报
 
 @app.route('/interim_report.html',methods=['GET'])
