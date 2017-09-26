@@ -119,7 +119,7 @@ class Project(db.Model):
     __tablename__ = 'project'
     pid = db.Column(db.Integer,primary_key=True)#项目系统
     secondTeacher = db.Column(db.String(220),nullable=True)#第二指导教师
-    proID = db.Column(db.String(220),nullable=False) #项目编号
+    proID = db.Column(db.String(220),nullable=True) #项目编号
     Pname = db.Column(db.String(220),nullable=False)#项目名称
     Plevel = db.Column(db.String(220),nullable=True)#项目级别
     Pclass = db.Column(db.String(220),nullable=True)#项目类别
