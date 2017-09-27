@@ -2,14 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>上传文件</title>
+    <!-- Bootstrap Styles-->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" />
 </head>
-<body>
-<form method="post" enctype="multipart/form-data">
+<body style="background-color: #ECECEC">
+<div style="text-align:center;padding-top:50px;">
+ <form method="post" enctype="multipart/form-data">
     {{form.hidden_tag()}}
-    {{form.file.label}}{{form.file()}}
+    {{form.file.label}}{{form.file(type="display:inline-block")}}
     {{form.submit()}}
 </form>
-
+</div>
 </body>
+  <!-- Bootstrap Js -->
+  <script src="../static/js/bootstrap.min.js"></script>
 </html>
