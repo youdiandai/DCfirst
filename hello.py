@@ -610,7 +610,7 @@ def upload(pid):
         a=File()
         a.name=secure_filename(form.file.data.filename)
         a.project_id=pid
-        form.file.data.save('/upload/'+form.file.data.filename)
+        form.file.data.save('/upload/'+a.name)
         db.session.add(a)
         db.session.commit()
         return '上传成功'
