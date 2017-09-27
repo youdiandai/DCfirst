@@ -82,6 +82,7 @@ class User(db.Model):
     def getUserid(self,username):
         return self.query.filter_by(username=username).first().userid
 
+
 # 用户类型
 class User_mode(db.Model):
     __tablename__ = 'user_mode'
@@ -162,11 +163,20 @@ class Project(db.Model):
     Achievement = db.Column(db.String(220),nullable=True)#成绩
     doc = db.Column(db.String(220),nullable=True)#结题成果
     linku = db.relationship('User_Project',backref='project')
+    files = db.relationship('File',backref='file')
     def getPid(self,Pname):
         return self.query.filter_by(Pname=Pname).first().pid
 
     def __repr__(self):
         return  '<Project %r>'%self.pid
+
+class File(db.Model):
+    __tablename__ = 'File'
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(220),nullable=True)
+    project_id = db.Column(db.Integer,db.ForeignKey('project.pid'))
+    def __repr__(self):
+        return  '<file %r>'%self.name
 
 class ForTeacher(db.Model):
     __tablename__ = 'ForTeacher'
@@ -288,6 +298,11 @@ class Other(db.Model):
 
 
 #表单
+
+#上传文件表单
+class UploadForm(Form):
+    file = FileField("选择要上传的文件")
+    submit = SubmitField('上传')
 #中期申报表单
 class ProjectMid(Form):
     MidProgress = TextAreaField("研究工作进展情况")
@@ -573,12 +588,11 @@ def concluding_report_content():
         pro.ResultsDescribe = form.ResultsDescribe.data
         pro.ResultsSummary = form.ResultsSummary.data
         pro.Problems = form.Problems.data
-        file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
+        file_dir = os.path.join(basedir, app.co nfig['UPLOAD_FOLDER'])
         if not os.path.exists(file_dir):
             os.makedirs(file_dir)
         # 重命名文件
         fname = secure_filename(form.file.data.filename).split('.', 1)[-1]
-        unix_time = int(time.time())
         new_filename = str(pro.pid)+'End'+ '.' + fname
 
         form.file.data.save('upload/'+ new_filename)
@@ -588,6 +602,19 @@ def concluding_report_content():
         db.session.commit()
         return '提交成功'
     return render_template('concluding_report_content.html',form=form)
+#上传文件路由
+@app.route('/upload/<pid>',methods=['GET','POST'])
+def upload(pid):
+    form=UploadForm()
+    if form.validate_on_submit():
+        a=File()
+        a.name=secure_filename(form.file.data.filename)
+        a.project_id=pid
+        form.file.data.save('/upload/'+form.file.data.filename)
+        db.session.add(a)
+        db.session.commit()
+        return '上传成功'
+    return render_template('upload.html',form=form)
 
 #创建学院管理员账号
 @app.route('/addCollageAdminUser.html',methods=['GET'])
