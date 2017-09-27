@@ -893,7 +893,7 @@ def authyes(yesno):
 #下载文件路由
 @app.route('/download/<filename>', methods=['GET'])
 def startdownload(filename):
-    response = make_response(send_file(basedir+"/upload/"+filename))
+    response = make_response(send_file("/upload/"+filename))
     response.headers["Content-Disposition"] = "attachment; filename="+filename+";"
     return response
 
