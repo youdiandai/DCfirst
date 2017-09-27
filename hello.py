@@ -588,7 +588,7 @@ def concluding_report_content():
         pro.ResultsDescribe = form.ResultsDescribe.data
         pro.ResultsSummary = form.ResultsSummary.data
         pro.Problems = form.Problems.data
-        file_dir = os.path.join(basedir, app.co nfig['UPLOAD_FOLDER'])
+        file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
         if not os.path.exists(file_dir):
             os.makedirs(file_dir)
         # 重命名文件
