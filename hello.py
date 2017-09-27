@@ -553,55 +553,61 @@ def project_application_content2():
 def interim_report():
     return render_template('interim_report.html')
 
-@app.route('/interim_report_content.html',methods=['GET','POST'])
+
+@app.route('/interim_report_content.html',methods=['GET'])
+def interim_report_content1():
+    return render_template('interim_report_content.html')
+
+@app.route('/interim_report_content.html',methods=['POST'])
 def interim_report_content():
-    form = ProjectMid()
-    if form.validate_on_submit():
-        pro = Project.query.filter_by(pid=session['project']).first()
-        pro.MidProgress = form.MidProgress.data
+    pro = Project.query.filter_by(pid=session['project']).first()
+    pro.MidProgress = request.form.get('MidProgress')
+    pro.Status = Project_mode.query.filter_by(status='等待指导教师中期审核').first().sid
+    db.session.add(pro)
+    db.session.commit()
+    return '提交成功'
+"""
+    file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
+    if not os.path.exists(file_dir):
+        os.makedirs(file_dir)
+    # 重命名文件
+    fname = secure_filename(form.file.data.filename).split('.', 1)[-1]
+    unix_time = int(time.time())
+    new_filename = str(pro.pid) + 'Mid' + '.' + fname
 
-        file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
-        if not os.path.exists(file_dir):
-            os.makedirs(file_dir)
-        # 重命名文件
-        fname = secure_filename(form.file.data.filename).split('.', 1)[-1]
-        unix_time = int(time.time())
-        new_filename = str(pro.pid)+'Mid'+ '.' + fname
+    form.file.data.save('upload/' + new_filename)
+    pro.MidResults = new_filename
+    """
 
-        form.file.data.save('upload/'+ new_filename)
-        pro.MidResults = new_filename
-        pro.Status = Project_mode.query.filter_by(status='等待指导教师中期审核').first().sid
-        db.session.add(pro)
-        db.session.commit()
-        return '提交成功'
-    return render_template('interim_report_content.html',form=form)
 
 #结题报告
 @app.route('/concluding_report.html',methods=['GET'])
 def concluding_report():
     return render_template('concluding_report.html')
-@app.route('/concluding_report_content.html',methods=['GET','POST'])
+@app.route('/concluding_report_content.html',methods=['GET'])
+def concluding_report_content1():
+    return render_template('concluding_report_content.html')
+@app.route('/concluding_report_content.html',methods=['POST'])
 def concluding_report_content():
-    form = ProjectEnd()
-    if form.validate_on_submit():
-        pro = Project.query.filter_by(pid=session['project']).first()
-        pro.ResultsDescribe = form.ResultsDescribe.data
-        pro.ResultsSummary = form.ResultsSummary.data
-        pro.Problems = form.Problems.data
-        file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
-        if not os.path.exists(file_dir):
-            os.makedirs(file_dir)
-        # 重命名文件
-        fname = secure_filename(form.file.data.filename).split('.', 1)[-1]
-        new_filename = str(pro.pid)+'End'+ '.' + fname
+    pro = Project.query.filter_by(pid=session['project']).first()
+    pro.ResultsDescribe = request.form.get('ResultsDescribe')
+    pro.ResultsSummary = request.form.get('ResultsSummary')
+    pro.Problems = request.form.get('Problems')
+    """
+    file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
+    if not os.path.exists(file_dir):
+        os.makedirs(file_dir)
+    # 重命名文件
+    fname = secure_filename(form.file.data.filename).split('.', 1)[-1]
+    new_filename = str(pro.pid)+'End'+ '.' + fname
 
-        form.file.data.save('upload/'+ new_filename)
-        pro.doc = new_filename
-        pro.Status = Project_mode.query.filter_by(status='等待指导教师结题审核').first().sid
-        db.session.add(pro)
-        db.session.commit()
-        return '提交成功'
-    return render_template('concluding_report_content.html',form=form)
+    form.file.data.save('upload/'+ new_filename)
+    pro.doc = new_filename
+    """
+    pro.Status = Project_mode.query.filter_by(status='等待指导教师结题审核').first().sid
+    db.session.add(pro)
+    db.session.commit()
+    return '提交成功'
 #上传文件路由
 @app.route('/upload/<pid>',methods=['GET','POST'])
 def upload(pid):

@@ -21,28 +21,24 @@
 	<h3 class="text-center">“大学生创新创业训练计划”<br>
 	项目结题验收报告</h3>
 
-	<form method="post" enctype="multipart/form-data" class="form-horizontal" >
-    {{form.hidden_tag()}}
+	<form method="post" action="/concluding_report_content.html" enctype="multipart/form-data" class="form-horizontal">
     <div class="form-group">
 		<div class="col-sm-4 control-label">项目成果简介</div>
 		<div class="col-sm-5">
-			<textarea rows="4" class="form-control integrity" placeholder="重点介绍特色及创新点" name=""></textarea>
+			<textarea rows="4" class="form-control integrity" placeholder="重点介绍特色及创新点" name="ResultsDescribe"></textarea>
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-4 control-label">项目总结报告</div>
 		<div class="col-sm-5">
-			<textarea rows="4" class="form-control integrity1" placeholder="项目实施过程中创新思维和创新实践方面收获" name=""></textarea>
+			<textarea rows="4" class="form-control integrity1" placeholder="项目实施过程中创新思维和创新实践方面收获" name="ResultsSummary"></textarea>
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-4 control-label">项目实施过程中存在的问题和建议</div>
 		<div class="col-sm-5">
-			<textarea rows="4" class="form-control integrity2" placeholder="" name=""></textarea>
+			<textarea rows="4" class="form-control integrity2" placeholder="" name="Problems"></textarea>
 		</div>
-	</div>
-	<div class="form-group" style="text-align:center">
-		<input type="file" name=""/>
 	</div>
 	<br>
 	<button class="btn btn-primary btn-block btn1 surebtn col-sm-offset-5" style="width:100px;">确认提交</button>

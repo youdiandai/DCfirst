@@ -20,16 +20,12 @@
 <div class="container">	
 	<h3 class="text-center">“大学生创新创业训练计划”<br>
 	项目中期检查报告书</h3>
-	<form method="post" enctype="multipart/form-data" class="form-horizontal" >
-    {{form.hidden_tag()}}
+	<form method="post" action="/interim_report_content.html" enctype="multipart/form-data" class="form-horizontal" >
 		<div class="form-group">
 			<div class="col-sm-4 control-label">研究工作进展情况</div>
 			<div class="col-sm-5">
-				<textarea rows="5" class="form-control integrity" placeholder="工作方案实施情况，拟开展工作、存在的问题，能否按时完成研究计划，推迟或终止研究工作的原因等" name=""></textarea>
+				<textarea rows="5" class="form-control integrity" placeholder="工作方案实施情况，拟开展工作、存在的问题，能否按时完成研究计划，推迟或终止研究工作的原因等" name="MidProgress"></textarea>
 			</div>
-		</div>
-		<div class="form-group" style="text-align:center">
-			<input type="file" name=""/>
 		</div>
 		<br>
 		<button class="btn btn-primary btn-block btn1 surebtn col-sm-offset-5" style="width:100px;">确认提交</button>
