@@ -608,7 +608,7 @@ def upload(pid):
     form=UploadForm()
     if form.validate_on_submit():
         a=File()
-        a.name=secure_filename(form.file.data.filename)
+        a.name=secure_filename(form.file.data.)
         a.project_id=pid
         form.file.data.save('/upload/'+form.file.data.filename)
         db.session.add(a)

@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {{form.hidden_tag()}}
     {{form.file.label}}{{form.file()}}
     {{form.submit()}}
