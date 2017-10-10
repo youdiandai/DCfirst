@@ -1041,7 +1041,7 @@ def search():
     return render_template('search.html')
 @app.route('/search.html',methods=['POST'])
 def search1():
-    pro = Project.query.filter_by(proID=request.form.get('proID'))
+    pro = Project.query.filter_by(proID=request.form.get('proID')).first()
     if pro is not None:
         return render_template('/project/'+pro.pid)
     else:
