@@ -1043,7 +1043,7 @@ def search():
 def search1():
     pro = Project.query.filter_by(proID=request.form.get('proID')).first()
     if pro is not None:
-        return render_template('/project/'+int(pro.pid))
+        return render_template('/project/'+str(pro.pid))
     else:
         return '您搜索的项目不存在'
 
