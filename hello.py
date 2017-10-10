@@ -1,5 +1,5 @@
 #-*- encoding:utf-8 -*-
-from flask import Flask,render_template,session,make_response,send_file,request
+from flask import Flask,render_template,session,make_response,send_file,request,url_for,redirect
 from flask_script import Manager
 from flask_wtf import Form
 from wtforms import StringField,SubmitField,PasswordField,RadioField,TextAreaField,SelectField,FileField
@@ -1043,7 +1043,7 @@ def search():
 def search1():
     pro = Project.query.filter_by(proID=request.form.get('proID')).first()
     if pro is not None:
-        return render_template('/project/'+str(pro.pid))
+        return redirect(url_for('/project/'+str(pro.pid)))
     else:
         return '您搜索的项目不存在'
 
