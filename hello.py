@@ -1036,7 +1036,16 @@ def resetPassword(username):
 def checkStudentInfo():
     return render_template('checkStudentInfo.html',userinfo=User.query.filter_by(username=session['username']).first())
 
-
+@app.route('/search.html',methods=['GET'])
+def search():
+    return render_template('search.html')
+@app.route('/search.html',methods=['POST'])
+def search1():
+    pro = Project.query.filter_by(proID=request.form.get('proID'))
+    if pro is not None:
+        return render_template('/project/'+pro.pid)
+    else:
+        return '您搜索的项目不存在'
 
 @app.route('/loginout.html',methods=['GET'])
 def loginout():
