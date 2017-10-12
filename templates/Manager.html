@@ -243,7 +243,7 @@
                         <a href="/CollageAdminUser.html" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>各单位管理员管理</a>
                     </li>
                     <li>
-                        <a href="/notice" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>各单位管理员管理</a>
+                        <a href="/notice" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>发布通告</a>
                     </li>
                     <li>
                         <a href="/CompetitionManager" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>竞赛申报管理</a>
@@ -289,6 +289,7 @@
         $("#wrapper").height($(window).height()-59+"px");
         $(".iFrame").height($("#wrapper").height());
         //公告层
+         {%if type!=1%}
         layer.open({
           type: 1,
           title: false, //不显示标题栏
@@ -302,6 +303,7 @@
           moveType: 1 ,//拖拽模式，0或者1
           content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">{{notice}}</div>' ,
         });
+        {%endif%}
     </script>
 
 
