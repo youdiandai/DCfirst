@@ -779,3 +779,13 @@ ol, ul {
 .aja-main .aja-form th{
 	background-color: #F9F9F9;
 }
+@media only screen and (max-width: 640px) {
+	.aja-main{
+		margin: 0;
+	}
+	.aja-main .aja-form{
+		margin: 5px;
+		padding: 25px;
+	}
+	
+}
