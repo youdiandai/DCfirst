@@ -19,6 +19,7 @@ import datetime
 #初始化
 app = Flask(__name__)
 manager = Manager(app)
+app.config['Notice']=None
 app.config['SECRET_KEY'] ='synudc'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
@@ -400,13 +401,13 @@ def login2():
                 # 判断用户类型
                 if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
                     return render_template('loginsucc-student.html', name=username.name,
-                                           pros=findMyproject(username=session['username']), stalist=createStatuslist())
+                                           pros=findMyproject(username=session['username']), stalist=createStatuslist(),notice=app.config['Notice'])
                 elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
-                    return render_template('Manager.html', name=username.name, type=1)
+                    return render_template('Manager.html', name=username.name, type=1,)
                 elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
-                    return render_template('Manager.html', name=username.name, type=2)
+                    return render_template('Manager.html', name=username.name, type=2,notice=app.config['Notice'])
                 elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
-                    return render_template('Manager.html', name=username.name, type=3)
+                    return render_template('Manager.html', name=username.name, type=3,notice=app.config['Notice'])
 
             else:
                 return render_template('loginfail.html')
@@ -1046,7 +1047,15 @@ def search1():
         return redirect('/project/'+str(pro.pid))
     else:
         return '您搜索的项目不存在'
-
+#通知
+@app.route('/notice',methods=['GET'])
+def notice1():
+    return render_template('notice.html')
+@app.route('/notice',methods=['POST'])
+def notice():
+    app.config['Notice']=request.form.get('notice')
+    return '发布通告成功'
+#退出登录
 @app.route('/loginout.html',methods=['GET'])
 def loginout():
     session['username']=None

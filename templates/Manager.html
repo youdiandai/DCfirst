@@ -243,6 +243,9 @@
                         <a href="/CollageAdminUser.html" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>各单位管理员管理</a>
                     </li>
                     <li>
+                        <a href="/notice" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>各单位管理员管理</a>
+                    </li>
+                    <li>
                         <a href="/CompetitionManager" class="waves-effect waves-dark" target="iFrame"><i class="fa fa-desktop"></i>竞赛申报管理</a>
                     </li>
                     {%elif type==2%}
@@ -281,9 +284,24 @@
     <!-- JS Scripts-->
     <!-- jQuery Js -->
     <script src="../static/js/jquery-1.10.2.js"></script>
+    <script src="../static/layer/layer.js"></script>
 	<script type="text/javascript">
         $("#wrapper").height($(window).height()-59+"px");
         $(".iFrame").height($("#wrapper").height());
+        //公告层
+        layer.open({
+          type: 1,
+          title: false, //不显示标题栏
+          closeBtn: false,
+          area: '300px;',
+          shade: 0.8,
+          id: 'LAY_layuipro' ,//设定一个id，防止重复弹出
+          resize: false,
+          btn: ['知道了'],
+          btnAlign: 'c',
+          moveType: 1 ,//拖拽模式，0或者1
+          content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">{{notice}}</div>' ,
+        });
     </script>
 
 
@@ -296,7 +314,7 @@
     <script src="../static/js/jquery.metisMenu.js"></script>
 
     <!-- Custom Js -->
-     <script src="../static/js/custom-scripts.js"></script>
+    <script src="../static/js/custom-scripts.js"></script>
 
 </body>
 
