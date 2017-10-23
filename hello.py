@@ -163,6 +163,7 @@ class Project(db.Model):
     DCCenterEndOpinion = db.Column(db.Text,nullable=True)#大创中心意见（结题）
     Achievement = db.Column(db.String(220),nullable=True)#成绩
     Appraising = db.Column(db.String(220),nullable=True)#评优
+    AppraisingPaper = db.Column(db.String(220),nullable=True)#优秀论文
     doc = db.Column(db.String(220),nullable=True)#结题成果
     Delay_date = db.Column(db.String(220),nullable=True)#延期至年限
     Delay =db.Column(db.String(220),nullable=True)#是否延期
