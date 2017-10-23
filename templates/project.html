@@ -244,7 +244,7 @@
             <label>延期审核状态</label>
             <textarea class="form-control" rows="1">{{pro.Delay_status}}</textarea>
         </div>
-        {%if pro.Delay_status=='等待学院管理员审核'%}
+        {%if pro.Delay_status=='等待学院审核'%}
         {%if user.collage==pro.Collage%}
         {%if user.usermode==4%}
                         <a href="/delay_auth_collage"  class="btn btn-warning">审核</a><br/>
