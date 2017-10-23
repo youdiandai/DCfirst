@@ -232,6 +232,35 @@
             <label>大创中心意见</label>
             <textarea class="form-control" rows="5">{{pro.DCCenterEndOpinion}}</textarea>
         </div>
+        {%if pro.Delay =='是'%}
+        <hr>
+        <h3>延期结题</h3>
+        <label>延期至日期</label> <textarea class="form_group" rows="1">{{pro.Delay_date}}</textarea>
+          <div class="form-group">
+            <label>延期期限及理由</label>
+            <textarea class="form-control" rows="5">{{pro.Delay_reason}}</textarea>
+        </div>
+        <div class="form-group">
+            <label>延期审核状态</label>
+            <textarea class="form-control" rows="1">{{pro.Delay_status}}</textarea>
+        </div>
+        {%if pro.Delay_status=='等待学院管理员审核'%}
+        {%if user.collage==pro.collage%}
+        {%if user.usermode==4%}
+                        <a href="/delay_auth_collage"  class="btn btn-warning">审核</a><br/>
+        {%endif%}
+        {%endif%}
+        {%endif%}
+
+        {%if pro.Delay_status=='等待大创中心审核'%}
+        {%if user.usermode==4%}
+                        <a href="/delay_auth_dccenter"  class="btn btn-warning">审核</a><br/>
+        {%endif%}
+        {%endif%}
+        {%elif pro.Delay_status==None%}
+                                <a href="/delay"  class="btn btn-warning">申请延期结题</a><br/>
+        {%endif%}
+
 
         <h3>三、下载附件</h3>
         {%for x in pro.files%}

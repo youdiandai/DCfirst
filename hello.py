@@ -162,7 +162,12 @@ class Project(db.Model):
     CollageEndOpinion = db.Column(db.Text,nullable=True)#(学院意见 结题)
     DCCenterEndOpinion = db.Column(db.Text,nullable=True)#大创中心意见（结题）
     Achievement = db.Column(db.String(220),nullable=True)#成绩
+    Appraising = db.Column(db.String(220),nullable=True)#评优
     doc = db.Column(db.String(220),nullable=True)#结题成果
+    Delay_date = db.Column(db.String(220),nullable=True)#延期至年限
+    Delay =db.Column(db.String(220),nullable=True)#是否延期
+    Delay_reason = db.Column(db.Text,nullable=True)#延期期限及理由
+    Delay_status = db.Column(db.String(220),nullable=True)#延期申请状态(等待学院审核 等待大创中心审核 延期成功)
     linku = db.relationship('User_Project',backref='project')
     files = db.relationship('File',backref='file')
     def getPid(self,Pname):
@@ -594,6 +599,8 @@ def concluding_report_content():
     pro.ResultsDescribe = request.form.get('ResultsDescribe')
     pro.ResultsSummary = request.form.get('ResultsSummary')
     pro.Problems = request.form.get('Problems')
+    pro.Appraising = request.form.get('Appraising')
+    pro.AppraisingPaper = request.form.get('AppraisingPaper')
     """
     file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
     if not os.path.exists(file_dir):
@@ -609,6 +616,34 @@ def concluding_report_content():
     db.session.add(pro)
     db.session.commit()
     return '提交成功'
+#延期结题
+@app.route('/delay',methods=['GET'])
+def delay():
+    return render_template('delay.html')
+@app.route('/delay',methods=['POST'])
+def delay1():
+    pro = Project.query.filter_by(pid=session['project']).first()
+    pro.Delay = '是'
+    pro.Delay_date = request.form.get('Delay_date')
+    pro.Delay_reason = request.form.get('Delay_reason')
+    pro.Delay_status = '等待学院审核'
+    db.session.add(pro)
+    db.session.commit()
+    return '延期报告提交成功'
+@app.route('/delay_auth_collage')
+def delay_auth_collage():
+    pro = Project.query.filter_by(pid=session['project']).first()
+    pro.Delay_status='等待大创中心审核'
+    db.session.add(pro)
+    db.session.commit()
+    return '审核成功，等待大创中心审核'
+@app.route('/delay_auth_dccenter')
+def delay_auth_dccenter():
+    pro = Project.query.filter_by(pid=session['project']).first()
+    pro.Delay_status = '延期成功'
+    db.session.add(pro)
+    db.session.commit()
+    return '审核成功，项目延期'
 #上传文件路由
 @app.route('/upload/<pid>',methods=['GET','POST'])
 def upload(pid):

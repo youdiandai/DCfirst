@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>延期报告</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" />
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	input{
+		display: inline-block !important;
+		margin-top:25px
+	}
+	</style>
+</head>
+<body>
+
+<div class="container">
+	<form method="post" action="/delay" enctype="multipart/form-data" class="form-horizontal">
+    <div class="form-group">
+		<div class="col-sm-4 control-label">延期至年限</div>
+		<div class="col-sm-5">
+			<input type="text" class="form-control integrity" placeholder="年/月/日" name="Delay_date">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-4 control-label">延期期限及理由</div>
+		<div class="col-sm-5">
+			<textarea rows="4" class="form-control integrity1" placeholder="延期期限及理由" name="Delay_reason"></textarea>
+		</div>
+	</div>
+	<br>
+	<button class="btn btn-primary btn-block btn1 surebtn col-sm-offset-5" style="width:100px;">确认提交</button>
+	</form>
+</div>
+</body>
+</html>
