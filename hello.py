@@ -1169,7 +1169,7 @@ def report1():
 def bussinessplan():
     return render_template('bussinessplan.html')
 @app.route('/bussinessplan',methods=['POST'])
-def bussinessplan():
+def bussinessplan1():
     bussinessplan = BusinessPlan()
     bussinessplan.name = request.form.get('name')
     bussinessplan.remarks = request.form.get('remarks')
@@ -1186,7 +1186,7 @@ def bussinessplan():
 def website():
     return render_template('website.html')
 @app.route('/website',methods=['POST'])
-def website():
+def website1():
     website = Website()
     website.website=request.form.get('website')
     website.remarks == request.form.get('remarks')
