@@ -165,8 +165,8 @@ class Project(db.Model):
     Appraising = db.Column(db.String(220),nullable=True)#评优
     AppraisingPaper = db.Column(db.String(220),nullable=True)#优秀论文
     Excellent = db.Column(db.String(220),nullable=True)#评优
-    ExcellentPaper = db.Column(db.String(220), nullable=True)  # 评优
-    doc = db.Column(db.String(220),nullable=True)#结题成果
+    ExcellentPaper = db.Column(db.String(220), nullable=True) #评优
+    doc = db.Column(db.String(220),nullable=True) #结题成果
     Delay_date = db.Column(db.String(220),nullable=True)#延期至年限
     Delay =db.Column(db.String(220),nullable=True)#是否延期
     Delay_reason = db.Column(db.Text,nullable=True)#延期期限及理由
@@ -260,7 +260,13 @@ class Funds(db.Model):
 class ResultsType(db.Model):
     __tablename__ = "ResultsType"
     Rid = db.Column(db.Integer,primary_key=True)
-    Rname = db.Column(db.String(64))
+    pid = db.Column(db.Integer)#项目编号
+    patentID = db.Column(db.String(220),nullable=True)
+    paperID = db.Column(db.String(220), nullable=True)
+    reportID = db.Column(db.String(220), nullable=True)
+    bussinessplanID = db.Column(db.String(220),nullable=True)
+    websiteID = db.Column(db.String(220),nullable=True)
+
 
 #成果，专利
 class Patent(db.Model):
@@ -1098,6 +1104,100 @@ def notice():
 def loginout():
     session['username']=None
     return render_template('index.html')
+
+#成果物
+@app.route('/achievements')
+def achievements():
+    return render_template('achievements.html')
+
+@app.route("/patent",methods=['GET'])
+def patent():
+    return render_template('patent.html')
+@app.route("/patent",methods=['POST'])
+def patent1():
+    patent = Patent()
+    patent.patentName = request.form.get('patentName')
+    patent.person = request.form.get('person')
+    patent.number = request.form.get('number')
+    patent.remarks = request.form.get('remarks')
+    db.session.add(patent)
+    db.session.commit()
+    result=ResultsType()
+    result.pid = session['project']
+    result.patentID = Patent.query.filter_by(number=request.form.get('number')).first().patentId
+    db.session.add(result)
+    db.session.commit()
+    return '专利提交成功'
+
+@app.route('/paper',methods=['GET'])
+def paper():
+    return render_template('paper.html')
+@app.route('/paper',methods=['POST'])
+def paper1():
+    paper = Paper()
+    paper.subject = request.form.get('subject')
+    paper.author = request.form.get('author')
+    paper.JournalName = request.form.get('JournalName')
+    paper.remarks = request.form.get('remarks')
+    db.session.add(paper)
+    db.session.commit()
+    result = ResultsType()
+    result.pid = session['project']
+    result.paperID = Paper.query.filter_by(subject=request.form.get('subject')).first().paperId
+    db.session.add(result)
+    db.session.commit()
+    return '论文提交成功 '
+@app.route('/report',methods=['GET'])
+def report():
+    return render_template('report.html')
+@app.route('/report',methods=['POST'])
+def report1():
+    report = Report()
+    report.name = request.form.get('name')
+    report.author = request.form.get('author')
+    report.remarks = request.form.get('remarks')
+    db.session.add(report)
+    db.session.commit()
+    result = ResultsType()
+    result.pid = session['project']
+    result.reportID = Report.query.filter_by(name=request.form.get('name')).first().reportId
+    db.session.add(result)
+    db.session.commit()
+    return '报告提交成功 '
+
+@app.route('/bussinessplan',methods=['GET'])
+def bussinessplan():
+    return render_template('bussinessplan.html')
+@app.route('/bussinessplan',methods=['POST'])
+def bussinessplan():
+    bussinessplan = BusinessPlan()
+    bussinessplan.name = request.form.get('name')
+    bussinessplan.remarks = request.form.get('remarks')
+    db.session.add(bussinessplan)
+    db.session.commit()
+    result = ResultsType()
+    result.pid = session['project']
+    result.bussinessplanID = BusinessPlan.query.filter_by(name=request.form.get('name')).first().BusinessPlanId
+    db.session.add(result)
+    db.session.commit()
+    return '商业计划书提交成功'
+
+@app.route('/website',methods=['GET'])
+def website():
+    return render_template('website.html')
+@app.route('/website',methods=['POST'])
+def website():
+    website = Website()
+    website.website=request.form.get('website')
+    website.remarks == request.form.get('remarks')
+    db.session.add(website)
+    db.session.commit()
+    result = ResultsType()
+    result.pid = session['project']
+    result.websiteID = Website.query.filter_by(website=request.form.get('website')).first().websiteId
+    db.session.add(result)
+    db.session.commit()
+    return '网站提交成功'
 
 if __name__ == '__main__':
     manager.run()

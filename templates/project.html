@@ -139,48 +139,48 @@
         <hr>
         <div class="form-group">
             <label>项目简介（500字左右）</label>
-            <textarea class="form-control" rows="5">{{pro.Describe}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.Describe}}</textarea>
         </div>
         <div class="form-group">
             <label>项目申请理由（包括/自身/团队具备的知识、条件、特长、兴趣、前期准备等）</label>
-            <textarea class="form-control" rows="5">{{pro.ReassonsForApplication}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.ReassonsForApplication}}</textarea>
         </div>
         <div class="form-group">
             <label>项目方案（计划、技术路线、人员分工等）</label>
-            <textarea class="form-control" rows="5">{{pro.ProjectPlan}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.ProjectPlan}}</textarea>
         </div>
         <div class="form-group">
             <label>项目特色与创新点</label>
-            <textarea class="form-control" rows="5">{{pro.Innovate}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.Innovate}}</textarea>
         </div>
         <div class="form-group">
             <label>项目进度安排</label>
-            <textarea class="form-control" rows="5">{{pro.Schedule}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.Schedule}}</textarea>
         </div>
         <div class="form-group">
             <label>项目经费</label>
-            <textarea class="form-control" rows="5">{{pro.Budget}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.Budget}}</textarea>
         </div>
         <div class="form-group">
             <label>项目经费使用计划（说明经费用途）</label>
-            <textarea class="form-control" rows="5">{{pro.BudgetPlan}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.BudgetPlan}}</textarea>
         </div>
         <div class="form-group">
             <label>项目预期成果（论文级别、专利、设计、产品、服务；创新实践项目需说明公司规模、营业额等）</label>
-            <textarea class="form-control" rows="5">{{pro.ExpectedResults}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.ExpectedResults}}</textarea>
         </div>
         <div class="form-group">
             <label>教师意见</label>
-            <textarea class="form-control" rows="5">{{pro.TeaStarOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.TeaStarOpinion}}</textarea>
         </div>
         <div class="form-group">
             <label>学院意见</label>
-            <textarea class="form-control" rows="5">{{pro.CollStarOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.CollStarOpinion}}</textarea>
         </div>
         <div class="form-group">
 
             <label>大创中心意见</label>
-            <textarea class="form-control" rows="5">{{pro.SchStarOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.SchStarOpinion}}</textarea>
         </div>
          <hr>
                 {%if mid%}
@@ -188,19 +188,19 @@
         {%endif%}
         <div class="form-group">
             <label>项目中期工作进展</label>
-            <textarea class="form-control" rows="5">{{pro.MidProgress}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.MidProgress}}</textarea>
         </div>
         <div class="form-group">
             <label>教师意见</label>
-            <textarea class="form-control" rows="5">{{pro.TeaMidOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.TeaMidOpinion}}</textarea>
         </div>
         <div class="form-group">
             <label>学院意见</label>
-            <textarea class="form-control" rows="5">{{pro.SchMidOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.SchMidOpinion}}</textarea>
         </div>
         <div class="form-group">
             <label>大创中心意见</label>
-            <textarea class="form-control" rows="5">{{pro.DCCenterMidOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.DCCenterMidOpinion}}</textarea>
         </div>
          <hr>
                 {%if end%}
@@ -210,39 +210,46 @@
 
         <div class="form-group">
             <label>项目成果简介</label>
-            <textarea class="form-control" rows="5">{{pro.ResultsDescribe}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.ResultsDescribe}}</textarea>
         </div>
         <div class="form-group">
             <label>项目总结报告</label>
-            <textarea class="form-control" rows="5">{{pro.ResultsSummary}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.ResultsSummary}}</textarea>
         </div>
         <div class="form-group">
             <label>项目遇到的问题和建议</label>
-            <textarea class="form-control" rows="5">{{pro. Problems}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro. Problems}}</textarea>
         </div>
         <div class="form-group">
             <label>教师意见</label>
-            <textarea class="form-control" rows="5">{{pro.TeaEndOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.TeaEndOpinion}}</textarea>
         </div>
         <div class="form-group">
             <label>学院意见</label>
-            <textarea class="form-control" rows="5">{{pro.CollageEndOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.CollageEndOpinion}}</textarea>
         </div>
         <div class="form-group">
             <label>大创中心意见</label>
-            <textarea class="form-control" rows="5">{{pro.DCCenterEndOpinion}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.DCCenterEndOpinion}}</textarea>
         </div>
+        <hr>
+        <h3>成果物</h3>
+        <a href="/achievements" class="btn btn-warning">提交成果物</a><br>
+
+
+
+
         {%if pro.Delay =='是'%}
         <hr>
         <h3>延期结题</h3>
-        <label>延期至日期</label> <textarea class="form_group" rows="1">{{pro.Delay_date}}</textarea>
+        <label>延期至日期</label> <textarea class="form_group" rows="1" readonly="readonly">{{pro.Delay_date}}</textarea>
           <div class="form-group">
             <label>延期期限及理由</label>
-            <textarea class="form-control" rows="5">{{pro.Delay_reason}}</textarea>
+            <textarea class="form-control" rows="5" readonly="readonly">{{pro.Delay_reason}}</textarea>
         </div>
         <div class="form-group">
             <label>延期审核状态</label>
-            <textarea class="form-control" rows="1">{{pro.Delay_status}}</textarea>
+            <textarea class="form-control" rows="1" readonly="readonly">{{pro.Delay_status}}</textarea>
         </div>
         {%if pro.Delay_status=='等待学院审核'%}
         {%if user.collage==pro.Collage%}
@@ -260,7 +267,7 @@
         {%elif pro.Delay_status==None%}
                                 <a href="/delay"  class="btn btn-warning">申请延期结题</a><br/>
         {%endif%}
-
+<hr>
 
         <h3>三、下载附件</h3>
         {%for x in pro.files%}
