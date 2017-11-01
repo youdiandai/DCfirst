@@ -49,7 +49,12 @@
                   <td>{{pro.Person_in_charge}}</td>
                   <td>{{pro.Teacher}}</td>
                   <td><a href="/project/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">查看</button></a>
-                  <a href="/delete/project/{{pro.pid}}"><button type="button" class="btn btn-danger">删除</button></a></td>
+                  <a href="/delete/project/{{pro.pid}}"><button type="button" class="btn btn-danger">删除</button></a>
+{%if auth==1%}
+                      <a href="/changeProStatus/waitendreport/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到待提交结题报告状态</button></a>
+                                        <a href="/changeProStatus/end/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到结题成功状态</button></a>
+                  {%endif%}
+                  </td>
                 </tr>
             {%endfor%}
             </tbody>

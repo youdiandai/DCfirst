@@ -390,15 +390,15 @@ def projectManage():
     if User_mode.query.filter_by(mid=getUserauth(username)).first().name == '管理员':
         pagination = Project.query.filter_by().paginate(page, per_page=10, error_out=False)
         pros = pagination.items
-        return render_template('/manager/projectManage-manager.html',pros=pros,stalist=createStatuslist(),pagination=pagination)
+        return render_template('/manager/projectManage-manager.html',pros=pros,stalist=createStatuslist(),pagination=pagination,auth=1)
     elif User_mode.query.filter_by(mid=getUserauth(username)).first().name == '学院管理员':
         pagination = Project.query.filter_by(Collage=User.query.filter_by(username=username).first().collage).paginate(page, per_page=10, error_out=False)
         pros = pagination.items
-        return render_template('/manager/projectManage-manager.html', pros=pros,stalist=createStatuslist(),pagination=pagination)
+        return render_template('/manager/projectManage-manager.html', pros=pros,stalist=createStatuslist(),pagination=pagination,auth=0)
     elif User_mode.query.filter_by(mid=getUserauth(username)).first().name == '教师用户':
         pagination = Project.query.filter_by(Teacher=User.query.filter_by(username=username).first().username).paginate(page, per_page=10, error_out=False)
         pros = pagination.items
-        return render_template('/manager/projectManage-manager.html', pros=pros,stalist=createStatuslist(),pagination=pagination)
+        return render_template('/manager/projectManage-manager.html', pros=pros,stalist=createStatuslist(),pagination=pagination,auth=0)
 #完成登录功能
 @app.route('/login',methods=['GET'])
 def login1():
