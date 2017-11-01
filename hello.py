@@ -1195,7 +1195,7 @@ def website1():
     db.session.commit()
     result = ResultsType()
     result.pid = session['project']
-    result.websiteID = Website.query.filter_by(website=request.form.get('website')).first().webId
+    result.websiteID = Website.query.filter_by(website=request.form.get('website')).first().WebId
     db.session.add(result)
     db.session.commit()
     return '网站提交成功'
