@@ -22,7 +22,10 @@
 <div class="aja-main">
 
     <form name="form" class="form-horizontal aja-form">
-        <h3>一、项目概况</h3>
+        <h3>一、项目概况</h3>{%if user.usermode==2%}
+                           <a href="/changeProStatus/waitendreport/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到待提交结题报告状态</button></a>
+                                        <a href="/changeProStatus/end/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到结题成功状态</button></a>
+        {%endif%}
         <hr>
         <div class="table-responsive">
             <table class="table text-center table-bordered">
@@ -35,6 +38,8 @@
                     <td colspan="3">{{pro.proID}}</td>
                     <th>项目立项时间</th>
                     <td colspan="3">{{pro.StartDate}}</td>
+                    <th>项目状态</th>
+                    <td colspan="3">{{status[pro.Status+1]}}</td>
                 </tr>
                 <tr>
                     <th>项目类型</th>

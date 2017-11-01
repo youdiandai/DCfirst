@@ -850,6 +850,7 @@ def project(pid):
         auth = None
         mid = None
         end = None
+        status=['等待指导教师审核','等待学院管理员审核','等待大创中心审核',' 待提交中期报告','等待指导教师中期审核','等待学院中期审核','等待大创中心中期审核','待提交结题报告',' 等待指导教师结题审核','等待学院结题审核','等待大创中心结题审核','结题','立项审核失败','中期审核失败','结题审核失败']
         pro = Project.query.filter_by(pid=pid).first()
         session['project'] = pid
         pchar = User.query.filter_by(username=Project.query.filter_by(pid=pid).first().Person_in_charge).first()
@@ -871,7 +872,7 @@ def project(pid):
         for x in createStatuslist():  # 生成用来判断显示什么按钮的变量
             if pro.Status == x[0]:
                 psta = (x[0], x[1])  # x[0]为状态号，x[1]为状态名
-        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher,secondTeacher=secondTeacher,user=User.query.filter_by(username=session['username']).first())
+        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher,secondTeacher=secondTeacher,user=User.query.filter_by(username=session['username']).first(),status=status)
    # except:
     #    return '发生了未知错误，请联系管理员，感谢您的支持'
 
