@@ -1199,5 +1199,22 @@ def website1():
     db.session.commit()
     return '网站提交成功'
 
+#改变项目状态
+@app.route('/changeProStatus/waitendreport/<pid>',methods=['POST'])
+def changeProStatus(pid):
+    a=Project.query.filter_by(pid=pid).first()
+    a.Status= 8
+    db.session.add(a)
+    db.session.commit()
+    return '项目状态修改为待提交结题报告'
+@app.route('/changeProStatus/end/<pid>',methods=['POST'])
+def changeProStatus(pid):
+    a=Project.query.filter_by(pid=pid).first()
+    a.Status= 12
+    db.session.add(a)
+    db.session.commit()
+    return '项目状态修改为待提交结题报告'
+
+
 if __name__ == '__main__':
     manager.run()
