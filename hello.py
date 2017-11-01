@@ -1208,7 +1208,7 @@ def changeProStatus(pid):
     db.session.commit()
     return '项目状态修改为待提交结题报告'
 @app.route('/changeProStatus/end/<pid>',methods=['POST'])
-def changeProStatus(pid):
+def changeProStatus1(pid):
     a=Project.query.filter_by(pid=pid).first()
     a.Status= 12
     db.session.add(a)
