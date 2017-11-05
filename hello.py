@@ -1335,7 +1335,7 @@ def restore(proID):
     pro.Collage = proback.Collage
     pro.Teacher = proback.Teacher
     pro.secondTeacher = proback.secondTeacher
-    pro.probackID = proback.probackID
+    pro.proID = proback.proID
     pro.Describe = proback.Describe
     pro.Pclass = proback.Pclass
     pro.ReassonsForApplication = proback.ReassonsForApplication
@@ -1395,8 +1395,8 @@ def allCreateBack():
 #恢复已删除项目
 @app.route('/backProDeleted')
 def backProDeleted():
-    return render_template('backProDeleted.html')
-@app.route('/backProDeleted')
+    return render_template('backProDeleted.html',methods=['GET'])
+@app.route('/backProDeleted',methods=['POST'])
 def backProDeleted1():
     pro=Project.query.filter_by(proID=request.form.get('proID')).first()
     if pro is None:
@@ -1411,7 +1411,7 @@ def backProDeleted1():
             pro.Collage = proback.Collage
             pro.Teacher = proback.Teacher
             pro.secondTeacher = proback.secondTeacher
-            pro.probackID = proback.probackID
+            pro.proID = proback.proID
             pro.Describe = proback.Describe
             pro.Pclass = proback.Pclass
             pro.ReassonsForApplication = proback.ReassonsForApplication

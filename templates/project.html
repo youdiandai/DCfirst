@@ -14,7 +14,7 @@
     <!-- Custom Styles-->
     <link href="../../static/css/custom-styles.css" rel="stylesheet"/>
     <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/> -->
     <link rel="stylesheet" href="../../static/css/style-s.css">
 </head>
 
@@ -23,25 +23,23 @@
 
     <form name="form" class="form-horizontal aja-form">
         <h3>一、项目概况</h3>{%if user.usermode==2%}
-        <div>
                            <a href="/changeProStatus/waitendreport/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到待提交结题报告状态</button></a>
                                         <a href="/changeProStatus/end/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到结题成功状态</button></a>
-        </div>
         {%endif%}
         <hr>
         <div class="table-responsive">
             <table class="table text-center table-bordered">
                 <tr>
                     <th>项目名称</th>
-                    <td colspan="7">{{pro.Pname}}</td>
+                    <td colspan="3">{{pro.Pname}}</td>
+                    <th>项目状态</th>
+                    <td colspan="3">{{status[pro.Status-1]}}</td>
                 </tr>
                 <tr>
                     <th>项目编号</th>
                     <td colspan="3">{{pro.proID}}</td>
                     <th>项目立项时间</th>
                     <td colspan="3">{{pro.StartDate}}</td>
-                    <th>项目状态</th>
-                    <td colspan="3">{{status[pro.Status-1]}}</td>
                 </tr>
                 <tr>
                     <th>项目类型</th>
@@ -239,7 +237,7 @@
             <textarea class="form-control" rows="5" readonly="readonly">{{pro.DCCenterEndOpinion}}</textarea>
         </div>
         <hr>
-        <div>        <h3>成果物</h3>
+<div>        <h3>成果物</h3>
             <div><a href="/achievements" class="btn btn-warning">提交成果物</a></div><br>
             <div class="table-responsive">
             <table class="table text-center table-bordered">
@@ -324,10 +322,6 @@
             </table>
             </div>
         </div>
-        <br>
-
-
-
 
 
         {%if pro.Delay =='是'%}

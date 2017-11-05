@@ -13,7 +13,7 @@
     <!-- Custom Styles-->
     <link href="../../static/css/custom-styles.css" rel="stylesheet"/>
     <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/> -->
     <link rel="stylesheet" href="../../static/css/style-s.css">
     	{%macro decideStastu(status)%}
 	    {%for x in stalist%}
@@ -29,7 +29,7 @@
     
     <h2>本年度项目列表</h2><br>
 
-        <table class="table table-hover table-bordered">
+        <table class="table table-hover table-bordered bootstrap-datatable datatable">
             <thead>
                 <tr>
                     <th>项目编号</th>
@@ -52,14 +52,13 @@
                   <a href="/delete/project/{{pro.pid}}"><button type="button" class="btn btn-danger">删除</button></a>
                       <a href="/restore/{{pro.proID}}"><button type="button" class="btn btn-danger">恢复项目</button></a>
 {%if auth==1%}
-                      <a href="/changeProStatus/waitendreport/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到待提交结题报告状态</button></a>
-                                        <a href="/changeProStatus/end/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到结题成功状态</button></a>
+                    <a href="/changeProStatus/waitendreport/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到待提交结题报告状态</button></a>
+                    <a href="/changeProStatus/end/{{pro.pid}}" target="iFrame"><button type="button" class="btn btn-primary">项目跳转到结题成功状态</button></a>
                   {%endif%}
                   </td>
                 </tr>
             {%endfor%}
             </tbody>
-
         </table>
     <ul class="pagination">
     <li{% if not pagination.has_prev %} class="disabled"{% endif %}>
@@ -88,11 +87,7 @@
         </a>
     </li>
 </ul>
-
-
 </div>
-
-
     <!-- jQuery Js -->
     <script src="../../static/js/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
@@ -110,6 +105,23 @@
 	
     <!-- Custom Js -->
     <script src="../../static/js/custom-scripts.js"></script>
+    <script src="../../static/js/jquery-migrate-1.0.0.min.js"></script>
+    <script src="../../static/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <script src='../../static/js/jquery.dataTables.min.js'></script>
+    <script src="../../static/js/jquery.chosen.min.js"></script>
+    <script src="../../static/js/jquery.uniform.min.js"></script>
+    <script src="../../static/js/jquery.cleditor.min.js"></script>
+    <script src="../../static/js/jquery.elfinder.min.js"></script>
+    <script src="../../static/js/jquery.raty.min.js"></script>
+    <script src="../../static/js/jquery.uploadify-3.1.min.js"></script>
+    <script src="../../static/js/custom.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        $(".pagination").css("display","none");
+        $("#DataTables_Table_0_info").css("display","none");
+        $("#DataTables_Table_0_length").css("display","none");
+    });
+    </script>
 
 </body>
 

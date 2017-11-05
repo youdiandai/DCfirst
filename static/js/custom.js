@@ -107,7 +107,7 @@ $(document).ready(function(){
 			
 	/* ---------- Acivate Functions ---------- */
 	template_functions();
-	init_masonry();
+	
 	sparkline_charts();
 	charts();
 	calendars();
@@ -197,32 +197,32 @@ function chart(){
 
 /* ---------- Masonry Gallery ---------- */
 
-function init_masonry(){
-    var $container = $('.masonry-gallery');
+// function init_masonry(){
+//     var $container = $('.masonry-gallery');
 
-    var gutter = 6;
-    var min_width = 250;
-    $container.imagesLoaded( function(){
-        $container.masonry({
-            itemSelector : '.masonry-thumb',
-            gutterWidth: gutter,
-            isAnimated: true,
-              columnWidth: function( containerWidth ) {
-                var num_of_boxes = (containerWidth/min_width | 0);
+//     var gutter = 6;
+//     var min_width = 250;
+//     $container.imagesLoaded( function(){
+//         $container.masonry({
+//             itemSelector : '.masonry-thumb',
+//             gutterWidth: gutter,
+//             isAnimated: true,
+//               columnWidth: function( containerWidth ) {
+//                 var num_of_boxes = (containerWidth/min_width | 0);
 
-                var box_width = (((containerWidth - (num_of_boxes-1)*gutter)/num_of_boxes) | 0) ;
+//                 var box_width = (((containerWidth - (num_of_boxes-1)*gutter)/num_of_boxes) | 0) ;
 
-                if (containerWidth < min_width) {
-                    box_width = containerWidth;
-                }
+//                 if (containerWidth < min_width) {
+//                     box_width = containerWidth;
+//                 }
 
-                $('.masonry-thumb').width(box_width);
+//                 $('.masonry-thumb').width(box_width);
 
-                return box_width;
-              }
-        });
-    });
-}
+//                 return box_width;
+//               }
+//         });
+//     });
+// }
 
 /* ---------- Numbers Sepparator ---------- */
 
@@ -699,43 +699,29 @@ function template_functions(){
 
 function circle_progess() {
 	
-	var divElement = $('div'); //log all div elements
+	// var divElement = $('div'); //log all div elements
 	
-	if (retina()) {
-		
-		$(".whiteCircle").knob({
-	        'min':0,
-	        'max':100,
-	        'readOnly': true,
-	        'width': 240,
-	        'height': 240,
-			'bgColor': 'rgba(255,255,255,0.5)',
-	        'fgColor': 'rgba(255,255,255,0.9)',
-	        'dynamicDraw': true,
-	        'thickness': 0.2,
-	        'tickColorizeValues': true
-	    });
+	// if (retina()) {
 	
-		$(".circleStat").css('zoom',0.5);
-		$(".whiteCircle").css('zoom',0.999);
+	// 	$(".circleStat").css('zoom',0.5);
+	// 	$(".whiteCircle").css('zoom',0.999);
+				
+	// } else {
 		
+	// 	$(".whiteCircle").knob({
+	//         'min':0,
+	//         'max':100,
+	//         'readOnly': true,
+	//         'width': 120,
+	//         'height': 120,
+	// 		'bgColor': 'rgba(255,255,255,0.5)',
+	//         'fgColor': 'rgba(255,255,255,0.9)',
+	//         'dynamicDraw': true,
+	//         'thickness': 0.2,
+	//         'tickColorizeValues': true
+	//     });
 		
-	} else {
-		
-		$(".whiteCircle").knob({
-	        'min':0,
-	        'max':100,
-	        'readOnly': true,
-	        'width': 120,
-	        'height': 120,
-			'bgColor': 'rgba(255,255,255,0.5)',
-	        'fgColor': 'rgba(255,255,255,0.9)',
-	        'dynamicDraw': true,
-	        'thickness': 0.2,
-	        'tickColorizeValues': true
-	    });
-		
-	}
+	// }
 	
 	
 	
@@ -960,85 +946,66 @@ function sparkline_charts() {
 		
 		if (retina()) {
 			
-			$(placeholder).sparkline(data, {
-				width: 160,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
-				height: 80,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
-				lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
-				fillColor: 'rgba(255,255,255,0.2)',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
-				spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
-				maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
-				minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
-				spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
-				lineWidth: 1//In pixels (default: 1) - Integer
-			});
+			
 			
 			$(placeholder).css('zoom',0.5);
 			
 		} else {
 			
-			if($.browser.msie  && parseInt($.browser.version, 10) === 8) {
+			// if($.browser.msie  && parseInt($.browser.version, 10) === 8) {
 				
-				$(placeholder).sparkline(data, {
-					width: 80,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
-					height: 40,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
-					lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
-					fillColor: '#ffffff',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
-					spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
-					maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
-					minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
-					spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
-					lineWidth: 1//In pixels (default: 1) - Integer
-				});
+			// 	$(placeholder).sparkline(data, {
+			// 		width: 80,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
+			// 		height: 40,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
+			// 		lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
+			// 		fillColor: '#ffffff',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
+			// 		spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
+			// 		maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
+			// 		minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
+			// 		spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
+			// 		lineWidth: 1//In pixels (default: 1) - Integer
+			// 	});
 				
-			} else {
+			// } else {
 				
-				$(placeholder).sparkline(data, {
-					width: 80,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
-					height: 40,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
-					lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
-					fillColor: 'rgba(255,255,255,0.2)',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
-					spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
-					maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
-					minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
-					spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
-					lineWidth: 1//In pixels (default: 1) - Integer
-				});
+			// 	$(placeholder).sparkline(data, {
+			// 		width: 80,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
+			// 		height: 40,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
+			// 		lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
+			// 		fillColor: 'rgba(255,255,255,0.2)',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
+			// 		spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
+			// 		maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
+			// 		minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
+			// 		spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
+			// 		lineWidth: 1//In pixels (default: 1) - Integer
+			// 	});
 				
-			}
+			// }
 			
 		}
 	
 	}
 	
-	if($(".boxchart")) {
+	// if($(".boxchart")) {
 		
-		if (retina()) {
+	// 	if (retina()) {
 			
-			$(".boxchart").sparkline('html', {
-			    type: 'bar',
-			    height: '120', // Double pixel number for retina display
-				barWidth: '8', // Double pixel number for retina display
-				barSpacing: '2', // Double pixel number for retina display
-			    barColor: '#ffffff',
-			    negBarColor: '#eeeeee'}
-			);
+	// 		$(".boxchart").css('zoom',0.5);
 			
-			$(".boxchart").css('zoom',0.5);
+	// 	} else {
 			
-		} else {
+	// 		$(".boxchart").sparkline('html', {
+	// 		    type: 'bar',
+	// 		    height: '60',
+	// 			barWidth: '4',
+	// 			barSpacing: '1',
+	// 		    barColor: '#ffffff',
+	// 		    negBarColor: '#eeeeee'}
+	// 		);
 			
-			$(".boxchart").sparkline('html', {
-			    type: 'bar',
-			    height: '60',
-				barWidth: '4',
-				barSpacing: '1',
-			    barColor: '#ffffff',
-			    negBarColor: '#eeeeee'}
-			);
-			
-		}		
+	// 	}		
 		
-	}
+	// }
 		
 }
 
