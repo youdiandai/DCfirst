@@ -175,9 +175,67 @@ class Project(db.Model):
     files = db.relationship('File',backref='file')
     def getPid(self,Pname):
         return self.query.filter_by(Pname=Pname).first().pid
-
     def __repr__(self):
         return  '<Project %r>'%self.pid
+
+#项目备份数据表
+class Project_back(db.Model):
+    __tablename__ = 'project_back'
+    pid = db.Column(db.Integer,primary_key=True)#项目系统
+    secondTeacher = db.Column(db.String(220),nullable=True)#第二指导教师
+    proID = db.Column(db.String(220),nullable=True) #项目编号
+    Pname = db.Column(db.String(220),nullable=False)#项目名称
+    Plevel = db.Column(db.String(220),nullable=True)#项目级别
+    Pclass = db.Column(db.String(220),nullable=True)#项目类别
+    Collage = db.Column(db.String(220),nullable=True)#学院
+    Deferred_problems = db.Column(db.String(220),nullable=True)#延期结题
+    Appraising = db.Column(db.String(220),nullable=True)#评优
+    Person_in_charge = db.Column(db.Integer,nullable=True)#负责人
+    Teacher = db.Column(db.String(220),nullable=True)#指导教师
+    ForTeacher_ID = db.Column(db.Integer,db.ForeignKey('ForTeacher.id'))#校外导师
+    Describe = db.Column(db.Text,nullable=True)#项目简介
+    Status = db.Column(db.Integer,nullable=True)#项目状态
+    StartDate = db.Column(db.String(220),nullable=True)#立项日期
+    PlanDate = db.Column(db.String(220),nullable=True)#项目周期
+    MidSubdate = db.Column(db.String(220),nullable=True)#中期报告提交日期
+    EndSubdate = db.Column(db.String(220),nullable=True)#结题提交日期
+    EndDate = db.Column(db.String(220),nullable=True)#项目结束日期
+    ReassonsForApplication = db.Column(db.Text,nullable=True)#申请理由
+    ProjectPlan = db.Column(db.Text,nullable=True)#项目方案
+    Innovate = db.Column(db.Text,nullable=True)#特色和创新点
+    Schedule = db.Column(db.Text,nullable=True)#项目进度安排
+    Budget = db.Column(db.Integer,nullable=True)#项目经费预算
+    BudgetPlan = db.Column(db.Text,nullable=True)#经费使用计划
+    ExpectedResults = db.Column(db.Text,nullable=True)#项目预期成果
+    TeaStarOpinion = db.Column(db.Text,nullable=True)#指导教师意见（立项）
+    CollStarOpinion = db.Column(db.Text,nullable=True)#学院意见
+    SchStarOpinion = db.Column(db.Text,nullable=True)#学校意见（立项）
+    MidProgress= db.Column(db.Text,nullable=True)#工作进展
+    MidResults = db.Column(db.Text,nullable=True)#中期成果
+    ResultsDescribe = db.Column(db.Text,nullable=True)#项目成果简介
+    ResultsType = db.Column(db.Integer,nullable=True)#项目成果形式
+    ResultsSummary = db.Column(db.Text,nullable=True)#项目总结报告
+    ResultsNum = db.Column(db.Integer,nullable=True)#成果编号
+    Problems = db.Column(db.Text,nullable=True)#存在的问题和建议
+    TeaMidOpinion = db.Column(db.Text,nullable=True)#指导教师意见（中期）
+    DCCenterMidOpinion = db.Column(db.Text,nullable=True)#大创中心意见（中期）
+    SchMidOpinion = db.Column(db.Text,nullable=True)#学院意见（中期）
+    TeaEndOpinion = db.Column(db.Text,nullable=True)#项目指导教师意见（结题）
+    CollageEndOpinion = db.Column(db.Text,nullable=True)#(学院意见 结题)
+    DCCenterEndOpinion = db.Column(db.Text,nullable=True)#大创中心意见（结题）
+    Achievement = db.Column(db.String(220),nullable=True)#成绩
+    Appraising = db.Column(db.String(220),nullable=True)#评优
+    AppraisingPaper = db.Column(db.String(220),nullable=True)#优秀论文
+    Excellent = db.Column(db.String(220),nullable=True)#评优
+    ExcellentPaper = db.Column(db.String(220), nullable=True) #评优
+    doc = db.Column(db.String(220),nullable=True) #结题成果
+    Delay_date = db.Column(db.String(220),nullable=True)#延期至年限
+    Delay =db.Column(db.String(220),nullable=True)#是否延期
+    Delay_reason = db.Column(db.Text,nullable=True)#延期期限及理由
+    Delay_status = db.Column(db.String(220),nullable=True)#延期申请状态(等待学院审核 等待大创中心审核 延期成功)
+    linku = db.relationship('User_Project',backref='project')
+    files = db.relationship('File',backref='file')
+
 
 class File(db.Model):
     __tablename__ = 'File'
