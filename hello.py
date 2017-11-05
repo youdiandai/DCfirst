@@ -1350,7 +1350,7 @@ def restore(proID):
     pro.MidProgress = proback.MidProgress
     pro.ResultsDescribe = proback.ResultsDescribe
     pro.ResultsSummary = proback.ResultsSummary
-    pro.probackblems = proback.probackblems
+    pro.Problems = proback.Problems
     pro.Appraising = proback.Appraising
     pro.AppraisingPaper = proback.AppraisingPaper
     db.session.add(pro)
@@ -1426,7 +1426,7 @@ def backProDeleted1():
             pro.Midprobackgress = proback.Midprobackgress
             pro.ResultsDescribe = proback.ResultsDescribe
             pro.ResultsSummary = proback.ResultsSummary
-            pro.probackblems = proback.probackblems
+            pro.Problems = proback.Problems
             pro.Appraising = proback.Appraising
             pro.AppraisingPaper = proback.AppraisingPaper
             db.session.add(pro)
