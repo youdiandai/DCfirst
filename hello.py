@@ -207,7 +207,7 @@ class Project_mode(db.Model):
 
 
 #获奖级别
-class AwardLevel(db.Model):
+class AwardLevel(db.Model):                                                             qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
     __tablename__ = 'AwardLevel'
     ALid = db.Column(db.Integer, primary_key=True)
     ALname = db.Column(db.String(220), unique=True)
@@ -408,28 +408,25 @@ def login1():
 @app.route('/login',methods=['POST'])
 def login2():
     username = User.query.filter_by(username=request.form.get('username')).first()
-    try:
-        if username:
-            if username.password == request.form.get('password'):
-                session["username"] = username.username
-                # 判断用户类型
-                if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
-                    return render_template('loginsucc-student.html', name=username.name,
-                                           pros=findMyproject(username=session['username']), stalist=createStatuslist(),notice=app.config['Notice'])
-                elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
-                    return render_template('Manager.html', name=username.name, type=1,)
-                elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
-                    return render_template('Manager.html', name=username.name, type=2,notice=app.config['Notice'])
-                elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
-                    return render_template('Manager.html', name=username.name, type=3,notice=app.config['Notice'])
+    if username:
+        if username.password == request.form.get('password'):
+            session["username"] = username.username
+            # 判断用户类型
+            if username.usermode == User_mode.query.filter_by(name='学生').first().mid:
+                return render_template('loginsucc-student.html', name=username.name,
+                                       pros=findMyproject(username=session['username']), stalist=createStatuslist(),
+                                       notice=app.config['Notice'])
+            elif username.usermode == User_mode.query.filter_by(name='管理员').first().mid:
+                return render_template('Manager.html', name=username.name, type=1, )
+            elif username.usermode == User_mode.query.filter_by(name='学院管理员').first().mid:
+                return render_template('Manager.html', name=username.name, type=2, notice=app.config['Notice'])
+            elif username.usermode == User_mode.query.filter_by(name='教师用户').first().mid:
+                return render_template('Manager.html', name=username.name, type=3, notice=app.config['Notice'])
 
-            else:
-                return render_template('loginfail.html')
         else:
             return render_template('loginfail.html')
-    except:
-        return '发生了未知错误，请联系管理员'
-
+    else:
+        return render_template('loginfail.html')
 
 
 
