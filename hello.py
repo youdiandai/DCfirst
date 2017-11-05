@@ -207,7 +207,7 @@ class Project_mode(db.Model):
 
 
 #获奖级别
-class AwardLevel(db.Model):                                                             qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+class AwardLevel(db.Model):
     __tablename__ = 'AwardLevel'
     ALid = db.Column(db.Integer, primary_key=True)
     ALname = db.Column(db.String(220), unique=True)
@@ -376,7 +376,33 @@ def getUserauth(user):
 #根据状态名获取项目状态号
 def getProStatusSid(status):
     return Project_mode.query.filter_by(status=status).first().sid
-
+#生成一个包含成果物类型的字典
+def checkResultType(x):
+    if x.patentID is not None:
+        return 0
+    elif x.paperID is not None:
+        return 1
+    elif x.reportID is not None:
+        return 2
+    elif x.bussinessplanID is not None:
+        return 3
+    elif x.websiteID is not None:
+        return 4
+def resultDict(pid):
+    b=ResultsType.query.filter_by(pid=pid).all()
+    resultdict={'patent':[],'paper':[],'bussinessplan':[],'report':[],'website':[]}
+    for x in b:
+        if checkResultType(x)==0:
+            resultdict['patent'].append(Patent.query.filter_by(patentId=x.patentID).first())
+        if checkResultType(x)==1:
+            resultdict['paper'].append(Paper.query.filter_by(paperId=x.paperID).first())
+        if checkResultType(x)==3:
+            resultdict['bussinessplan'].append(BusinessPlan.query.filter_by(BusinessPlanId=x.bussinessplanID).first())
+        if checkResultType(x)==2:
+            resultdict['report'].append(Report.query.filter_by(reportId=x.reportID).first())
+        if checkResultType(x)==4:
+            resultdict['website'].append(Website.query.filter_by(WebId=x.websiteID).first())
+    return resultdict
 #路由
 @app.route('/')
 def index():
@@ -869,7 +895,7 @@ def project(pid):
         for x in createStatuslist():  # 生成用来判断显示什么按钮的变量
             if pro.Status == x[0]:
                 psta = (x[0], x[1])  # x[0]为状态号，x[1]为状态名
-        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher,secondTeacher=secondTeacher,user=User.query.filter_by(username=session['username']).first(),status=status)
+        return render_template('project.html', pro=pro, pchar=pchar, pmembers=pmembers, auth=auth, pstatus=psta,mid=mid, end=end, teacher=teacher,secondTeacher=secondTeacher,user=User.query.filter_by(username=session['username']).first(),status=status,result=resultDict(pid))
    # except:
     #    return '发生了未知错误，请联系管理员，感谢您的支持'
 
