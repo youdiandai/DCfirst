@@ -1385,7 +1385,7 @@ def allCreateBack():
         proback.MidProgress=pro.MidProgress
         proback.ResultsDescribe=pro.ResultsDescribe
         proback.ResultsSummary=pro.ResultsSummary
-        proback.problems =pro.problems
+        proback.Problems =pro.Problems
         proback.Appraising =pro.Appraising
         proback.AppraisingPaper=pro.AppraisingPaper
         db.session.add(proback)
