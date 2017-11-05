@@ -564,6 +564,7 @@ def project_application_content1():
 @app.route('/project_application_content.html', methods=['POST'])
 def project_application_content2():
     #try:
+        proback = Project_back()
         pname = Project.query.filter_by(Pname=request.form.get('Pname')).first()
         fortea = ForTeacher()
         if request.form.get('forname') != '':
@@ -577,26 +578,45 @@ def project_application_content2():
         if pname is None:
             pro = Project()
             pro.StartDate = datetime.datetime.now().strftime('%Y/%m/%d')
+            proback.StartDate = pro.StartDate
             pro.Pname = isSpaceStr(request.form.get('Pname'))
+            proback.Pname = pro.Pname
             pro.PlanDate = isSpaceStr(request.form.get('PlanDate'))
+            proback.PlanDate = pro.PlanDate
             pro.Status = Project_mode.query.filter_by(status='等待指导教师审核').first().sid
             pro.Collage = isSpaceStr(request.form.get('Collage'))
+            proback.Collage = pro.Collage
             pro.Teacher = request.form.get('Teacher')
+            proback.Teacher = pro.Teacher
             pro.secondTeacher = request.form.get('secondTeacher')
+            proback.secondTeacher = pro.secondTeacher
             pro.proID = request.form.get('proID')
+            proback.proID = pro.proID
             pro.Describe = isSpaceStr(request.form.get('Describe'))
+            proback.Describe = pro.Describe
             pro.Pclass = isSpaceStr(request.form.get('Pclass'))
+            proback.Pclass = pro.Pclass
             pro.ReassonsForApplication = isSpaceStr(request.form.get('ReassonsForApplication'))
+            proback.ReassonsForApplication = pro.ReassonsForApplication
             pro.ProjectPlan = isSpaceStr(request.form.get('ProjectPlan'))
+            proback.ProjectPlan = pro.ProjectPlan
             pro.Innovate = isSpaceStr(request.form.get('Innovate'))
+            proback.Innovate = pro.Innovate
             pro.Schedule = isSpaceStr(request.form.get('Schedule'))
+            proback.Schedule = pro.Schedule
             pro.Budget = isSpaceStr(request.form.get('Budget'))
+            proback.Budget = pro.Budget
             pro.BudgetPlan = isSpaceStr(request.form.get('BudgetPlan'))
+            proback.BudgetPlan = pro.BudgetPlan
             pro.ExpectedResults = isSpaceStr(request.form.get('ExpectedResults'))
+            proback.ExpectedResults = pro.ExpectedResults
             pro.Person_in_charge = session["username"]
+            proback.Person_in_charge = pro.Person_in_charge
             if request.form.get('forname') != '':
                 pro.ForTeacher_ID=ForTeacher.query.filter_by(name = request.form.get('forname')).first().id
+            proback.ForTeacher_ID = pro.ForTeacher_ID
             db.session.add(pro)
+            db.session.add(proback)
             db.session.commit()
             pu = User_Project()
             pu.pid=Project.query.filter_by(Pname=request.form.get('Pname')).first().pid
@@ -656,10 +676,13 @@ def interim_report_content1():
 
 @app.route('/interim_report_content.html',methods=['POST'])
 def interim_report_content():
+    proback=Project_back()
     pro = Project.query.filter_by(pid=session['project']).first()
     pro.MidProgress = request.form.get('MidProgress')
+    proback.MidProgress = pro.MidProgress
     pro.Status = Project_mode.query.filter_by(status='等待指导教师中期审核').first().sid
     db.session.add(pro)
+    db.session.add(proback)
     db.session.commit()
     return '提交成功'
 """
@@ -685,12 +708,18 @@ def concluding_report_content1():
     return render_template('concluding_report_content.html')
 @app.route('/concluding_report_content.html',methods=['POST'])
 def concluding_report_content():
+    proback=Project_back()
     pro = Project.query.filter_by(pid=session['project']).first()
     pro.ResultsDescribe = request.form.get('ResultsDescribe')
+    proback.ResultsDescribe = pro.ResultsDescribe
     pro.ResultsSummary = request.form.get('ResultsSummary')
+    proback.ResultsSummary = pro.ResultsSummary
     pro.Problems = request.form.get('Problems')
+    proback.Problems = pro.Problems
     pro.Appraising = request.form.get('Appraising')
+    proback.Appraising = pro.Appraising
     pro.AppraisingPaper = request.form.get('AppraisingPaper')
+    proback.AppraisingPaper = pro.AppraisingPaper
     """
     file_dir = os.path.join(basedir, app.config['UPLOAD_FOLDER'])
     if not os.path.exists(file_dir):
@@ -704,6 +733,7 @@ def concluding_report_content():
     """
     pro.Status = Project_mode.query.filter_by(status='等待指导教师结题审核').first().sid
     db.session.add(pro)
+    db.session.add(proback)
     db.session.commit()
     return '提交成功'
 #延期结题
@@ -1296,7 +1326,72 @@ def changeProStatus1(pid):
     db.session.add(a)
     db.session.commit()
     return '项目状态修改为待提交结题报告'
+#恢复项目
+@app.route('/restore/<proID>')
+def restore(proID):
+    pro=Project.query.filter_by(proID=proID).first()
+    proback=Project_back.query.filter_by(proID=proID).first()
+    pro.StartDate = proback.StartDate
+    pro.Pname = proback.Pname
+    pro.PlanDate = proback.PlanData
+    pro.Collage = proback.Collage
+    pro.Teacher = proback.Teacher
+    pro.secondTeacher = proback.secondTeacher
+    pro.probackID = proback.probackID
+    pro.Describe = proback.Describe
+    pro.Pclass = proback.Pclass
+    pro.ReassonsForApplication = proback.ReassonsForApplication
+    pro.probackjectPlan = proback.probackjectPlan
+    pro.Innovate = proback.Innovate
+    pro.Schedule = proback.Schedule
+    pro.Budget = proback.Budget
+    pro.BudgetPlan = proback.BudgetPlan
+    pro.ExpectedResults = proback.ExpectedResults
+    pro.Person_in_charge = proback.Person_in_charge
+    pro.ForTeacher_ID = proback.ForTeacher_ID
+    pro.Midprobackgress = proback.Midprobackgress
+    pro.ResultsDescribe = proback.ResultsDescribe
+    pro.ResultsSummary = proback.ResultsSummary
+    pro.probackblems = proback.probackblems
+    pro.Appraising = proback.Appraising
+    pro.AppraisingPaper = proback.AppraisingPaper
+    db.session.add(pro)
+    db.session.commit()
 
+#为所有项目做备份
+@app.route('/allCreateBack')
+def allCreateBack():
+    pros = Project.query.filter_by().all()
+    for pro in pros:
+        proback=Project_back.query.filter_by(proID=pro.proID).first()
+        if proback is None:
+                proback=Project_back()
+        proback.StartDate = pro.StartDate
+        proback.Pname =pro.Pname
+        proback.PlanDate =pro.PlanData
+        proback.Collage =pro.Collage
+        proback.Teacher =pro.Teacher
+        proback.secondTeacher =pro.secondTeacher
+        proback.proID =pro.proID
+        proback.Describe=pro.Describe
+        proback.Pclass =pro.Pclass
+        proback.ReassonsForApplication = pro.ReassonsForApplication
+        proback.projectPlan=pro.projectPlan
+        proback.Innovate =pro.Innovate
+        proback.Schedule =pro.Schedule
+        proback.Budget =pro.Budget
+        proback.BudgetPlan =pro.BudgetPlan
+        proback.ExpectedResults =pro.ExpectedResults
+        proback.Person_in_charge=pro.Person_in_charge
+        proback.ForTeacher_ID =pro.ForTeacher_ID
+        proback.Midprogress=pro.Midprogress
+        proback.ResultsDescribe=pro.ResultsDescribe
+        proback.ResultsSummary=pro.ResultsSummary
+        proback.problems =pro.problems
+        proback.Appraising =pro.Appraising
+        proback.AppraisingPaper=pro.AppraisingPaper
+        db.session.add(proback)
+        db.session.commit()
 
 if __name__ == '__main__':
     manager.run()
