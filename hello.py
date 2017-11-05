@@ -1382,7 +1382,7 @@ def allCreateBack():
         proback.ExpectedResults =pro.ExpectedResults
         proback.Person_in_charge=pro.Person_in_charge
         proback.ForTeacher_ID =pro.ForTeacher_ID
-        proback.Midprogress=pro.Midprogress
+        proback.MidProgress=pro.MidProgress
         proback.ResultsDescribe=pro.ResultsDescribe
         proback.ResultsSummary=pro.ResultsSummary
         proback.problems =pro.problems
