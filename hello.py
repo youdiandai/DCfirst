@@ -1390,6 +1390,7 @@ def allCreateBack():
         proback.AppraisingPaper=pro.AppraisingPaper
         db.session.add(proback)
         db.session.commit()
+    return '备份创建成功'
 
 if __name__ == '__main__':
     manager.run()
