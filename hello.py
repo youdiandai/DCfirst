@@ -233,8 +233,6 @@ class Project_back(db.Model):
     Delay =db.Column(db.String(220),nullable=True)#是否延期
     Delay_reason = db.Column(db.Text,nullable=True)#延期期限及理由
     Delay_status = db.Column(db.String(220),nullable=True)#延期申请状态(等待学院审核 等待大创中心审核 延期成功)
-    linku = db.relationship('User_Project',backref='project')
-    files = db.relationship('File',backref='file')
 
 
 class File(db.Model):
@@ -1333,7 +1331,7 @@ def restore(proID):
     proback=Project_back.query.filter_by(proID=proID).first()
     pro.StartDate = proback.StartDate
     pro.Pname = proback.Pname
-    pro.PlanDate = proback.PlanData
+    pro.PlanDate = proback.PlanDate
     pro.Collage = proback.Collage
     pro.Teacher = proback.Teacher
     pro.secondTeacher = proback.secondTeacher
@@ -1368,7 +1366,7 @@ def allCreateBack():
                 proback=Project_back()
         proback.StartDate = pro.StartDate
         proback.Pname =pro.Pname
-        proback.PlanDate =pro.PlanData
+        proback.PlanDate =pro.PlanDate
         proback.Collage =pro.Collage
         proback.Teacher =pro.Teacher
         proback.secondTeacher =pro.secondTeacher
