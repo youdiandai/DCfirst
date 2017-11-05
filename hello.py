@@ -1347,7 +1347,7 @@ def restore(proID):
     pro.ExpectedResults = proback.ExpectedResults
     pro.Person_in_charge = proback.Person_in_charge
     pro.ForTeacher_ID = proback.ForTeacher_ID
-    pro.Midprobackgress = proback.Midprobackgress
+    pro.MidProgress = proback.MidProgress
     pro.ResultsDescribe = proback.ResultsDescribe
     pro.ResultsSummary = proback.ResultsSummary
     pro.probackblems = proback.probackblems
