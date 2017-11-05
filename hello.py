@@ -1355,6 +1355,7 @@ def restore(proID):
     pro.AppraisingPaper = proback.AppraisingPaper
     db.session.add(pro)
     db.session.commit()
+    return '项目恢复成功'
 
 #为所有项目做备份
 @app.route('/allCreateBack')
@@ -1391,6 +1392,51 @@ def allCreateBack():
         db.session.add(proback)
         db.session.commit()
     return '备份创建成功'
+#恢复已删除项目
+@app.route('/backProDeleted')
+def backProDeleted():
+    return render_template('backProDeleted.html')
+@app.route('/backProDeleted')
+def backProDeleted1():
+    pro=Project.query.filter_by(proID=request.form.get('proID')).first()
+    if pro is None:
+        pro = Project()
+        proback = Project_back.query.filter_by(proID=request.form.get('proID')).first()
+        if proback is None:
+            return '未查询到该项目编号，请确认后重试'
+        else:
+            pro.StartDate = proback.StartDate
+            pro.Pname = proback.Pname
+            pro.PlanDate = proback.PlanDate
+            pro.Collage = proback.Collage
+            pro.Teacher = proback.Teacher
+            pro.secondTeacher = proback.secondTeacher
+            pro.probackID = proback.probackID
+            pro.Describe = proback.Describe
+            pro.Pclass = proback.Pclass
+            pro.ReassonsForApplication = proback.ReassonsForApplication
+            pro.probackjectPlan = proback.probackjectPlan
+            pro.Innovate = proback.Innovate
+            pro.Schedule = proback.Schedule
+            pro.Budget = proback.Budget
+            pro.BudgetPlan = proback.BudgetPlan
+            pro.ExpectedResults = proback.ExpectedResults
+            pro.Person_in_charge = proback.Person_in_charge
+            pro.ForTeacher_ID = proback.ForTeacher_ID
+            pro.Midprobackgress = proback.Midprobackgress
+            pro.ResultsDescribe = proback.ResultsDescribe
+            pro.ResultsSummary = proback.ResultsSummary
+            pro.probackblems = proback.probackblems
+            pro.Appraising = proback.Appraising
+            pro.AppraisingPaper = proback.AppraisingPaper
+            db.session.add(pro)
+            db.session.commit()
+            return '项目恢复成功'
+    else:
+        return '该项目编号的项目已存在'
+
+
+
 
 if __name__ == '__main__':
     manager.run()
