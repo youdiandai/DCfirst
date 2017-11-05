@@ -1339,7 +1339,7 @@ def restore(proID):
     pro.Describe = proback.Describe
     pro.Pclass = proback.Pclass
     pro.ReassonsForApplication = proback.ReassonsForApplication
-    pro.projectPlan = proback.projectPlan
+    pro.ProjectPlan = proback.ProjectPlan
     pro.Innovate = proback.Innovate
     pro.Schedule = proback.Schedule
     pro.Budget = proback.Budget
@@ -1415,7 +1415,7 @@ def backProDeleted1():
             pro.Describe = proback.Describe
             pro.Pclass = proback.Pclass
             pro.ReassonsForApplication = proback.ReassonsForApplication
-            pro.projectPlan = proback.projectPlan
+            pro.ProjectPlan = proback.ProjectPlan
             pro.Innovate = proback.Innovate
             pro.Schedule = proback.Schedule
             pro.Budget = proback.Budget
