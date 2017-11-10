@@ -765,10 +765,12 @@ def delay_auth_dccenter():
 #上传文件路由
 @app.route('/upload/<pid>',methods=['GET','POST'])
 def upload(pid):
+    pro=Project.query.filter_by(pid=pid).first()
     form=UploadForm()
+    now = datetime.datetime.now()
     if form.validate_on_submit():
         a=File()
-        a.name=form.file.data.filename
+        a.name=pro.proID+now.strftime('%Y%m%d%H%M%S')+form.file.data.filename
         a.project_id=pid
         form.file.data.save('/upload/'+a.name)
         db.session.add(a)
